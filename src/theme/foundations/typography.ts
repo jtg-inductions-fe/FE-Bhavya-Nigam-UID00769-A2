@@ -95,11 +95,11 @@ const typographyStyle = (theme: Theme): TypographyOptions => ({
 
     body1: {
         fontSize: typographyUtil.pxToRem(16),
-        fontWeight: 400,
+        fontWeight: 500,
     },
     body2: {
         fontSize: typographyUtil.pxToRem(14),
-        fontWeight: 400,
+        fontWeight: 500,
     },
 });
 
