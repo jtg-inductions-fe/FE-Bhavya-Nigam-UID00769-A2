@@ -6,6 +6,11 @@ import { COLORS } from '@constant';
 export const palette: PaletteOptions = {
     // TODO: Add necessary colors here
     primary: {
-        main: COLORS.PRIMARY.MAIN,
+        main: COLORS.PRIMARY.PRIMARY,
     },
+    secondary: {
+        main: COLORS.PRIMARY.SECONDARY,
+    },
+
+    background: { paper: COLORS.PRIMARY.TERTIARY },
 };

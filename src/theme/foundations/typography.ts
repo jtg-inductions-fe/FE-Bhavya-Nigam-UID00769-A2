@@ -40,6 +40,67 @@ const typographyStyle = (theme: Theme): TypographyOptions => ({
             lineHeight: typographyUtil.pxToRem(62.5),
         },
     },
+    h2: {
+        fontSize: typographyUtil.pxToRem(24),
+        fontWeight: 700,
+        lineHeight: typographyUtil.pxToRem(45),
+
+        [theme.breakpoints.up('md')]: {
+            fontSize: typographyUtil.pxToRem(40),
+            lineHeight: typographyUtil.pxToRem(62.5),
+        },
+    },
+
+    h3: {
+        fontSize: typographyUtil.pxToRem(18),
+        fontWeight: 700,
+        lineHeight: typographyUtil.pxToRem(45),
+
+        [theme.breakpoints.up('md')]: {
+            fontSize: typographyUtil.pxToRem(30),
+            lineHeight: typographyUtil.pxToRem(62.5),
+        },
+    },
+
+    h4: {
+        fontSize: typographyUtil.pxToRem(16),
+        fontWeight: 700,
+        lineHeight: typographyUtil.pxToRem(45),
+
+        [theme.breakpoints.up('md')]: {
+            fontSize: typographyUtil.pxToRem(24),
+            lineHeight: typographyUtil.pxToRem(62.5),
+        },
+    },
+    h5: {
+        fontSize: typographyUtil.pxToRem(14),
+        fontWeight: 700,
+        lineHeight: typographyUtil.pxToRem(45),
+
+        [theme.breakpoints.up('md')]: {
+            fontSize: typographyUtil.pxToRem(20),
+            lineHeight: typographyUtil.pxToRem(62.5),
+        },
+    },
+    h6: {
+        fontSize: typographyUtil.pxToRem(12),
+        fontWeight: 700,
+        lineHeight: typographyUtil.pxToRem(45),
+
+        [theme.breakpoints.up('md')]: {
+            fontSize: typographyUtil.pxToRem(16),
+            lineHeight: typographyUtil.pxToRem(62.5),
+        },
+    },
+
+    body1: {
+        fontSize: typographyUtil.pxToRem(16),
+        fontWeight: 400,
+    },
+    body2: {
+        fontSize: typographyUtil.pxToRem(14),
+        fontWeight: 400,
+    },
 });
 
 export const typography = { typographyStyle, typographyUtil };
