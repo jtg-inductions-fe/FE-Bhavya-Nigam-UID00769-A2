@@ -1,11 +1,15 @@
-import { Typography } from '@mui/material';
+import { Login } from 'pages/Login';
+import { Profile } from 'pages/Profile';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import './theme/index';
 
 export const App = () => (
-    <div>
-        <Typography color="background.paper" component="h1" variant="h1">
-            Hello World
-        </Typography>
-    </div>
+    <BrowserRouter>
+        <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/profile" element={<Profile />} />
+        </Routes>
+    </BrowserRouter>
 );

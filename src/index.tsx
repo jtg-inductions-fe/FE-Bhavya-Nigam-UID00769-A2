@@ -2,6 +2,9 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
 import { App } from 'App';
+import { Provider } from 'react-redux';
+import { SessionRefresh } from 'services/refreshService';
+import { store } from 'store/store';
 
 import { CssBaseline, ThemeProvider } from '@mui/material';
 
@@ -13,7 +16,10 @@ createRoot(rootElement).render(
     <StrictMode>
         <ThemeProvider theme={theme}>
             <CssBaseline />
-            <App />
+            <Provider store={store}>
+                <SessionRefresh />
+                <App />
+            </Provider>
         </ThemeProvider>
     </StrictMode>,
 );
