@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+<<<<<<< HEAD
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,6 +12,18 @@ import TextField from '@mui/material/TextField';
 import { login } from '@features/userSlice';
 import { getUser } from '@services/userService';
 
+=======
+import { login } from 'features/userSlice';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { getUser } from 'services/authService';
+
+import GithubIcon from '@mui/icons-material/GitHub';
+import { Typography } from '@mui/material';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+
+>>>>>>> 22dcdef ([BN_A2_01]: Login Page)
 import {
     StyledBox,
     StyledFormBox,
@@ -27,8 +40,11 @@ export const LoginComponent = () => {
     const [usernameError, setUsernameError] = useState('');
     const [patError, setPatError] = useState('');
 
+<<<<<<< HEAD
     const [loginError, setLoginError] = useState<string | null>(null);
 
+=======
+>>>>>>> 22dcdef ([BN_A2_01]: Login Page)
     let error = false;
 
     const dispatch = useDispatch();
@@ -58,14 +74,22 @@ export const LoginComponent = () => {
             dispatch(
                 login({
                     user: res,
+<<<<<<< HEAD
                     isLoggedIn: true,
+=======
+                    isLoginIn: true,
+>>>>>>> 22dcdef ([BN_A2_01]: Login Page)
                 }),
             );
 
             void navigate('/profile');
         } catch (err) {
+<<<<<<< HEAD
             const errMsg = err instanceof Error ? err.message : 'Login failed';
             setLoginError(errMsg);
+=======
+            alert(err);
+>>>>>>> 22dcdef ([BN_A2_01]: Login Page)
         }
     };
 
@@ -94,6 +118,7 @@ export const LoginComponent = () => {
                             variant="outlined"
                             value={username}
                             name="username"
+<<<<<<< HEAD
                             onChange={(e) => {
                                 setUsername(e.target.value);
                                 setUsernameError('');
@@ -101,6 +126,11 @@ export const LoginComponent = () => {
                             }}
                             helperText={usernameError}
                             error={Boolean(usernameError)}
+=======
+                            onChange={(e) => setUsername(e.target.value)}
+                            helperText={usernameError}
+                            error={Boolean(error)}
+>>>>>>> 22dcdef ([BN_A2_01]: Login Page)
                         />
 
                         <TextField
@@ -109,6 +139,7 @@ export const LoginComponent = () => {
                             variant="outlined"
                             value={pat}
                             name="pat"
+<<<<<<< HEAD
                             onChange={(e) => {
                                 setPat(e.target.value);
                                 setPatError('');
@@ -125,6 +156,14 @@ export const LoginComponent = () => {
                             </Alert>
                         )}
 
+=======
+                            onChange={(e) => setPat(e.target.value)}
+                            type="password"
+                            helperText={patError}
+                            error={Boolean(error)}
+                        />
+
+>>>>>>> 22dcdef ([BN_A2_01]: Login Page)
                         <Button type="submit" variant="contained">
                             Login
                         </Button>
