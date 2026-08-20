@@ -1,16 +1,15 @@
-import { Typography, useTheme } from '@mui/material';
+import { Login } from 'pages/Login';
+import { Profile } from 'pages/Profile';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-export const App = () => {
-    const { palette } = useTheme();
-    return (
-        <div>
-            <Typography
-                color={palette.background.paper}
-                component="h1"
-                variant="h1"
-            >
-                Hello World
-            </Typography>
-        </div>
-    );
-};
+import './theme/index';
+
+export const App = () => (
+    <BrowserRouter>
+        <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/profile" element={<Profile />} />
+        </Routes>
+    </BrowserRouter>
+);

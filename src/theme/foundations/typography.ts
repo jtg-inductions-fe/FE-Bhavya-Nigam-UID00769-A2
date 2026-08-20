@@ -51,7 +51,7 @@ const typographyStyle = (theme: Theme): TypographyOptions => ({
     },
 
     h3: {
-        fontSize: typographyUtil.pxToRem(18),
+        fontSize: typographyUtil.pxToRem(22),
         fontWeight: 700,
         lineHeight: typographyUtil.pxToRem(45),
 
