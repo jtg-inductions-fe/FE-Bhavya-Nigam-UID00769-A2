@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { getUser } from 'services/authService';
 
 import GithubIcon from '@mui/icons-material/GitHub';
-import { Typography } from '@mui/material';
+import { Alert, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 
@@ -25,6 +25,8 @@ export const LoginComponent = () => {
 
     const [usernameError, setUsernameError] = useState('');
     const [patError, setPatError] = useState('');
+
+    const [loginError, setLoginError] = useState<string | null>(null);
 
     let error = false;
 
@@ -55,13 +57,14 @@ export const LoginComponent = () => {
             dispatch(
                 login({
                     user: res,
-                    isLoginIn: true,
+                    isLoggedIn: true,
                 }),
             );
 
             void navigate('/profile');
         } catch (err) {
-            alert(err);
+            const errMsg = err instanceof Error ? err.message : 'Login failed';
+            setLoginError(errMsg);
         }
     };
 
@@ -90,9 +93,13 @@ export const LoginComponent = () => {
                             variant="outlined"
                             value={username}
                             name="username"
-                            onChange={(e) => setUsername(e.target.value)}
+                            onChange={(e) => {
+                                setUsername(e.target.value);
+                                setUsernameError('');
+                                setLoginError(null);
+                            }}
                             helperText={usernameError}
-                            error={Boolean(error)}
+                            error={Boolean(usernameError)}
                         />
 
                         <TextField
@@ -101,11 +108,21 @@ export const LoginComponent = () => {
                             variant="outlined"
                             value={pat}
                             name="pat"
-                            onChange={(e) => setPat(e.target.value)}
+                            onChange={(e) => {
+                                setPat(e.target.value);
+                                setPatError('');
+                                setLoginError(null);
+                            }}
                             type="password"
                             helperText={patError}
-                            error={Boolean(error)}
+                            error={Boolean(patError)}
                         />
+
+                        {loginError && (
+                            <Alert severity="error" variant="outlined">
+                                {loginError}
+                            </Alert>
+                        )}
 
                         <Button type="submit" variant="contained">
                             Login

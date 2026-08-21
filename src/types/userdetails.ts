@@ -3,11 +3,11 @@ export interface UserDetail {
     login: string;
     avatar_url: string;
     url: string;
-    name: string;
+    name: string | null;
     location: string | null;
     bio: string | null;
     followers: number;
     following: number;
-    blog: string;
-    email: string;
+    blog: string | null;
+    email: string | null;
 }
