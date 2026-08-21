@@ -1,5 +1,6 @@
-import type { UserDetail } from '@customTypes/userdetails';
+import { localStoragePAT, localStorageUsername } from '@constant';
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import type { UserDetail } from '@type/userdetails';
 
 interface UserState {
     user: UserDetail | null;
@@ -21,6 +22,8 @@ export const userSlice = createSlice({
         },
         logout: (state) => {
             state.user = null;
+            localStorage.removeItem(localStoragePAT);
+            localStorage.removeItem(localStorageUsername);
         },
     },
 });

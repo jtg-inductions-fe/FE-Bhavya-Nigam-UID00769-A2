@@ -8,7 +8,7 @@
             "@features/*": ["features/*"],
             "@store/*": ["store/*"],
             "@pages/*": ["pages/*"],
-            "@customTypes/*": ["types/*"],
+            "@type/*": ["types/*"],
             "@services/*": ["services/*"],
             "@container/*": ["container/*"]
         }
