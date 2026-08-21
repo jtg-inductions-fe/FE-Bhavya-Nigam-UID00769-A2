@@ -4,10 +4,10 @@ import { createRoot } from 'react-dom/client';
 import { App } from 'App';
 import { Provider } from 'react-redux';
 import { SessionRefresh } from 'services/refreshService';
-import { store } from 'store/store';
 
 import { CssBaseline, ThemeProvider } from '@mui/material';
 
+import { store } from '@store/store';
 import { theme } from '@theme';
 
 const rootElement = document.getElementById('root') as HTMLElement;
