@@ -1,14 +1,15 @@
 import { useState } from 'react';
 
-import { login } from 'features/userSlice';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { getUser } from 'services/authService';
 
 import GithubIcon from '@mui/icons-material/GitHub';
 import { Alert, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+
+import { login } from '@features/userSlice';
+import { getUser } from '@services/authService';
 
 import {
     StyledBox,

@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
 
-import { login, logout } from 'features/userSlice';
 import { useDispatch } from 'react-redux';
-import { AppDispatch } from 'store/store';
+
+import { login, logout } from '@features/userSlice';
+import { AppDispatch } from '@store/store';
 
 import { getUser } from './authService';
 
