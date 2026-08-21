@@ -1,10 +1,12 @@
-import { UserDetail } from '@customTypes/userdetails';
+import { fetchAuthUser } from '@constant';
+import { localStoragePAT, localStorageUsername } from '@constant';
+import { UserDetail } from '@type/userdetails';
 
 export const getUser = async (
     token: string,
     username: string,
 ): Promise<UserDetail> => {
-    const response = await fetch('https://api.github.com/user', {
+    const response = await fetch(fetchAuthUser, {
         headers: {
             Accept: 'application/vnd.github+json',
             Authorization: `Bearer ${token}`,
@@ -21,8 +23,8 @@ export const getUser = async (
         throw new Error('Unauthorized access');
     }
 
-    localStorage.setItem('user', username);
-    localStorage.setItem('pat', token);
+    localStorage.setItem(localStorageUsername, username);
+    localStorage.setItem(localStoragePAT, token);
 
     return data;
 };

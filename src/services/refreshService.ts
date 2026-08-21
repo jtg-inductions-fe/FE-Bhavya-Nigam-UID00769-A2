@@ -2,18 +2,19 @@ import { useEffect } from 'react';
 
 import { useDispatch } from 'react-redux';
 
+import { localStoragePAT, localStorageUsername } from '@constant';
 import { login, logout } from '@features/userSlice';
 import { AppDispatch } from '@store/store';
 
-import { getUser } from './authService';
+import { getUser } from './userService';
 
 export const SessionRefresh = () => {
     const dispatch = useDispatch<AppDispatch>();
 
     useEffect(() => {
         const restoreSession = async () => {
-            const username = localStorage.getItem('user');
-            const password = localStorage.getItem('pat');
+            const username = localStorage.getItem(localStorageUsername);
+            const password = localStorage.getItem(localStoragePAT);
 
             if (!username || !password) return;
 
@@ -27,9 +28,6 @@ export const SessionRefresh = () => {
                     }),
                 );
             } catch (e) {
-                localStorage.removeItem('user');
-                localStorage.removeItem('pat');
-
                 dispatch(logout());
 
                 alert(e);

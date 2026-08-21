@@ -9,7 +9,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 
 import { login } from '@features/userSlice';
-import { getUser } from '@services/authService';
+import { getUser } from '@services/userService';
 
 import {
     StyledBox,
