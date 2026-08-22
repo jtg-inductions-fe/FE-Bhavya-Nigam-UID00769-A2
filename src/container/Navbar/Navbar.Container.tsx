@@ -3,14 +3,10 @@ import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import GitHubIcon from '@mui/icons-material/GitHub';
-import AppBar from '@mui/material/AppBar';
 import Avatar from '@mui/material/Avatar';
-import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import IconButton from '@mui/material/IconButton';
-import Link from '@mui/material/Link';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Toolbar from '@mui/material/Toolbar';
@@ -21,10 +17,13 @@ import { logout } from '@features/userSlice';
 import { RootState } from '@store/store';
 
 import {
+    StyleAppBar,
     StyleButtonBox,
+    StyleGitHubIcon,
     StyleLinkBox,
+    StyleLinkContainerBox,
     StyleMainBox,
-    StyleMenuBox,
+    StyleProfileBox,
 } from './Navbar.Container.Style';
 
 export const Navbar = () => {
@@ -64,18 +63,18 @@ export const Navbar = () => {
     };
 
     return (
-        <AppBar position="static">
+        <StyleAppBar>
             <StyleMainBox>
                 <Container maxWidth="xl">
                     <Toolbar disableGutters>
-                        <Link href="/" underline="none">
+                        <StyleLinkContainerBox to="/">
                             <StyleLinkBox>
-                                <GitHubIcon />
+                                <StyleGitHubIcon />
                                 <Typography variant="h5" component="h3" noWrap>
                                     Get GIT
                                 </Typography>
                             </StyleLinkBox>
-                        </Link>
+                        </StyleLinkContainerBox>
 
                         <StyleButtonBox>
                             {currentPath === '/profile' ? (
@@ -98,7 +97,7 @@ export const Navbar = () => {
                         </StyleButtonBox>
 
                         {user ? (
-                            <Box>
+                            <StyleProfileBox>
                                 <Tooltip title="Open Profile">
                                     <IconButton onClick={handleOpenUserMenu}>
                                         <Avatar
@@ -107,28 +106,26 @@ export const Navbar = () => {
                                         />
                                     </IconButton>
                                 </Tooltip>
-                                <StyleMenuBox>
-                                    <Menu
-                                        id="menu-appbar"
-                                        anchorEl={anchorElUser}
-                                        open={Boolean(anchorElUser)}
-                                        onClose={handleCloseUserMenu}
+                                <Menu
+                                    id="menu-appbar"
+                                    anchorEl={anchorElUser}
+                                    open={Boolean(anchorElUser)}
+                                    onClose={handleCloseUserMenu}
+                                >
+                                    <MenuItem
+                                        key="Profile"
+                                        onClick={handleProfile}
                                     >
-                                        <MenuItem
-                                            key="Profile"
-                                            onClick={handleProfile}
-                                        >
-                                            <Typography>Profile</Typography>
-                                        </MenuItem>
-                                        <MenuItem
-                                            key="Logout"
-                                            onClick={handleLogout}
-                                        >
-                                            <Typography>Logout</Typography>
-                                        </MenuItem>
-                                    </Menu>
-                                </StyleMenuBox>
-                            </Box>
+                                        <Typography>Profile</Typography>
+                                    </MenuItem>
+                                    <MenuItem
+                                        key="Logout"
+                                        onClick={handleLogout}
+                                    >
+                                        <Typography>Logout</Typography>
+                                    </MenuItem>
+                                </Menu>
+                            </StyleProfileBox>
                         ) : (
                             <Button variant="contained" onClick={handleLogin}>
                                 Login
@@ -137,6 +134,6 @@ export const Navbar = () => {
                     </Toolbar>
                 </Container>
             </StyleMainBox>
-        </AppBar>
+        </StyleAppBar>
     );
 };
