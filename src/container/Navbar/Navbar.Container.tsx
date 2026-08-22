@@ -77,7 +77,7 @@ export const Navbar = () => {
                         </StyleLinkContainerBox>
 
                         <StyleButtonBox>
-                            {currentPath === '/profile' ? (
+                            {currentPath === '/profile' && (
                                 <Button
                                     key="Search"
                                     onClick={handleSearch}
@@ -85,7 +85,8 @@ export const Navbar = () => {
                                 >
                                     Search
                                 </Button>
-                            ) : (
+                            )}
+                            {user && (
                                 <Button
                                     key="Profile"
                                     onClick={handleProfile}
