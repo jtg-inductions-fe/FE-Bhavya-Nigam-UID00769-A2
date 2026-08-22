@@ -24,6 +24,7 @@ export const StyleLinkContainerBox = styled(Link)(() => ({
 }));
 
 export const StyleButtonBox = styled(Box)(({ theme }) => ({
+    gap: theme.typography.pxToRem(10),
     flexGrow: 1,
     display: 'flex',
     justifyContent: 'end',
