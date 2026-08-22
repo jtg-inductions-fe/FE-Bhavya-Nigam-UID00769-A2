@@ -1,16 +1,21 @@
-    import { useAppSelector } from '@store/store';
+import { Navbar } from '@container/Navbar/Navbar.Container';
+import { useAppSelector } from '@store/store';
 
 export const Profile = () => {
     const user = useAppSelector((state) => state.user.user);
 
-    if (!user) {
-        return <div>Please Login First</div>;
-    }
-
     return (
         <div>
-            Login successful
-            <div>{user.login}</div>
+            <Navbar />
+
+            {!user ? (
+                <div>Please Login First</div>
+            ) : (
+                <div>
+                    Login successful
+                    <div>{user.login}</div>
+                </div>
+            )}
         </div>
     );
 };
