@@ -8,7 +8,6 @@ export const getUser = async (
 ): Promise<UserDetail> => {
     const response = await fetch(fetchAuthUser, {
         headers: {
-            Accept: 'application/vnd.github+json',
             Authorization: `Bearer ${token}`,
         },
     });
