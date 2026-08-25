@@ -1,13 +1,7 @@
-import { useSelector } from 'react-redux';
-<<<<<<< HEAD
-
-import { RootState } from '@store/store';
-=======
-import { RootState } from 'store/store';
->>>>>>> 22dcdef ([BN_A2_01]: Login Page)
+    import { useAppSelector } from '@store/store';
 
 export const Profile = () => {
-    const user = useSelector((state: RootState) => state.user.user);
+    const user = useAppSelector((state) => state.user.user);
 
     if (!user) {
         return <div>Please Login First</div>;
