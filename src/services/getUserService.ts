@@ -22,7 +22,7 @@ export const getUser = async (
         throw new Error(await response.text());
     }
 
-    const data: UserDetail = (await response.json()) as UserDetail;
+    const data = (await response.json()) as UserDetail;
 
     return data;
 };
