@@ -5,7 +5,7 @@ import { AppBar, Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 export const StyleGitHubIcon = styled(GitHubIcon)(({ theme }) => ({
-    fontSize: theme.typography.pxToRem(40),
+    fontSize: theme.spacing(10),
 }));
 
 export const StyleAppBar = styled(AppBar)(() => ({
@@ -24,18 +24,18 @@ export const StyleLinkContainerBox = styled(Link)(() => ({
 }));
 
 export const StyleButtonBox = styled(Box)(({ theme }) => ({
-    gap: theme.typography.pxToRem(10),
+    gap: theme.spacing(2.5),
     flexGrow: 1,
     display: 'flex',
     justifyContent: 'end',
-    marginRight: theme.typography.pxToRem(10),
+    marginRight: theme.spacing(2.5),
 }));
 
 export const StyleLinkBox = styled(Box)(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: theme.typography.pxToRem(10),
+    gap: theme.spacing(2.5),
 }));
 
 export const StyleProfileBox = styled(Box)(() => ({
