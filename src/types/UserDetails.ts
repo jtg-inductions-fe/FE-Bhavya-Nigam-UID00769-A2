@@ -2,7 +2,7 @@ export interface UserDetail {
     id: number;
     login: string;
     avatar_url: string;
-    url: string;
+    html_url: string;
     name: string | null;
     location: string | null;
     bio: string | null;

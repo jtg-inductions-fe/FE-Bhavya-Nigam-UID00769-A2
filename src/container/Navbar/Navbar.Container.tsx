@@ -12,6 +12,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 
+import { LOGIN_PAGE_URL, PROFILE_PAGE_URL, SEARCH_PAGE_URL } from '@constant';
 import { logout } from '@features/userSlice';
 import { useAppDispatch, useAppSelector } from '@store/store';
 import { NavigationPath } from '@type/NavigationPath';
@@ -40,7 +41,7 @@ export const Navbar = () => {
 
     const handleLogout = () => {
         dispatch(logout());
-        handleNavigation('/login');
+        void navigate(LOGIN_PAGE_URL);
     };
 
     const handleNavigation = (path: NavigationPath) => {
@@ -70,7 +71,7 @@ export const Navbar = () => {
                         </StyleLinkContainerBox>
 
                         <StyleButtonBox>
-                            {currentPath !== '/search' && (
+                            {currentPath !== SEARCH_PAGE_URL && (
                                 <Button
                                     key="Search"
                                     onClick={() => handleNavigation('/search')}
@@ -79,10 +80,12 @@ export const Navbar = () => {
                                     Search
                                 </Button>
                             )}
-                            {currentPath !== '/profile' && (
+                            {currentPath !== PROFILE_PAGE_URL && (
                                 <Button
                                     key="Profile"
-                                    onClick={() => handleNavigation('/profile')}
+                                    onClick={() =>
+                                        handleNavigation('/profile/')
+                                    }
                                     variant="contained"
                                 >
                                     Profile
@@ -109,7 +112,7 @@ export const Navbar = () => {
                                     <MenuItem
                                         key="Profile"
                                         onClick={() =>
-                                            handleNavigation('/profile')
+                                            handleNavigation('/profile/')
                                         }
                                     >
                                         <Typography>Profile</Typography>
