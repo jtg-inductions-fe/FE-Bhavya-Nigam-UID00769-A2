@@ -1,11 +1,16 @@
-import { Typography } from '@mui/material';
+import { Typography, useTheme } from '@mui/material';
 
-import './theme/index';
-
-export const App = () => (
-    <div>
-        <Typography color="background.paper" component="h1" variant="h1">
-            Hello World
-        </Typography>
-    </div>
-);
+export const App = () => {
+    const { palette } = useTheme();
+    return (
+        <div>
+            <Typography
+                color={palette.background.paper}
+                component="h1"
+                variant="h1"
+            >
+                Hello World
+            </Typography>
+        </div>
+    );
+};
