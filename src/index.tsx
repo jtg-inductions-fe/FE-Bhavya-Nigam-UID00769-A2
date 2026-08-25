@@ -3,11 +3,8 @@ import { createRoot } from 'react-dom/client';
 
 import { App } from 'App';
 import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 import { SessionRefresh } from 'services/refreshService';
-<<<<<<< HEAD
-=======
-import { store } from 'store/store';
->>>>>>> 22dcdef ([BN_A2_01]: Login Page)
 
 import { CssBaseline, ThemeProvider } from '@mui/material';
 
@@ -21,8 +18,10 @@ createRoot(rootElement).render(
         <ThemeProvider theme={theme}>
             <CssBaseline />
             <Provider store={store}>
-                <SessionRefresh />
-                <App />
+                <BrowserRouter>
+                    <SessionRefresh />
+                    <App />
+                </BrowserRouter>
             </Provider>
         </ThemeProvider>
     </StrictMode>,

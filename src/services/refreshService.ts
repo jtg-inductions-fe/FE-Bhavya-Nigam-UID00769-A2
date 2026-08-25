@@ -24,7 +24,6 @@ export const SessionRefresh = () => {
                 dispatch(
                     login({
                         user,
-                        isLoggedIn: true,
                     }),
                 );
             } catch (e) {

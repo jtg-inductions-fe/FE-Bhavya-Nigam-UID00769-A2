@@ -10,7 +10,8 @@
             "@pages/*": ["pages/*"],
             "@type/*": ["types/*"],
             "@services/*": ["services/*"],
-            "@container/*": ["container/*"]
+            "@container/*": ["container/*"],
+            "@routes/*": ["routes/*"]
         }
     }
 }
