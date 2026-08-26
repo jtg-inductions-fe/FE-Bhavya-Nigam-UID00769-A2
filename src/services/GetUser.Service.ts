@@ -1,20 +1,20 @@
 import { FETCH_GET_USER_URL } from '@constant';
-import { UserDetail } from '@type/userdetails';
+import { UserDetail } from '@type/userdetails.Types';
 
 export const getUser = async (
     username: string,
     token: string | null,
 ): Promise<UserDetail> => {
     let response;
-    if (!token) {
+    if (token) {
+        response = await fetch(FETCH_GET_USER_URL + username, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+    } else {
         response = await fetch(FETCH_GET_USER_URL + username);
     }
-
-    response = await fetch(FETCH_GET_USER_URL + username, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
 
     if (response.status === 404) {
         throw new Error('User not found');

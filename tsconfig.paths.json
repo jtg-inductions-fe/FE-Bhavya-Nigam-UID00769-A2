@@ -11,7 +11,8 @@
             "@type/*": ["types/*"],
             "@services/*": ["services/*"],
             "@container/*": ["container/*"],
-            "@routes/*": ["routes/*"]
+            "@routes/*": ["routes/*"],
+            "@component/*": ["component/*"]
         }
     }
 }

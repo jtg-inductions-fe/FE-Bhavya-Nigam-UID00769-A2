@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
 
-import { ErrorMessage } from 'component/ErrorMessage';
-import { useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
 import LaunchIcon from '@mui/icons-material/Launch';
@@ -10,10 +8,17 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import MailIcon from '@mui/icons-material/Mail';
 import { Box, Typography } from '@mui/material';
 
-import { LOCAL_STORAGE_PAT, LOGIN_PAGE_URL, SEARCH_PAGE_URL } from '@constant';
-import { getUser } from '@services/getUserService';
-import { RootState } from '@store/store';
-import { UserDetail } from '@type/userdetails';
+import { ErrorMessage } from '@component/ErrorMessage/ErrorMessage.Component';
+import {
+    LOGIN_MSG,
+    LOGIN_PAGE_URL,
+    SEARCH_PAGE_URL,
+    UNEXPECTED_ERROR_MSG,
+    USER_NOT_FOUND,
+} from '@constant';
+import { getUser } from '@services/GetUser.Service';
+import { useAppSelector } from '@store/store';
+import { UserDetail } from '@type/userdetails.Types';
 
 import {
     StyleBioBox,
@@ -34,8 +39,10 @@ import {
 export const ProfileContainer = () => {
     const navigate = useNavigate();
 
-    const authUser = useSelector((state: RootState) => state.user?.user);
+    const storedData = useAppSelector((state) => state.user);
+    const authUser = storedData.userDetails;
     const [error, setError] = useState<string>();
+    const token = storedData.pat;
 
     const [user, setUser] = useState<UserDetail | null>(null);
 
@@ -43,8 +50,6 @@ export const ProfileContainer = () => {
 
     useEffect(() => {
         if (username !== undefined) {
-            const token = localStorage.getItem(LOCAL_STORAGE_PAT);
-
             const fetchUser = async () => {
                 try {
                     const userDetail = await getUser(username, token);
@@ -75,7 +80,8 @@ export const ProfileContainer = () => {
     if (error) {
         return (
             <ErrorMessage
-                message={error}
+                alertMessage={error}
+                boxMessage={USER_NOT_FOUND}
                 buttonName="Search"
                 onClickFunction={handleSearch}
             />
@@ -85,7 +91,8 @@ export const ProfileContainer = () => {
     if (!authUser && !username) {
         return (
             <ErrorMessage
-                message="Please Login"
+                alertMessage="Please Login"
+                boxMessage={LOGIN_MSG}
                 buttonName="Login"
                 onClickFunction={handleLogin}
             />
@@ -95,7 +102,8 @@ export const ProfileContainer = () => {
     if (!user) {
         return (
             <ErrorMessage
-                message="Something unexpected occurred."
+                alertMessage="Something unexpected occurred."
+                boxMessage={UNEXPECTED_ERROR_MSG}
                 buttonName="Search"
                 onClickFunction={handleSearch}
             />

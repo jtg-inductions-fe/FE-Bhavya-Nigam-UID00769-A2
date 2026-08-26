@@ -10,93 +10,97 @@ export const StyleContainerBox = styled(Box)(() => ({
     alignItems: 'center',
 }));
 
-export const StyleMainContainerBox = styled(Box)(({ theme }) => ({
+export const StyleMainContainerBox = styled(Box)(({ theme: { spacing } }) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    gap: theme.spacing(10),
-    paddingTop: theme.spacing(25),
+    gap: spacing(10),
+    paddingTop: spacing(25),
     textAlign: 'center',
 }));
 
-export const StyleImgBox = styled('img')(({ theme }) => ({
-    borderRadius: theme.spacing(2.5),
-    width: theme.spacing(32.5),
-    height: theme.spacing(32.5),
+export const StyleImgBox = styled('img')(({ theme: { spacing } }) => ({
+    borderRadius: spacing(2.5),
+    width: spacing(32.5),
+    height: spacing(32.5),
 
     boxShadow: '0 0 12px 0.5px rgba(1,1,1,0.5)',
 }));
 
-export const StyleTopDetailBox = styled(Box)(({ theme }) => ({
+export const StyleTopDetailBox = styled(Box)(({ theme: { spacing } }) => ({
     display: 'flex',
     flexDirection: 'column',
-    gap: theme.spacing(1),
+    gap: spacing(1),
 }));
 
-export const StyleLocationDetailBox = styled(Box)(({ theme }) => ({
+export const StyleLocationDetailBox = styled(Box)(({ theme: { palette } }) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
 
-    color: theme.palette.primary.dark,
+    color: palette.primary.dark,
 }));
 
-export const StyleFollowDetailsBox = styled(Box)(({ theme }) => ({
-    display: 'flex',
-    justifyContent: 'center',
-    gap: theme.spacing(5),
-    paddingTop: theme.spacing(2.5),
-    paddingBottom: theme.spacing(2.5),
-    width: '100vw',
-    background: theme.palette.background.paper,
-}));
+export const StyleFollowDetailsBox = styled(Box)(
+    ({ theme: { spacing, palette } }) => ({
+        display: 'flex',
+        justifyContent: 'center',
+        gap: spacing(5),
+        paddingTop: spacing(2.5),
+        paddingBottom: spacing(2.5),
+        width: '100vw',
+        background: palette.background.paper,
+    }),
+);
 
-export const StyleMidLine = styled(Box)(({ theme }) => ({
-    height: theme.spacing(12.5),
+export const StyleMidLine = styled(Box)(({ theme: { spacing } }) => ({
+    height: spacing(12.5),
     boxShadow: '0 0 1px 0.5px rgba(1,1,1,0.5)',
 }));
 
-export const StyleBioBox = styled(Box)(({ theme }) => ({
-    marginTop: theme.spacing(10),
-    marginBottom: theme.spacing(10),
-    paddingTop: theme.spacing(10),
-    paddingLeft: theme.spacing(2.5),
-    paddingBottom: theme.spacing(10),
-    border: theme.spacing(1),
+export const StyleBioBox = styled(Box)(({ theme: { spacing, palette } }) => ({
+    marginTop: spacing(10),
+    marginBottom: spacing(10),
+    paddingTop: spacing(10),
+    paddingLeft: spacing(2.5),
+    paddingBottom: spacing(10),
+    border: spacing(1),
     borderStyle: 'solid',
     width: '100vw',
-    borderColor: theme.palette.background.paper,
+    borderColor: palette.background.paper,
 }));
 
-export const StyleMoreDetailsBox = styled(Box)(({ theme }) => ({
+export const StyleMoreDetailsBox = styled(Box)(({ theme: { spacing } }) => ({
     width: '100vw',
     display: 'flex',
     flexDirection: 'column',
-    gap: theme.spacing(2.5),
-    marginTop: theme.spacing(2.5),
+    gap: spacing(2.5),
+    marginTop: spacing(2.5),
 }));
 
-export const StyleMoreDetailBox = styled(Box)(({ theme }) => ({
-    backgroundColor: theme.palette.background.paper,
-    display: 'flex',
-    paddingTop: theme.spacing(2.5),
-    paddingBottom: theme.spacing(2.5),
-    paddingLeft: theme.spacing(3.75),
-    cursor: 'pointer',
-    alignItems: 'center',
-    gap: theme.spacing(2.5),
-    color: theme.palette.primary.main,
-    textDecoration: 'none',
-}));
+export const StyleMoreDetailBox = styled(Box)(
+    ({ theme: { spacing, palette } }) => ({
+        backgroundColor: palette.background.paper,
+        display: 'flex',
+        paddingTop: spacing(2.5),
+        paddingBottom: spacing(2.5),
+        paddingLeft: spacing(3.75),
+        cursor: 'pointer',
+        alignItems: 'center',
+        gap: spacing(2.5),
+        color: palette.primary.main,
+        textDecoration: 'none',
+    }),
+);
 
-export const StyleVisitButtonBox = styled(Box)(({ theme }) => ({
+export const StyleVisitButtonBox = styled(Box)(({ theme: { spacing } }) => ({
     width: '100vw',
-    marginTop: theme.spacing(5),
+    marginTop: spacing(5),
 }));
 
-export const StyleVisitButton = styled(Button)(({ theme }) => ({
+export const StyleVisitButton = styled(Button)(({ theme: { spacing } }) => ({
     display: 'flex',
-    gap: theme.spacing(2.5),
+    gap: spacing(2.5),
     width: '100vw',
 }));
 
@@ -105,7 +109,7 @@ export const StyleLinkContainerBox = styled(Link)(() => ({
     textDecoration: 'none',
 }));
 
-export const StyleButton = styled(Button)(({ theme }) => ({
+export const StyleButton = styled(Button)(({ theme: { spacing } }) => ({
     width: '100vw',
-    marginTop: theme.spacing(2.5),
+    marginTop: spacing(2.5),
 }));

@@ -10,8 +10,10 @@ export {
     LOGIN_FAILED_MSG,
     UNAUTHORIZED_ACCESS_MSG,
     FORBIDDEN_MSG,
-    PAGE_NOTIFY_ERROR_MSG,
     PAGE_NOT_FOUND_ERROR_MSG,
+    USER_NOT_FOUND,
+    LOGIN_MSG,
+    UNEXPECTED_ERROR_MSG,
 } from './ErrorMessages.Constant';
 
 export {

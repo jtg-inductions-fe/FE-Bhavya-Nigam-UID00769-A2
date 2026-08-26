@@ -20,7 +20,7 @@ export const RoutePath = () => (
             ))}
             <Route path={PROFILE_PAGE_URL} element={<Profile />} />
             <Route
-                path={`${PROFILE_PAGE_URL}/:username`}
+                path={`${PROFILE_PAGE_URL}:username`}
                 element={<Profile />}
             />
             <Route path="*" element={<NotFound />} />

@@ -1,4 +1,4 @@
-import { UserDetail } from 'types/UserDetails';
+import { UserDetail } from 'types/userdetails.Types';
 
 export const getUser = async (
     token: string,
@@ -6,7 +6,6 @@ export const getUser = async (
 ): Promise<UserDetail> => {
     const response = await fetch('https://api.github.com/user', {
         headers: {
-            Accept: 'application/vnd.github+json',
             Authorization: `Bearer ${token}`,
         },
     });
