@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import Avatar from '@mui/material/Avatar';
@@ -14,7 +14,7 @@ import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 
 import { logout } from '@features/userSlice';
-import { RootState } from '@store/store';
+import { useAppSelector } from '@store/store';
 
 import {
     StyleAppBar,
@@ -32,7 +32,7 @@ export const Navbar = () => {
 
     const currentPath = window.location.pathname;
 
-    const user = useSelector((state: RootState) => state.user.user);
+    const user = useAppSelector((state) => state.user.user);
 
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
         null,

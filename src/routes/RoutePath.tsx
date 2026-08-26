@@ -6,9 +6,10 @@ import { Search } from '@pages/Search';
 
 export const RoutePath = () => (
     <Routes>
-        <Route path="/" element={<Search />} />
+        {['/', 'search'].map((path, index) => (
+            <Route path={path} key={index} element={<Search />} />
+        ))}
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/search" element={<Search />}></Route>
     </Routes>
 );

@@ -1,26 +1,35 @@
-import { localStoragePAT, localStorageUsername } from '@constant';
+import { LOCAL_STORAGE_PAT, LOCAL_STORAGE_USERNAME } from '@constant';
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { UserDetail } from '@type/userdetails';
+import { ReduxRequest } from '@type/reduxRequest';
+import { UserDetail } from '@type/userdetails';
 
 interface UserState {
     user: UserDetail | null;
+    isLoggedIn: boolean;
 }
 
 const initialState: UserState = {
     user: null,
+    isLoggedIn: false,
 };
 
 export const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        login: (state, action: PayloadAction<{ user: UserDetail }>) => {
+        login: (state, action: PayloadAction<ReduxRequest>) => {
             state.user = action.payload.user;
+            state.isLoggedIn = true;
+            localStorage.setItem(
+                LOCAL_STORAGE_USERNAME,
+                action.payload.username,
+            );
+            localStorage.setItem(LOCAL_STORAGE_PAT, action.payload.pat);
         },
         logout: (state) => {
             state.user = null;
-            localStorage.removeItem(localStoragePAT);
-            localStorage.removeItem(localStorageUsername);
+            localStorage.removeItem(LOCAL_STORAGE_PAT);
+            localStorage.removeItem(LOCAL_STORAGE_USERNAME);
         },
     },
 });

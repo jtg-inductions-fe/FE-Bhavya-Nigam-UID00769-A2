@@ -4,18 +4,18 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import { AppBar, Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
-export const StyleGitHubIcon = styled(GitHubIcon)(({ theme }) => ({
-    fontSize: theme.spacing(10),
+export const StyleGitHubIcon = styled(GitHubIcon)(({ theme: { spacing } }) => ({
+    fontSize: spacing(10),
 }));
 
 export const StyleAppBar = styled(AppBar)(() => ({
     position: 'static',
 }));
 
-export const StyleMainBox = styled(Box)(({ theme }) => ({
+export const StyleMainBox = styled(Box)(({ theme: { palette } }) => ({
     position: 'static',
-    color: theme.palette.primary.main,
-    background: theme.palette.secondary.main,
+    color: palette.primary.main,
+    background: palette.secondary.main,
 }));
 
 export const StyleLinkContainerBox = styled(Link)(() => ({
@@ -23,19 +23,19 @@ export const StyleLinkContainerBox = styled(Link)(() => ({
     textDecoration: 'none',
 }));
 
-export const StyleButtonBox = styled(Box)(({ theme }) => ({
-    gap: theme.spacing(2.5),
+export const StyleButtonBox = styled(Box)(({ theme: { spacing } }) => ({
+    gap: spacing(2.5),
     flexGrow: 1,
     display: 'flex',
     justifyContent: 'end',
-    marginRight: theme.spacing(2.5),
+    marginRight: spacing(2.5),
 }));
 
-export const StyleLinkBox = styled(Box)(({ theme }) => ({
+export const StyleLinkBox = styled(Box)(({ theme: { spacing } }) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: theme.spacing(2.5),
+    gap: spacing(2.5),
 }));
 
 export const StyleProfileBox = styled(Box)(() => ({

@@ -9,22 +9,22 @@ export const StyledBox = styled(Box)({
     width: '100%',
 });
 
-export const StyleMainBox = styled(Box)(({ theme }) => ({
-    background: theme.palette.background.paper,
-    padding: theme.spacing(12.5),
-    borderRadius: theme.spacing(5),
+export const StyleMainBox = styled(Box)(({ theme: { palette, spacing } }) => ({
+    background: palette.background.paper,
+    padding: spacing(12.5),
+    borderRadius: spacing(5),
 }));
 
-export const StyledIconBox = styled(Box)(({ theme }) => ({
+export const StyledIconBox = styled(Box)(({ theme: { spacing } }) => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: theme.spacing(2.5),
+    marginBottom: spacing(2.5),
 }));
 
-export const StyledFormBox = styled(Box)(({ theme }) => ({
+export const StyledFormBox = styled(Box)(({ theme: { spacing } }) => ({
     display: 'flex',
     flexDirection: 'column',
-    gap: theme.spacing(5),
-    marginTop: theme.spacing(5),
+    gap: spacing(5),
+    marginTop: spacing(5),
 }));
