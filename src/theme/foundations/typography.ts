@@ -16,7 +16,6 @@ const typographyUtil: TypographyUtils = {
     pxToRem: (px: number) => `${px / HTML_FONT_SIZE}` + 'rem',
 };
 
-// TODO: Add the necessary typographies here.
 /**
  * Creates a typography block with various styles
  * @param theme - Theme object to access the breakpoints.
@@ -39,6 +38,67 @@ const typographyStyle = (theme: Theme): TypographyOptions => ({
             fontSize: typographyUtil.pxToRem(48),
             lineHeight: typographyUtil.pxToRem(62.5),
         },
+    },
+    h2: {
+        fontSize: typographyUtil.pxToRem(24),
+        fontWeight: 700,
+        lineHeight: typographyUtil.pxToRem(45),
+
+        [theme.breakpoints.up('md')]: {
+            fontSize: typographyUtil.pxToRem(40),
+            lineHeight: typographyUtil.pxToRem(62.5),
+        },
+    },
+
+    h3: {
+        fontSize: typographyUtil.pxToRem(18),
+        fontWeight: 700,
+        lineHeight: typographyUtil.pxToRem(45),
+
+        [theme.breakpoints.up('md')]: {
+            fontSize: typographyUtil.pxToRem(30),
+            lineHeight: typographyUtil.pxToRem(62.5),
+        },
+    },
+
+    h4: {
+        fontSize: typographyUtil.pxToRem(16),
+        fontWeight: 700,
+        lineHeight: typographyUtil.pxToRem(45),
+
+        [theme.breakpoints.up('md')]: {
+            fontSize: typographyUtil.pxToRem(24),
+            lineHeight: typographyUtil.pxToRem(62.5),
+        },
+    },
+    h5: {
+        fontSize: typographyUtil.pxToRem(14),
+        fontWeight: 700,
+        lineHeight: typographyUtil.pxToRem(45),
+
+        [theme.breakpoints.up('md')]: {
+            fontSize: typographyUtil.pxToRem(20),
+            lineHeight: typographyUtil.pxToRem(62.5),
+        },
+    },
+    h6: {
+        fontSize: typographyUtil.pxToRem(12),
+        fontWeight: 700,
+        lineHeight: typographyUtil.pxToRem(45),
+
+        [theme.breakpoints.up('md')]: {
+            fontSize: typographyUtil.pxToRem(16),
+            lineHeight: typographyUtil.pxToRem(62.5),
+        },
+    },
+
+    body1: {
+        fontSize: typographyUtil.pxToRem(16),
+        fontWeight: 500,
+    },
+    body2: {
+        fontSize: typographyUtil.pxToRem(14),
+        fontWeight: 500,
     },
 });
 
