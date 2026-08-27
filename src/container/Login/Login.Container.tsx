@@ -1,6 +1,5 @@
 import { useState } from 'react';
 
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import GithubIcon from '@mui/icons-material/GitHub';
@@ -15,6 +14,7 @@ import {
 } from '@constant';
 import { login } from '@features/userSlice';
 import { getUser } from '@services/userService';
+import { useAppDispatch } from '@store/store';
 
 import {
     StyledBox,
@@ -36,7 +36,7 @@ export const LoginComponent = () => {
 
     let error = false;
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -65,7 +65,6 @@ export const LoginComponent = () => {
                     user: res,
                     username: trimUsername,
                     pat: trimPassword,
-                    isLoggedIn: true,
                 }),
             );
 

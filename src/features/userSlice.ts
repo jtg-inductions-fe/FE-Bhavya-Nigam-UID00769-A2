@@ -1,7 +1,7 @@
 import { LOCAL_STORAGE_PAT, LOCAL_STORAGE_USERNAME } from '@constant';
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import { ReduxRequest } from '@type/reduxRequest';
-import { UserDetail } from '@type/userdetails';
+import { UserData } from '@type/UserData';
+import { UserDetail } from '@type/UserDetails';
 
 interface UserState {
     user: UserDetail | null;
@@ -17,7 +17,7 @@ export const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        login: (state, action: PayloadAction<ReduxRequest>) => {
+        login: (state, action: PayloadAction<UserData>) => {
             state.user = action.payload.user;
             state.isLoggedIn = true;
             localStorage.setItem(
@@ -28,6 +28,7 @@ export const userSlice = createSlice({
         },
         logout: (state) => {
             state.user = null;
+            state.isLoggedIn = false;
             localStorage.removeItem(LOCAL_STORAGE_PAT);
             localStorage.removeItem(LOCAL_STORAGE_USERNAME);
         },

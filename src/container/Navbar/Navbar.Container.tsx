@@ -1,7 +1,6 @@
 import * as React from 'react';
 
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -14,7 +13,8 @@ import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 
 import { logout } from '@features/userSlice';
-import { useAppSelector } from '@store/store';
+import { useAppDispatch, useAppSelector } from '@store/store';
+import { NavigationPath } from '@type/NavigationPath';
 
 import {
     StyleAppBar,
@@ -28,9 +28,9 @@ import {
 
 export const Navbar = () => {
     const navigate = useNavigate();
-    const dispatch = useDispatch();
-
-    const currentPath = window.location.pathname;
+    const dispatch = useAppDispatch();
+    const location = useLocation();
+    const currentPath = location.pathname;
 
     const user = useAppSelector((state) => state.user.user);
 
@@ -38,28 +38,21 @@ export const Navbar = () => {
         null,
     );
 
-    const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorElUser(event.currentTarget);
-    };
-
-    const handleSearch = () => {
-        void navigate('/search');
-    };
-
-    const handleProfile = () => {
-        void navigate('/profile');
-    };
-
     const handleLogout = () => {
         dispatch(logout());
-        void navigate('/login');
-    };
-    const handleLogin = () => {
-        void navigate('/login');
+        handleNavigation('/login');
     };
 
-    const handleCloseUserMenu = () => {
-        setAnchorElUser(null);
+    const handleNavigation = (path: NavigationPath) => {
+        void navigate(path);
+    };
+
+    const handleUserMenu = (event: React.MouseEvent<HTMLElement> | null) => {
+        if (event) {
+            setAnchorElUser(event.currentTarget);
+        } else {
+            setAnchorElUser(null);
+        }
     };
 
     return (
@@ -80,7 +73,7 @@ export const Navbar = () => {
                             {currentPath !== '/search' && (
                                 <Button
                                     key="Search"
-                                    onClick={handleSearch}
+                                    onClick={() => handleNavigation('/search')}
                                     variant="contained"
                                 >
                                     Search
@@ -89,7 +82,7 @@ export const Navbar = () => {
                             {currentPath !== '/profile' && (
                                 <Button
                                     key="Profile"
-                                    onClick={handleProfile}
+                                    onClick={() => handleNavigation('/profile')}
                                     variant="contained"
                                 >
                                     Profile
@@ -100,7 +93,7 @@ export const Navbar = () => {
                         {user ? (
                             <StyleProfileBox>
                                 <Tooltip title="Open Profile">
-                                    <IconButton onClick={handleOpenUserMenu}>
+                                    <IconButton onClick={handleUserMenu}>
                                         <Avatar
                                             alt={user?.login}
                                             src={user?.avatar_url}
@@ -111,11 +104,13 @@ export const Navbar = () => {
                                     id="menu-appbar"
                                     anchorEl={anchorElUser}
                                     open={Boolean(anchorElUser)}
-                                    onClose={handleCloseUserMenu}
+                                    onClose={() => handleUserMenu(null)}
                                 >
                                     <MenuItem
                                         key="Profile"
-                                        onClick={handleProfile}
+                                        onClick={() =>
+                                            handleNavigation('/profile')
+                                        }
                                     >
                                         <Typography>Profile</Typography>
                                     </MenuItem>
@@ -128,7 +123,10 @@ export const Navbar = () => {
                                 </Menu>
                             </StyleProfileBox>
                         ) : (
-                            <Button variant="contained" onClick={handleLogin}>
+                            <Button
+                                variant="contained"
+                                onClick={() => handleNavigation('/login')}
+                            >
                                 Login
                             </Button>
                         )}

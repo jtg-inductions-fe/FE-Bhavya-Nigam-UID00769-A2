@@ -1,15 +1,13 @@
 import { useEffect } from 'react';
 
-import { useDispatch } from 'react-redux';
-
 import { LOCAL_STORAGE_PAT, LOCAL_STORAGE_USERNAME } from '@constant';
 import { login, logout } from '@features/userSlice';
-import { AppDispatch } from '@store/store';
+import { useAppDispatch } from '@store/store';
 
 import { getUser } from './userService';
 
 export const SessionRefresh = () => {
-    const dispatch = useDispatch<AppDispatch>();
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
         const restoreSession = async () => {
@@ -26,7 +24,6 @@ export const SessionRefresh = () => {
                         user: user,
                         username: username,
                         pat: password,
-                        isLoggedIn: true,
                     }),
                 );
             } catch (e) {

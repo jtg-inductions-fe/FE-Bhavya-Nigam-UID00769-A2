@@ -1,4 +1,4 @@
-import { UserDetail } from 'types/userdetails';
+import { UserDetail } from 'types/UserDetails';
 
 export const getUser = async (
     token: string,

@@ -1,4 +1,3 @@
-import { Navbar } from '@container/Navbar/Navbar.Container';
 import { useAppSelector } from '@store/store';
 
 export const Profile = () => {
@@ -6,8 +5,6 @@ export const Profile = () => {
 
     return (
         <div>
-            <Navbar />
-
             {!user ? (
                 <div>Please Login First</div>
             ) : (
