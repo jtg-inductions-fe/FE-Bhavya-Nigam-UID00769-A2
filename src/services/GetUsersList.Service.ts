@@ -7,14 +7,16 @@ export const getUserLists = async (
     username: string,
 ): Promise<UserSearchResult[]> => {
     let userLists;
+    const fetchURL = FETCH_GET_USERS_LIST_URL + username;
+
     if (token) {
-        userLists = await fetch(FETCH_GET_USERS_LIST_URL + username, {
+        userLists = await fetch(fetchURL, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
         });
     } else {
-        userLists = await fetch(FETCH_GET_USERS_LIST_URL + username);
+        userLists = await fetch(fetchURL);
     }
 
     if (!userLists.ok) {

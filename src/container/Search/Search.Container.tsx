@@ -39,6 +39,7 @@ export const SearchContainer = () => {
 
     useEffect(() => {
         const timer = setTimeout(() => {
+            setUsernameError('');
             if (!username.trim()) {
                 setUsersList([]);
                 return;
@@ -76,12 +77,13 @@ export const SearchContainer = () => {
                     Find developers, creators, and collaborators
                 </Typography>
 
-                {usernameError}
                 <StyleInputField
                     placeholder="Search username"
                     onChange={(e) => {
                         setUsername(e.target.value);
                     }}
+                    helperText={usernameError}
+                    error={Boolean(usernameError)}
                 />
             </StyleTopBox>
 
@@ -110,6 +112,7 @@ export const SearchContainer = () => {
                                     <StyleButton
                                         onClick={() => handleSubmit(user.login)}
                                         variant="contained"
+                                        aria-label="View Profile"
                                     >
                                         <StyleTextBox>
                                             <Typography component="p">

@@ -6,14 +6,16 @@ export const getUser = async (
     token: string | null,
 ): Promise<UserDetail> => {
     let response;
+    const fetchURL = FETCH_GET_USER_URL + username;
+
     if (token) {
-        response = await fetch(FETCH_GET_USER_URL + username, {
+        response = await fetch(fetchURL, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
         });
     } else {
-        response = await fetch(FETCH_GET_USER_URL + username);
+        response = await fetch(fetchURL);
     }
 
     if (response.status === 404) {
