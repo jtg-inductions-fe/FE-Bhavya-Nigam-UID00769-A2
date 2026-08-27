@@ -87,8 +87,8 @@ export const SearchContainer = () => {
                 />
             </StyleTopBox>
 
-            <StyleBottomBox>
-                {username !== '' && (
+            {username !== '' && (
+                <StyleBottomBox>
                     <StyleListBox>
                         {usersList.map((user) => (
                             <StyleListItemBox key={user.login}>
@@ -125,8 +125,8 @@ export const SearchContainer = () => {
                             </StyleListItemBox>
                         ))}
                     </StyleListBox>
-                )}
-            </StyleBottomBox>
+                </StyleBottomBox>
+            )}
         </StyleContainerBox>
     );
 };
