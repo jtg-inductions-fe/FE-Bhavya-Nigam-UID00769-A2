@@ -1,5 +1,16 @@
-import { RoutePath } from '@routes/RoutePath';
+import { Typography, useTheme } from '@mui/material';
 
-import './theme/index';
-
-export const App = () => <RoutePath />;
+export const App = () => {
+    const { palette } = useTheme();
+    return (
+        <div>
+            <Typography
+                color={palette.background.paper}
+                component="h1"
+                variant="h1"
+            >
+                Hello World
+            </Typography>
+        </div>
+    );
+};

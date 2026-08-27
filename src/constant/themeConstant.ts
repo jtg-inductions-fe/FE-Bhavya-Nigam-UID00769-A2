@@ -6,7 +6,7 @@ export const COLORS = {
     PRIMARY: {
         PRIMARY: '#222222',
         SECONDARY: '#ffffff',
-        TERTIARY: '#b9b9b951',
+        TERTIARY: '#00000033',
     },
 };
 
