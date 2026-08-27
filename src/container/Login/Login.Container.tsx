@@ -10,6 +10,7 @@ import TextField from '@mui/material/TextField';
 import {
     LOGIN_FAILED_MSG,
     PASSWORD_ERROR_MSG,
+    PROFILE_PAGE_URL,
     USERNAME_ERROR_MSG,
 } from '@constant';
 import { login } from '@features/User.Slice';
@@ -68,7 +69,7 @@ export const LoginContainer = () => {
                 }),
             );
 
-            void navigate('/profile');
+            void navigate(PROFILE_PAGE_URL);
         } catch (err) {
             const errMsg =
                 err instanceof Error ? err.message : LOGIN_FAILED_MSG;
