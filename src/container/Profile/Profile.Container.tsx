@@ -9,15 +9,10 @@ import MailIcon from '@mui/icons-material/Mail';
 import { Box, Typography } from '@mui/material';
 
 import { ErrorMessage } from '@component/ErrorMessage/ErrorMessage.Component';
-import {
-    LOGIN_MSG,
-    LOGIN_PAGE_URL,
-    SEARCH_PAGE_URL,
-    UNEXPECTED_ERROR_MSG,
-    USER_NOT_FOUND,
-} from '@constant';
+import { LOGIN_MSG, UNEXPECTED_ERROR_MSG, USER_NOT_FOUND } from '@constant';
 import { getUser } from '@services/GetUser.Service';
 import { useAppSelector } from '@store/store';
+import { NavigationPath } from '@type/NavigationPath';
 import { UserDetail } from '@type/userdetails.Types';
 
 import {
@@ -69,12 +64,8 @@ export const ProfileContainer = () => {
         }
     }, [username, authUser]);
 
-    const handleLogin = () => {
-        void navigate(LOGIN_PAGE_URL);
-    };
-
-    const handleSearch = () => {
-        void navigate(SEARCH_PAGE_URL);
+    const handleNavigation = (path: NavigationPath) => {
+        void navigate(path);
     };
 
     if (error) {
@@ -83,7 +74,7 @@ export const ProfileContainer = () => {
                 alertMessage={error}
                 boxMessage={USER_NOT_FOUND}
                 buttonName="Search"
-                onClickFunction={handleSearch}
+                onClickFunction={handleNavigation('/search')}
             />
         );
     }
@@ -94,7 +85,7 @@ export const ProfileContainer = () => {
                 alertMessage="Please Login"
                 boxMessage={LOGIN_MSG}
                 buttonName="Login"
-                onClickFunction={handleLogin}
+                onClickFunction={handleNavigation('/login')}
             />
         );
     }
@@ -105,7 +96,7 @@ export const ProfileContainer = () => {
                 alertMessage="Something unexpected occurred."
                 boxMessage={UNEXPECTED_ERROR_MSG}
                 buttonName="Search"
-                onClickFunction={handleSearch}
+                onClickFunction={handleNavigation('/search')}
             />
         );
     }
