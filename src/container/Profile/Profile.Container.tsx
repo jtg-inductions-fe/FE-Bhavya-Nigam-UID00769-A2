@@ -9,7 +9,12 @@ import MailIcon from '@mui/icons-material/Mail';
 import { Box, Typography } from '@mui/material';
 
 import { ErrorMessage } from '@component/ErrorMessage/ErrorMessage.Component';
-import { LOGIN_MSG, UNEXPECTED_ERROR_MSG, USER_NOT_FOUND } from '@constant';
+import {
+    LOGIN_MSG,
+    UNEXPECTED_ERROR_MSG,
+    USER_FETCH_FAILED_MSG,
+    USER_NOT_FOUND,
+} from '@constant';
 import { getUser } from '@services/GetUser.Service';
 import { useAppSelector } from '@store/store';
 import { NavigationPath } from '@type/NavigationPath';
@@ -52,7 +57,7 @@ export const ProfileContainer = () => {
                     setError('');
                 } catch (e) {
                     const errMsg =
-                        e instanceof Error ? e.message : 'Failed to fetch user';
+                        e instanceof Error ? e.message : USER_FETCH_FAILED_MSG;
                     setError(errMsg);
                     setUser(null);
                 }

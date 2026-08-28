@@ -14,6 +14,7 @@ export {
     USER_NOT_FOUND,
     LOGIN_MSG,
     UNEXPECTED_ERROR_MSG,
+    USER_FETCH_FAILED_MSG,
 } from './ErrorMessages.Constant';
 
 export {
