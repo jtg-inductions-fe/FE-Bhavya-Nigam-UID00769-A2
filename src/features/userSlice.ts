@@ -5,12 +5,10 @@ import { UserDetail } from '@type/UserDetails';
 
 interface UserState {
     user: UserDetail | null;
-    isLoggedIn: boolean;
 }
 
 const initialState: UserState = {
     user: null,
-    isLoggedIn: false,
 };
 
 export const userSlice = createSlice({
@@ -19,7 +17,6 @@ export const userSlice = createSlice({
     reducers: {
         login: (state, action: PayloadAction<UserData>) => {
             state.user = action.payload.user;
-            state.isLoggedIn = true;
             localStorage.setItem(
                 LOCAL_STORAGE_USERNAME,
                 action.payload.username,
@@ -28,7 +25,6 @@ export const userSlice = createSlice({
         },
         logout: (state) => {
             state.user = null;
-            state.isLoggedIn = false;
             localStorage.removeItem(LOCAL_STORAGE_PAT);
             localStorage.removeItem(LOCAL_STORAGE_USERNAME);
         },
