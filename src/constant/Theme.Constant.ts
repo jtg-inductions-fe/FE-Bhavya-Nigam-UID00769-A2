@@ -8,6 +8,9 @@ export const COLORS = {
         SECONDARY: '#ffffff',
         TERTIARY: '#b9b9b951',
         DARK: '#3131318e',
+        BLACK: '#000000',
+        BACKGROUND: '#171717',
+        GRAY: '#a1a1a1',
     },
 };
 

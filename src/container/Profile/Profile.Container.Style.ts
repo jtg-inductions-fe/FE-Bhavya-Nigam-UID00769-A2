@@ -1,10 +1,11 @@
 import { Box, Button } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
-export const StyleContainerBox = styled(Box)(() => ({
+export const StyleContainerBox = styled(Box)(({ theme: { spacing } }) => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
+    minWidth: spacing(80),
     alignItems: 'center',
 }));
 
@@ -108,4 +109,12 @@ export const StyleLinkContainerBox = styled('a')(() => ({
 export const StyleButton = styled(Button)(({ theme: { spacing } }) => ({
     width: '100vw',
     marginTop: spacing(2.5),
+}));
+
+export const StyleMailBox = styled(Box)(() => ({
+    wordBreak: 'break-word',
+}));
+
+export const StyleFollowButton = styled(Button)(() => ({
+    // zIndex: 100
 }));

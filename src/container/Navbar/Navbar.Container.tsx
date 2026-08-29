@@ -3,7 +3,6 @@ import * as React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
@@ -28,7 +27,9 @@ import {
     StyleGitHubIcon,
     StyleLinkBox,
     StyleLinkContainerBox,
+    StyleLogoHeading,
     StyleMainBox,
+    StyleNavButton,
     StyleProfileBox,
 } from './Navbar.Container.Style';
 
@@ -69,16 +70,18 @@ export const NavbarContainer = () => {
                         <StyleLinkContainerBox to="/">
                             <StyleLinkBox>
                                 <StyleGitHubIcon />
-                                <Typography variant="h5" component="h3" noWrap>
-                                    Get GIT
-                                </Typography>
+                                <StyleLogoHeading>
+                                    <Typography component="h3" variant="h5">
+                                        Get GIT
+                                    </Typography>
+                                </StyleLogoHeading>
                             </StyleLinkBox>
                         </StyleLinkContainerBox>
 
                         <StyleButtonBox>
                             {currentPath !== SEARCH_PAGE_URL &&
                                 currentPath !== HOME_PAGE_URL && (
-                                    <Button
+                                    <StyleNavButton
                                         key="Search"
                                         onClick={() =>
                                             handleNavigation('/search')
@@ -86,10 +89,10 @@ export const NavbarContainer = () => {
                                         variant="contained"
                                     >
                                         Search
-                                    </Button>
+                                    </StyleNavButton>
                                 )}
                             {currentPath !== PROFILE_PAGE_URL && user && (
-                                <Button
+                                <StyleNavButton
                                     key="Profile"
                                     onClick={() =>
                                         handleNavigation('/profile/')
@@ -97,7 +100,7 @@ export const NavbarContainer = () => {
                                     variant="contained"
                                 >
                                     Profile
-                                </Button>
+                                </StyleNavButton>
                             )}
                         </StyleButtonBox>
 
@@ -134,12 +137,12 @@ export const NavbarContainer = () => {
                                 </Menu>
                             </StyleProfileBox>
                         ) : (
-                            <Button
+                            <StyleNavButton
                                 variant="contained"
                                 onClick={() => handleNavigation('/login')}
                             >
                                 Login
-                            </Button>
+                            </StyleNavButton>
                         )}
                     </Toolbar>
                 </Container>

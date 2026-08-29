@@ -6,16 +6,20 @@ import LaunchIcon from '@mui/icons-material/Launch';
 import LinkIcon from '@mui/icons-material/Link';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import MailIcon from '@mui/icons-material/Mail';
-import { Box, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 
 import { ErrorMessage } from '@component/ErrorMessage/ErrorMessage.Component';
 import {
+    FOLLOW_USER_ERROR,
     LOGIN_MSG,
     UNEXPECTED_ERROR_MSG,
     USER_FETCH_FAILED_MSG,
     USER_NOT_FOUND,
 } from '@constant';
+import { deleteUserFollow } from '@services/DeleteUserFollow.Service';
 import { getUser } from '@services/GetUser.Service';
+import { getUserFollow } from '@services/GetUserFollow.Service';
+import { putUserFollow } from '@services/PutUserFollow.Service';
 import { useAppSelector } from '@store/store';
 import { NavigationPath } from '@type/NavigationPath.Types';
 import { UserDetail } from '@type/userdetails.Types';
@@ -27,6 +31,7 @@ import {
     StyleImgBox,
     StyleLinkContainerBox,
     StyleLocationDetailBox,
+    StyleMailBox,
     StyleMainContainerBox,
     StyleMidLine,
     StyleMoreDetailBox,
@@ -43,6 +48,7 @@ export const ProfileContainer = () => {
     const authUser = storedData.userDetails;
     const [error, setError] = useState<string>();
     const token = storedData.pat;
+    const [isFollowed, setIsFollowed] = useState<boolean | undefined>(false);
 
     const [user, setUser] = useState<UserDetail | null>(null);
 
@@ -53,6 +59,7 @@ export const ProfileContainer = () => {
             const fetchUser = async () => {
                 try {
                     const userDetail = await getUser(username, token);
+
                     setUser(userDetail);
                     setError('');
                 } catch (e) {
@@ -60,6 +67,19 @@ export const ProfileContainer = () => {
                         e instanceof Error ? e.message : USER_FETCH_FAILED_MSG;
                     setError(errMsg);
                     setUser(null);
+                }
+
+                if (authUser) {
+                    try {
+                        const res = await getUserFollow(username, token);
+                        setIsFollowed(res);
+                    } catch (e) {
+                        const errMsg =
+                            e instanceof Error
+                                ? e.message
+                                : 'Failed to fetch user';
+                        setError(errMsg);
+                    }
                 }
             };
             void fetchUser();
@@ -75,6 +95,51 @@ export const ProfileContainer = () => {
 
     const handleOpenGitHubProfile = (url: string) => {
         window.open(url, '_blank', 'noopener,noreferrer');
+    };
+    const handleFollow = async () => {
+        if (!isFollowed) {
+            try {
+                const isFollowing = await putUserFollow(username, token);
+
+                if (isFollowing) {
+                    setIsFollowed(true);
+                    setUser((prev) =>
+                        prev
+                            ? {
+                                  ...prev,
+                                  followers: prev.followers + 1,
+                              }
+                            : prev,
+                    );
+                }
+            } catch (e) {
+                setError(e instanceof Error ? e.message : FOLLOW_USER_ERROR);
+            }
+        } else {
+            try {
+                const isNotFollowing = await deleteUserFollow(username, token);
+
+                if (isNotFollowing) {
+                    setIsFollowed(false);
+                    setUser((prev) =>
+                        prev
+                            ? {
+                                  ...(prev
+                                      ? {
+                                            ...prev,
+                                            followers: prev.followers - 1,
+                                        }
+                                      : prev),
+                              }
+                            : prev,
+                    );
+                }
+            } catch (e) {
+                setError(e instanceof Error ? e.message : FOLLOW_USER_ERROR);
+            }
+        }
+
+        return undefined;
     };
 
     if (error) {
@@ -129,6 +194,21 @@ export const ProfileContainer = () => {
                             </>
                         )}
                     </Typography>
+
+                    {authUser && username && (
+                        <Button
+                            sx={{
+                                zIndex: 100,
+                                pointerEvents: 'auto',
+                            }}
+                            variant="contained"
+                            onClick={() => {
+                                void handleFollow();
+                            }}
+                        >
+                            {isFollowed ? 'Followed' : 'Follow'}
+                        </Button>
+                    )}
                 </StyleTopDetailBox>
 
                 <StyleFollowDetailsBox>
@@ -172,7 +252,9 @@ export const ProfileContainer = () => {
                 {user?.email && (
                     <Typography component="a" href={`mailto:${user?.email}`}>
                         <StyleMoreDetailBox>
-                            <MailIcon /> {user?.email}
+                            <StyleMailBox>
+                                <MailIcon /> {user?.email}
+                            </StyleMailBox>
                         </StyleMoreDetailBox>
                     </Typography>
                 )}

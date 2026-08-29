@@ -1,17 +1,17 @@
 import type { Components } from '@mui/material/styles';
 
 // Local Font files
-import InterRegularTTF from '@assets/fonts/inter/inter-regular.ttf';
-import InterRegularWOFF2 from '@assets/fonts/inter/inter-regular.woff2';
+import GeistRegularTTF from '@assets/fonts/Geist/Geist-Regular.ttf';
+import GeistRegularWOFF2 from '@assets/fonts/Geist/Geist-Regular.woff2';
 
 const fontFaceDeclarations = `
        @font-face {
         font-display: swap; 
-        font-family: 'Inter';
+        font-family: 'Geist';
         font-style: normal;
         font-weight: 500;
-        src: url(${InterRegularWOFF2}) format('woff2'), 
-        url(${InterRegularTTF}) format('truetype');
+        src: url(${GeistRegularWOFF2}) format('woff2'), 
+        url(${GeistRegularTTF}) format('truetype');
       };
     `;
 

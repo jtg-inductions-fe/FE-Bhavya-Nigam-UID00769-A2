@@ -17,10 +17,11 @@ import {
     StyleBottomBox,
     StyleButton,
     StyleContainerBox,
-    StyleInputField,
     StyleLeftPart,
     StyleListBox,
     StyleListItemBox,
+    StyleSubHeading,
+    StyleTextFieldBox,
     StyleTextSpan,
     StyleTopBox,
 } from './Search.Container.Style';
@@ -43,11 +44,15 @@ export const SearchContainer = () => {
                     Search GitHub
                 </Typography>
 
-                <Typography component="h2" variant="h6">
-                    Find developers, creators, and collaborators
-                </Typography>
+                <StyleSubHeading>
+                    <Typography component="h2" variant="h6">
+                        Find developers, creators, and collaborators
+                    </Typography>
+                </StyleSubHeading>
 
-                <StyleInputField
+                <StyleTextFieldBox
+                    id="username"
+                    variant="outlined"
                     placeholder="Search username"
                     onChange={(
                         e: React.ChangeEvent<
@@ -56,6 +61,8 @@ export const SearchContainer = () => {
                     ) => {
                         setUsername(e.target.value);
                     }}
+                    value={username}
+                    name="username"
                     helperText={usernameError}
                     error={Boolean(usernameError)}
                 />

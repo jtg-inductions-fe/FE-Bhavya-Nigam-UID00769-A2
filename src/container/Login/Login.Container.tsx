@@ -4,13 +4,12 @@ import { useNavigate } from 'react-router-dom';
 
 import GithubIcon from '@mui/icons-material/GitHub';
 import { Alert, Typography } from '@mui/material';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
 
 import {
     LOGIN_FAILED_MSG,
     PASSWORD_ERROR_MSG,
     PROFILE_PAGE_URL,
+    SEARCH_PAGE_URL,
     USERNAME_ERROR_MSG,
 } from '@constant';
 import { login } from '@features/User.Slice';
@@ -21,7 +20,12 @@ import {
     StyledBox,
     StyledFormBox,
     StyledIconBox,
+    StyleLabel,
+    StyleLink,
+    StyleLoginButton,
     StyleMainBox,
+    StyleTextBox,
+    StyleTextFieldBox,
 } from './Login.Container.Style';
 
 export const LoginContainer = () => {
@@ -100,11 +104,13 @@ export const LoginContainer = () => {
                     <GithubIcon fontSize="large" />
                 </StyledIconBox>
 
-                <Typography component="h1" variant="h3">
-                    Login with GitHub
+                <Typography component="h1" variant="h6">
+                    Login to your account
                 </Typography>
 
-                <Typography component="p">Enter your credentials.</Typography>
+                <StyleTextBox>
+                    Enter your credentials below to login to your account
+                </StyleTextBox>
 
                 <form
                     onSubmit={(e) => {
@@ -112,10 +118,12 @@ export const LoginContainer = () => {
                     }}
                 >
                     <StyledFormBox>
-                        <TextField
+                        <StyleLabel>Username</StyleLabel>
+
+                        <StyleTextFieldBox
                             id="username"
-                            label="Username"
                             variant="outlined"
+                            placeholder="username"
                             value={username}
                             name="username"
                             onChange={(e) => void handleUsernameInput(e)}
@@ -123,9 +131,10 @@ export const LoginContainer = () => {
                             error={Boolean(usernameError)}
                         />
 
-                        <TextField
+                        <StyleLabel>Personal Access Token</StyleLabel>
+
+                        <StyleTextFieldBox
                             id="pat"
-                            label="Personal Access Token"
                             variant="outlined"
                             value={pat}
                             name="pat"
@@ -141,9 +150,15 @@ export const LoginContainer = () => {
                             </Alert>
                         )}
 
-                        <Button type="submit" variant="contained">
+                        <StyleLoginButton type="submit" variant="contained">
                             Login
-                        </Button>
+                        </StyleLoginButton>
+
+                        <StyleTextBox>
+                            Skip Login?{' '}
+                            <StyleLink to={SEARCH_PAGE_URL}>Search</StyleLink>{' '}
+                            directly without login.
+                        </StyleTextBox>
                     </StyledFormBox>
                 </form>
             </StyleMainBox>
