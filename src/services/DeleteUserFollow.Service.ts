@@ -1,10 +1,10 @@
-import { FETCH_USER_FOLLOW_URL } from '@constant';
+import { FETCH_USER_FOLLOWING_URL } from '@constant';
 
 export const deleteUserFollow = async (
     username: string | undefined,
     token: string | null,
 ) => {
-    const fetchURL = FETCH_USER_FOLLOW_URL + username;
+    const fetchURL = FETCH_USER_FOLLOWING_URL + username;
 
     const response = await fetch(fetchURL, {
         method: 'DELETE',

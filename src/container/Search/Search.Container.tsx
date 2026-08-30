@@ -20,6 +20,8 @@ import {
     StyleLeftPart,
     StyleListBox,
     StyleListItemBox,
+    StyleLoader,
+    StyleNotFoundBox,
     StyleSubHeading,
     StyleTextFieldBox,
     StyleTextSpan,
@@ -29,77 +31,90 @@ import {
 export const SearchContainer = () => {
     const [username, setUsername] = useState<string>('');
 
-    const { usernameError, usersList } = useSearchUser(username);
+    const { usernameError, usersList, loading } = useSearchUser(username);
 
     const navigate = useNavigate();
+
 
     const handleOpenProfile = (user: string) => {
         void navigate(`${PROFILE_PAGE_URL}${user}`);
     };
 
     return (
-        <StyleContainerBox>
-            <StyleTopBox>
-                <Typography component="h1" variant="h2">
-                    Search GitHub
-                </Typography>
-
-                <StyleSubHeading>
-                    <Typography component="h2" variant="h6">
-                        Find developers, creators, and collaborators
+        <>
+            <StyleContainerBox>
+                <StyleTopBox>
+                    <Typography component="h1" variant="h2">
+                        Search GitHub
                     </Typography>
-                </StyleSubHeading>
 
-                <StyleTextFieldBox
-                    id="username"
-                    variant="outlined"
-                    placeholder="Search username"
-                    onChange={(
-                        e: React.ChangeEvent<
-                            HTMLInputElement | HTMLTextAreaElement
-                        >,
-                    ) => {
-                        setUsername(e.target.value);
-                    }}
-                    value={username}
-                    name="username"
-                    helperText={usernameError}
-                    error={Boolean(usernameError)}
-                />
-            </StyleTopBox>
+                    <StyleSubHeading>
+                        <Typography component="h2" variant="h6">
+                            Find developers, creators, and collaborators
+                        </Typography>
+                    </StyleSubHeading>
 
-            {username && (
-                <StyleBottomBox>
-                    <StyleListBox>
-                        {usersList.map((user) => (
-                            <StyleListItemBox key={user.login}>
-                                <StyleLeftPart>
-                                    <ListItemAvatar>
-                                        <Avatar
-                                            src={user.avatar_url}
-                                            alt={user.login}
-                                        ></Avatar>
-                                    </ListItemAvatar>
-                                    <ListItemText
-                                        primary={user.login}
-                                        secondary={user.name}
-                                    />
-                                </StyleLeftPart>
-                                <StyleButton
-                                    onClick={() =>
-                                        handleOpenProfile(user.login)
-                                    }
-                                    variant="contained"
-                                    aria-label="View Profile"
-                                >
-                                    <StyleTextSpan>View profile</StyleTextSpan>
-                                    <KeyboardArrowRightIcon />
-                                </StyleButton>
-                            </StyleListItemBox>
-                        ))}
-                    </StyleListBox>
-                </StyleBottomBox>
-            )}
-        </StyleContainerBox>
+                    <StyleTextFieldBox
+                        id="username"
+                        variant="outlined"
+                        placeholder="Search username"
+                        value={username}
+                        name="username"
+                        onChange={(
+                            e: React.ChangeEvent<
+                                HTMLInputElement | HTMLTextAreaElement
+                            >,
+                        ) => {
+                            setUsername(e.target.value);
+                        }}
+                        helperText={usernameError}
+                        error={Boolean(usernameError)}
+                    />
+                </StyleTopBox>
+
+                {username && (
+                    <StyleBottomBox>
+                        <StyleListBox>
+                            {usersList.map((user) => (
+                                <StyleListItemBox key={user.login}>
+                                    <StyleLeftPart>
+                                        <ListItemAvatar>
+                                            <Avatar
+                                                src={user.avatar_url}
+                                                alt={user.login}
+                                            ></Avatar>
+                                        </ListItemAvatar>
+                                        <ListItemText
+                                            primary={user.login}
+                                            secondary={user.name}
+                                        />
+                                    </StyleLeftPart>
+                                    <StyleButton
+                                        onClick={() =>
+                                            handleOpenProfile(user.login)
+                                        }
+                                        variant="contained"
+                                        aria-label="View Profile"
+                                    >
+                                        <StyleTextSpan>
+                                            View profile
+                                        </StyleTextSpan>
+                                        <KeyboardArrowRightIcon />
+                                    </StyleButton>
+                                </StyleListItemBox>
+                            ))}
+                        </StyleListBox>
+                        {!loading && !usersList.length && (
+                            <StyleNotFoundBox>
+                                <Typography variant="h6" component="h1">
+                                    No user found!
+                                </Typography>
+                            </StyleNotFoundBox>
+                        )}
+                        {loading && <StyleLoader />}
+                    </StyleBottomBox>
+                )}
+            </StyleContainerBox>
+        </>
     );
 };

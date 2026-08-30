@@ -10,4 +10,6 @@ export interface UserDetail {
     following: number;
     blog: string | null;
     email: string | null;
+    created_at: string;
+    public_repos: number;
 }

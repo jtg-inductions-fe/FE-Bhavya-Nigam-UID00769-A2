@@ -26,7 +26,7 @@ export const ErrorMessage = ({
                 </Typography>
                 <StyleSadIcon />
 
-                <Button variant="contained" onClick={onClickFunction}>
+                <Button variant="contained" onClick={void onClickFunction}>
                     {buttonName}
                 </Button>
             </StyleMessageBox>

@@ -1,7 +1,7 @@
-import { FETCH_USER_FOLLOW_URL } from '@constant';
+import { FETCH_USER_FOLLOWING_URL } from '@constant';
 
 export const getUserFollow = async (username: string, token: string | null) => {
-    const fetchUrl = FETCH_USER_FOLLOW_URL + username;
+    const fetchUrl = FETCH_USER_FOLLOWING_URL + username;
     let response;
 
     if (token) {

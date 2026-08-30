@@ -1,10 +1,10 @@
-import { FETCH_USER_FOLLOW_URL } from '@constant';
+import { FETCH_USER_FOLLOWING_URL } from '@constant';
 
 export const putUserFollow = async (
     username: string | undefined,
     token: string | null,
 ) => {
-    const fetchUrl = FETCH_USER_FOLLOW_URL + username;
+    const fetchUrl = FETCH_USER_FOLLOWING_URL + username;
 
     const response = await fetch(fetchUrl, {
         method: 'PUT',

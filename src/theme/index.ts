@@ -16,7 +16,7 @@ let theme = createTheme({
     mixins,
     components,
     typography: {
-        fontFamily: 'Geist',
+        fontFamily: 'Geist-Variable',
         ...typography.typographyUtil,
     },
     spacing: (factor: number) =>

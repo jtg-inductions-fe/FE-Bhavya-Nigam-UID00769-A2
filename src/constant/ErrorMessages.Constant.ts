@@ -13,3 +13,4 @@ export const UNABLE_TO_REFRESH = 'Unable to refresh session';
 export const SEARCH_USER_ERROR = 'Unable to search users';
 export const UNABLE_TO_SEARCH = 'Failed to search users';
 export const FOLLOW_USER_ERROR = 'Unable to handle follow/unfollow request';
+export const UNABLE_TO_FETCH_REPOSITORIES = 'Unable to fetch repositories';

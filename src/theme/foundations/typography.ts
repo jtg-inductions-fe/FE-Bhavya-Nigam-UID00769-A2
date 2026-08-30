@@ -6,6 +6,8 @@ import type {
 
 import { HTML_FONT_SIZE } from '@constant';
 
+import 'non.geist';
+
 /* Custom px to rem function */
 const typographyUtil: TypographyUtils = {
     /**
@@ -22,7 +24,7 @@ const typographyUtil: TypographyUtils = {
  * @returns The function returns a TypographyOptions object, which includes various typography settings,
  */
 const typographyStyle = (theme: Theme): TypographyOptions => ({
-    fontFamily: 'Geist',
+    fontFamily: 'Geist-Variable',
     htmlFontSize: HTML_FONT_SIZE,
 
     fontWeightLight: 400,

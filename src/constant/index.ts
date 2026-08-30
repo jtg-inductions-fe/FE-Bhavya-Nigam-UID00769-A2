@@ -3,7 +3,7 @@ export {
     FETCH_AUTH_USER_URL,
     FETCH_GET_USER_URL,
     FETCH_GET_USERS_LIST_URL,
-    FETCH_USER_FOLLOW_URL,
+    FETCH_USER_FOLLOWING_URL,
 } from './Url.Constant';
 export {
     LOCAL_STORAGE_PAT,
@@ -22,6 +22,7 @@ export {
     USER_FETCH_FAILED_MSG,
     SEARCH_USER_ERROR,
     FOLLOW_USER_ERROR,
+    UNABLE_TO_FETCH_REPOSITORIES,
 } from './ErrorMessages.Constant';
 
 export {

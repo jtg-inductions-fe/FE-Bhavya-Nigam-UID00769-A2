@@ -1,4 +1,12 @@
-import { Box, Button, List, ListItem, styled, TextField } from '@mui/material';
+import {
+    Box,
+    Button,
+    CircularProgress,
+    List,
+    ListItem,
+    styled,
+    TextField,
+} from '@mui/material';
 
 export const StyleContainerBox = styled(Box)(
     ({ theme: { spacing, palette } }) => ({
@@ -54,10 +62,12 @@ export const StyleTextFieldBox = styled(TextField)(
 
 export const StyleBottomBox = styled(Box)(
     ({ theme: { spacing, palette } }) => ({
-        maxHeight: spacing(100),
+        height: spacing(100),
         overflowY: 'scroll',
         border: `1px solid ${palette.primary.main}`,
         borderRadius: spacing(4),
+        scrollbarWidth: 'none',
+        width: spacing(120),
     }),
 );
 
@@ -98,4 +108,19 @@ export const StyleTextSpan = styled('span')(({ theme: { breakpoints } }) => ({
 export const StyleSubHeading = styled(Box)(({ theme: { spacing } }) => ({
     marginLeft: spacing(4),
     marginRight: spacing(4),
+}));
+
+export const StyleLoader = styled(CircularProgress)(
+    ({ theme: { palette } }) => ({
+        position: 'relative',
+        color: palette.secondary.main,
+        top: '40%',
+        left: '44%',
+    }),
+);
+
+export const StyleNotFoundBox = styled(Box)(({ theme: { palette } }) => ({
+    display: 'flex',
+    justifyContent: 'center',
+    color: palette.text.secondary,
 }));
