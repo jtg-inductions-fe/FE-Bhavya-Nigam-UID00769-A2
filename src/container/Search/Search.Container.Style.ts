@@ -31,8 +31,7 @@ export const StyleBottomBox = styled(Box)(
     ({ theme: { spacing, palette } }) => ({
         maxHeight: spacing(100),
         overflowY: 'scroll',
-        border: '1px solid',
-        borderColor: palette.primary.main,
+        border: `1px solid ${palette.primary.main}`,
     }),
 );
 
@@ -45,11 +44,10 @@ export const StyleListItemBox = styled(ListItem)(
         display: 'flex',
         justifyContent: 'space-between',
         gap: spacing(20),
-        borderBottom: '1px solid',
-        borderColor: palette.background.paper,
+        borderBottom: `1px solid ${palette.background.paper}`,
 
         [breakpoints.down('sm')]: {
-            gap: '2px',
+            gap: spacing(0.5),
         },
     }),
 );

@@ -5,18 +5,14 @@ import { useNavigate } from 'react-router-dom';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import {
     Avatar,
-    Box,
     ListItemAvatar,
     ListItemText,
     Typography,
 } from '@mui/material';
 
-import {
-    LOCAL_STORAGE_PAT,
-    PROFILE_PAGE_URL,
-    SEARCH_USER_ERROR,
-} from '@constant';
+import { PROFILE_PAGE_URL, SEARCH_USER_ERROR } from '@constant';
 import { getUserLists } from '@services/GetUsersList.Service';
+import { useAppSelector } from '@store/store';
 import { UserSearchResult } from '@type/userSearchResult';
 
 import {
@@ -32,6 +28,8 @@ import {
 } from './Search.Container.Style';
 
 export const SearchContainer = () => {
+    const storedData = useAppSelector((state) => state.user);
+    const pat = storedData.pat;
     const [usernameError, setUsernameError] = useState('');
     const [username, setUsername] = useState('');
     const [usersList, setUsersList] = useState<UserSearchResult[]>([]);
@@ -46,8 +44,7 @@ export const SearchContainer = () => {
             }
             const searchUsers = async () => {
                 try {
-                    const token = localStorage.getItem(LOCAL_STORAGE_PAT);
-                    const data = await getUserLists(token, username.trim());
+                    const data = await getUserLists(pat, username.trim());
                     setUsersList(data);
                 } catch (e) {
                     setUsernameError(
@@ -60,10 +57,10 @@ export const SearchContainer = () => {
         }, 500);
 
         return () => clearTimeout(timer);
-    }, [username]);
+    }, [username, pat]);
 
-    const handleSubmit = (user: string) => {
-        void navigate(`${PROFILE_PAGE_URL}/${user}`);
+    const handleOpenProfile = (user: string) => {
+        void navigate(`${PROFILE_PAGE_URL}${user}`);
     };
 
     return (
@@ -87,41 +84,37 @@ export const SearchContainer = () => {
                 />
             </StyleTopBox>
 
-            {username !== '' && (
+            {username && (
                 <StyleBottomBox>
                     <StyleListBox>
                         {usersList.map((user) => (
                             <StyleListItemBox key={user.login}>
                                 <StyleLeftPart>
                                     <ListItemAvatar>
-                                        <Avatar>
-                                            <img
-                                                src={user.avatar_url}
-                                                alt={user.login}
-                                                height="40px"
-                                                width="40px"
-                                            />
-                                        </Avatar>
+                                        <Avatar
+                                            src={user.avatar_url}
+                                            alt={user.login}
+                                        ></Avatar>
                                     </ListItemAvatar>
                                     <ListItemText
                                         primary={user.login}
                                         secondary={user.name}
                                     />
                                 </StyleLeftPart>
-                                <Box>
-                                    <StyleButton
-                                        onClick={() => handleSubmit(user.login)}
-                                        variant="contained"
-                                        aria-label="View Profile"
-                                    >
-                                        <StyleTextBox>
-                                            <Typography component="p">
-                                                View profile
-                                            </Typography>
-                                        </StyleTextBox>
-                                        <KeyboardArrowRightIcon />
-                                    </StyleButton>
-                                </Box>
+                                <StyleButton
+                                    onClick={() =>
+                                        handleOpenProfile(user.login)
+                                    }
+                                    variant="contained"
+                                    aria-label="View Profile"
+                                >
+                                    <StyleTextBox>
+                                        <Typography component="p">
+                                            View profile
+                                        </Typography>
+                                    </StyleTextBox>
+                                    <KeyboardArrowRightIcon />
+                                </StyleButton>
                             </StyleListItemBox>
                         ))}
                     </StyleListBox>

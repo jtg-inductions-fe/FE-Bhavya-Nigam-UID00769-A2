@@ -1,3 +1,5 @@
+import { UNABLE_TO_SEARCH } from 'constant/ErrorMessages.Constant';
+
 import { FETCH_GET_USERS_LIST_URL } from '@constant';
 import { UserSearch } from '@type/userSearch';
 import { UserSearchResult } from '@type/userSearchResult';
@@ -6,21 +8,21 @@ export const getUserLists = async (
     token: string | null,
     username: string,
 ): Promise<UserSearchResult[]> => {
-    let userLists;
     const fetchURL = FETCH_GET_USERS_LIST_URL + username;
 
-    if (token) {
-        userLists = await fetch(fetchURL, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        });
-    } else {
-        userLists = await fetch(fetchURL);
-    }
+    const userLists = await fetch(
+        fetchURL,
+        token
+            ? {
+                  headers: {
+                      Authorization: `Bearer ${token}`,
+                  },
+              }
+            : undefined,
+    );
 
     if (!userLists.ok) {
-        throw new Error('Failed to search users');
+        throw new Error(UNABLE_TO_SEARCH);
     }
 
     const data = (await userLists.json()) as UserSearch;
