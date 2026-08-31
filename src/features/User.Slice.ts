@@ -1,6 +1,6 @@
 import { LOCAL_STORAGE_PAT, LOCAL_STORAGE_USERNAME } from '@constant';
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import { UserData } from '@type/UserData';
+import { UserData } from '@type/UserData.Types';
 
 import { preLoadData } from './User.Slice.Function';
 
@@ -20,6 +20,8 @@ export const userSlice = createSlice({
         },
         logout: (state) => {
             state.userDetails = null;
+            state.pat = null;
+            state.username = null;
             localStorage.removeItem(LOCAL_STORAGE_PAT);
             localStorage.removeItem(LOCAL_STORAGE_USERNAME);
         },

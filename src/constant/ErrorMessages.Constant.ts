@@ -9,3 +9,4 @@ export const LOGIN_MSG = 'Oops! You need to login to access this page';
 export const UNEXPECTED_ERROR_MSG =
     'We apologize! Something unexpected occurred.';
 export const USER_FETCH_FAILED_MSG = 'Failed to fetch user';
+export const UNABLE_TO_REFRESH = 'Unable to refresh session';

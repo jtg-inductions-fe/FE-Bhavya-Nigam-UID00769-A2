@@ -17,7 +17,7 @@ import {
 } from '@constant';
 import { getUser } from '@services/GetUser.Service';
 import { useAppSelector } from '@store/store';
-import { NavigationPath } from '@type/NavigationPath';
+import { NavigationPath } from '@type/NavigationPath.Types';
 import { UserDetail } from '@type/userdetails.Types';
 
 import {
@@ -79,7 +79,7 @@ export const ProfileContainer = () => {
                 alertMessage={error}
                 boxMessage={USER_NOT_FOUND}
                 buttonName="Search"
-                onClickFunction={handleNavigation('/search')}
+                onClickFunction={() => handleNavigation('/search')}
             />
         );
     }
@@ -90,7 +90,7 @@ export const ProfileContainer = () => {
                 alertMessage="Please Login"
                 boxMessage={LOGIN_MSG}
                 buttonName="Login"
-                onClickFunction={handleNavigation('/login')}
+                onClickFunction={() => handleNavigation('/login')}
             />
         );
     }
@@ -101,7 +101,7 @@ export const ProfileContainer = () => {
                 alertMessage="Something unexpected occurred."
                 boxMessage={UNEXPECTED_ERROR_MSG}
                 buttonName="Search"
-                onClickFunction={handleNavigation('/search')}
+                onClickFunction={() => handleNavigation('/search')}
             />
         );
     }
@@ -146,33 +146,27 @@ export const ProfileContainer = () => {
                     </Box>
                 </StyleFollowDetailsBox>
             </StyleMainContainerBox>
-            {user?.bio ? (
+            {user?.bio && (
                 <StyleBioBox>
                     <Typography>{user?.bio}</Typography>
                 </StyleBioBox>
-            ) : (
-                ''
             )}
 
             <StyleMoreDetailsBox>
-                {user?.blog ? (
+                {user?.blog && (
                     <StyleLinkContainerBox to={user?.blog} target="_blank">
                         <StyleMoreDetailBox>
                             <LinkIcon /> {user?.blog}
                         </StyleMoreDetailBox>
                     </StyleLinkContainerBox>
-                ) : (
-                    ''
                 )}
 
-                {user?.email ? (
+                {user?.email && (
                     <Typography component="a" href={`mailto:${user?.email}`}>
                         <StyleMoreDetailBox>
                             <MailIcon /> {user?.email}
                         </StyleMoreDetailBox>
                     </Typography>
-                ) : (
-                    ''
                 )}
             </StyleMoreDetailsBox>
 

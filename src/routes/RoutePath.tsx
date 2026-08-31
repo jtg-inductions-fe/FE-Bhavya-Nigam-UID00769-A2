@@ -18,11 +18,11 @@ export const RoutePath = () => (
             {[HOME_PAGE_URL, SEARCH_PAGE_URL].map((path, index) => (
                 <Route path={path} key={index} element={<Search />} />
             ))}
-            <Route path={PROFILE_PAGE_URL} element={<Profile />} />
-            <Route
-                path={`${PROFILE_PAGE_URL}:username`}
-                element={<Profile />}
-            />
+            {[PROFILE_PAGE_URL, `${PROFILE_PAGE_URL}:username`].map(
+                (path, index) => (
+                    <Route path={path} key={index} element={<Profile />} />
+                ),
+            )}
             <Route path="*" element={<NotFound />} />
         </Route>
         <Route path={LOGIN_PAGE_URL} element={<Login />} />

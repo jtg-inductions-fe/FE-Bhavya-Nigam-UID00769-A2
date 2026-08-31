@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 
+import { UNABLE_TO_REFRESH } from 'constant/ErrorMessages.Constant';
+
 import { login, logout } from '@features/User.Slice';
 import { useAppDispatch } from '@store/store';
 import { useAppSelector } from '@store/store';
@@ -28,13 +30,14 @@ export const SessionRefresh = () => {
                 );
             } catch (e) {
                 dispatch(logout());
-
-                alert(e);
+                throw new Error(
+                    e instanceof Error ? e.message : UNABLE_TO_REFRESH,
+                );
             }
         };
 
         void restoreSession();
-    }, [dispatch]);
+    }, [dispatch, username, password]);
 
     return null;
 };
