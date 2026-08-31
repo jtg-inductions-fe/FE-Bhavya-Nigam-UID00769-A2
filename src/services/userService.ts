@@ -1,37 +1,33 @@
 import {
-    fetchAuthUserURL,
-    forbiddenMsg,
-    unauthorizedAccessMsg,
+    FETCH_AUTH_USER_URL,
+    FORBIDDEN_MSG,
+    UNAUTHORIZED_ACCESS_MSG,
 } from '@constant';
-import { localStoragePAT, localStorageUsername } from '@constant';
-import { UserDetail } from '@type/userdetails';
+import { UserDetail } from '@type/UserDetails';
 
 export const getUser = async (
     token: string,
     username: string,
 ): Promise<UserDetail> => {
-    const authUser = await fetch(fetchAuthUserURL, {
+    const authUser = await fetch(FETCH_AUTH_USER_URL, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
     });
 
     if (authUser.status === 401) {
-        throw new Error(unauthorizedAccessMsg);
+        throw new Error(UNAUTHORIZED_ACCESS_MSG);
     }
 
     if (authUser.status === 403) {
-        throw new Error(forbiddenMsg);
+        throw new Error(FORBIDDEN_MSG);
     }
 
     const data = (await authUser.json()) as UserDetail;
 
     if (data.login !== username) {
-        throw new Error(unauthorizedAccessMsg);
+        throw new Error(UNAUTHORIZED_ACCESS_MSG);
     }
-
-    localStorage.setItem(localStorageUsername, username);
-    localStorage.setItem(localStoragePAT, token);
 
     return data;
 };

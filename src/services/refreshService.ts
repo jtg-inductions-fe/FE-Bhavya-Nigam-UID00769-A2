@@ -1,20 +1,18 @@
 import { useEffect } from 'react';
 
-import { useDispatch } from 'react-redux';
-
-import { localStoragePAT, localStorageUsername } from '@constant';
+import { LOCAL_STORAGE_PAT, LOCAL_STORAGE_USERNAME } from '@constant';
 import { login, logout } from '@features/userSlice';
-import { AppDispatch } from '@store/store';
+import { useAppDispatch } from '@store/store';
 
 import { getUser } from './userService';
 
 export const SessionRefresh = () => {
-    const dispatch = useDispatch<AppDispatch>();
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
         const restoreSession = async () => {
-            const username = localStorage.getItem(localStorageUsername);
-            const password = localStorage.getItem(localStoragePAT);
+            const username = localStorage.getItem(LOCAL_STORAGE_USERNAME);
+            const password = localStorage.getItem(LOCAL_STORAGE_PAT);
 
             if (!username || !password) return;
 
@@ -23,7 +21,9 @@ export const SessionRefresh = () => {
 
                 dispatch(
                     login({
-                        user,
+                        user: user,
+                        username: username,
+                        pat: password,
                     }),
                 );
             } catch (e) {

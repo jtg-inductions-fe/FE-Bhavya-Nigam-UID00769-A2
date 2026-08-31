@@ -1,6 +1,5 @@
 import { useState } from 'react';
 
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import GithubIcon from '@mui/icons-material/GitHub';
@@ -8,9 +7,14 @@ import { Alert, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 
-import { loginFailedMsg, passwordErrorMsg, usernameErrorMsg } from '@constant';
+import {
+    LOGIN_FAILED_MSG,
+    PASSWORD_ERROR_MSG,
+    USERNAME_ERROR_MSG,
+} from '@constant';
 import { login } from '@features/userSlice';
 import { getUser } from '@services/userService';
+import { useAppDispatch } from '@store/store';
 
 import {
     StyledBox,
@@ -32,7 +36,7 @@ export const LoginComponent = () => {
 
     let error = false;
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -42,12 +46,12 @@ export const LoginComponent = () => {
         const trimPassword = pat.trim();
 
         if (trimUsername.length < 1) {
-            setUsernameError(usernameErrorMsg);
+            setUsernameError(USERNAME_ERROR_MSG);
             error = true;
         }
 
         if (!trimPassword) {
-            setPatError(passwordErrorMsg);
+            setPatError(PASSWORD_ERROR_MSG);
             error = true;
         }
 
@@ -59,12 +63,15 @@ export const LoginComponent = () => {
             dispatch(
                 login({
                     user: res,
+                    username: trimUsername,
+                    pat: trimPassword,
                 }),
             );
 
             void navigate('/profile');
         } catch (err) {
-            const errMsg = err instanceof Error ? err.message : loginFailedMsg;
+            const errMsg =
+                err instanceof Error ? err.message : LOGIN_FAILED_MSG;
             setLoginError(errMsg);
         }
     };
@@ -110,9 +117,7 @@ export const LoginComponent = () => {
                             variant="outlined"
                             value={username}
                             name="username"
-                            onChange={(e) => {
-                                handleUsernameInput(e);
-                            }}
+                            onChange={(e) => void handleUsernameInput(e)}
                             helperText={usernameError}
                             error={Boolean(usernameError)}
                         />
@@ -123,9 +128,7 @@ export const LoginComponent = () => {
                             variant="outlined"
                             value={pat}
                             name="pat"
-                            onChange={(e) => {
-                                handlePasswordInput(e);
-                            }}
+                            onChange={(e) => void handlePasswordInput(e)}
                             type="password"
                             helperText={patError}
                             error={Boolean(patError)}
