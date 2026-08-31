@@ -1,5 +1,3 @@
-import { Link } from 'react-router-dom';
-
 import { Box, Button } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
@@ -104,7 +102,7 @@ export const StyleVisitButton = styled(Button)(({ theme: { spacing } }) => ({
     width: '100vw',
 }));
 
-export const StyleLinkContainerBox = styled(Link)(() => ({
+export const StyleLinkContainerBox = styled('a')(() => ({
     color: 'inherit',
     textDecoration: 'none',
 }));

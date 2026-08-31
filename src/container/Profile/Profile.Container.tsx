@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import LaunchIcon from '@mui/icons-material/Launch';
 import LinkIcon from '@mui/icons-material/Link';
@@ -71,6 +71,10 @@ export const ProfileContainer = () => {
 
     const handleNavigation = (path: NavigationPath) => {
         void navigate(path);
+    };
+
+    const handleOpenGitHubProfile = (url: string) => {
+        window.open(url, '_blank', 'noopener,noreferrer');
     };
 
     if (error) {
@@ -154,7 +158,11 @@ export const ProfileContainer = () => {
 
             <StyleMoreDetailsBox>
                 {user?.blog && (
-                    <StyleLinkContainerBox to={user?.blog} target="_blank">
+                    <StyleLinkContainerBox
+                        href={user?.blog}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
                         <StyleMoreDetailBox>
                             <LinkIcon /> {user?.blog}
                         </StyleMoreDetailBox>
@@ -171,12 +179,13 @@ export const ProfileContainer = () => {
             </StyleMoreDetailsBox>
 
             <StyleVisitButtonBox>
-                <Link to={user?.html_url} target="_blank">
-                    <StyleVisitButton variant="contained">
-                        <LaunchIcon />
-                        Visit GitHub Profile
-                    </StyleVisitButton>
-                </Link>
+                <StyleVisitButton
+                    variant="contained"
+                    onClick={() => handleOpenGitHubProfile(user?.html_url)}
+                >
+                    <LaunchIcon />
+                    Visit GitHub Profile
+                </StyleVisitButton>
             </StyleVisitButtonBox>
         </StyleContainerBox>
     );
