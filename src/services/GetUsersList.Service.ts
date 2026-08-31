@@ -7,6 +7,7 @@ import { UserSearchResult } from '@type/userSearchResult';
 export const getUserLists = async (
     token: string | null,
     username: string,
+    signal: AbortSignal,
 ): Promise<UserSearchResult[]> => {
     const fetchURL = FETCH_GET_USERS_LIST_URL + username;
 
@@ -17,6 +18,7 @@ export const getUserLists = async (
                   headers: {
                       Authorization: `Bearer ${token}`,
                   },
+                  signal,
               }
             : undefined,
     );

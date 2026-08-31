@@ -31,11 +31,14 @@ export const SearchContainer = () => {
     const storedData = useAppSelector((state) => state.user);
     const pat = storedData.pat;
     const [usernameError, setUsernameError] = useState('');
-    const [username, setUsername] = useState('');
+    const [username, setUsername] = useState<string>('');
     const [usersList, setUsersList] = useState<UserSearchResult[]>([]);
     const navigate = useNavigate();
 
     useEffect(() => {
+        const controller = new AbortController();
+        const signal = controller.signal;
+
         const timer = setTimeout(() => {
             setUsernameError('');
             if (!username.trim()) {
@@ -44,7 +47,11 @@ export const SearchContainer = () => {
             }
             const searchUsers = async () => {
                 try {
-                    const data = await getUserLists(pat, username.trim());
+                    const data = await getUserLists(
+                        pat,
+                        username.trim(),
+                        signal,
+                    );
                     setUsersList(data);
                 } catch (e) {
                     setUsernameError(
@@ -54,6 +61,10 @@ export const SearchContainer = () => {
             };
 
             void searchUsers();
+
+            return () => {
+                controller.abort();
+            };
         }, 500);
 
         return () => clearTimeout(timer);
@@ -76,7 +87,11 @@ export const SearchContainer = () => {
 
                 <StyleInputField
                     placeholder="Search username"
-                    onChange={(e) => {
+                    onChange={(
+                        e: React.ChangeEvent<
+                            HTMLInputElement | HTMLTextAreaElement
+                        >,
+                    ) => {
                         setUsername(e.target.value);
                     }}
                     helperText={usernameError}
