@@ -62,7 +62,7 @@ export const StyleButton = styled(Button)(({ theme: { palette } }) => ({
     color: palette.secondary.main,
 }));
 
-export const StyleTextBox = styled(Box)(({ theme: { breakpoints } }) => ({
+export const StyleTextSpan = styled('span')(({ theme: { breakpoints } }) => ({
     [breakpoints.down('sm')]: {
         display: 'none',
     },

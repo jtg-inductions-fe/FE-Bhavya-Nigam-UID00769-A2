@@ -23,7 +23,7 @@ import {
     StyleLeftPart,
     StyleListBox,
     StyleListItemBox,
-    StyleTextBox,
+    StyleTextSpan,
     StyleTopBox,
 } from './Search.Container.Style';
 
@@ -108,11 +108,7 @@ export const SearchContainer = () => {
                                     variant="contained"
                                     aria-label="View Profile"
                                 >
-                                    <StyleTextBox>
-                                        <Typography component="p">
-                                            View profile
-                                        </Typography>
-                                    </StyleTextBox>
+                                    <StyleTextSpan>View profile</StyleTextSpan>
                                     <KeyboardArrowRightIcon />
                                 </StyleButton>
                             </StyleListItemBox>
