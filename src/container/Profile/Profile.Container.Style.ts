@@ -10,21 +10,12 @@ export const StyleContainerBox = styled(Box)(({ theme: { spacing } }) => ({
     justifyContent: 'center',
     minWidth: spacing(80),
     alignItems: 'center',
+    scrollBehavior: 'initial',
 }));
 
 export const StyleImgBox = styled(Box)(() => ({
     display: 'flex',
     justifyContent: 'center',
-}));
-
-export const StyleImg = styled('img')(({ theme: { spacing } }) => ({
-    borderRadius: '50%',
-    marginTop: spacing(8),
-    marginBottom: spacing(4),
-    width: spacing(40),
-    height: spacing(40),
-
-    boxShadow: '0 0 12px 0.5px rgba(1,1,1,0.5)',
 }));
 
 export const StyleMainContainer = styled(Box)(
@@ -52,9 +43,20 @@ export const StyleProfileDetails = styled(Box)(
         flexDirection: 'column',
         boxShadow: `0 0 0 0.2px ${palette.text.primary}`,
         borderRadius: spacing(2),
+        paddingLeft: spacing(6),
+        paddingRight: spacing(6),
         paddingBottom: spacing(4),
     }),
 );
+export const StyleImg = styled('img')(({ theme: { spacing } }) => ({
+    borderRadius: '50%',
+    marginTop: spacing(8),
+    marginBottom: spacing(4),
+    width: spacing(40),
+    height: spacing(40),
+
+    boxShadow: '0 0 12px 0.5px rgba(1,1,1,0.5)',
+}));
 
 export const StyleUsernameText = styled(Box)(({ theme: { palette } }) => ({
     color: palette.text.secondary,
@@ -81,8 +83,9 @@ export const StyleBioText = styled(Box)(({ theme: { spacing } }) => ({
     fontSize: spacing(4),
 }));
 
-export const StyleDetailBox = styled(Box)(
+export const StyleDetailBox = styled('a')(
     ({ theme: { palette, spacing } }) => ({
+        textDecoration: 'none',
         display: 'flex',
         alignItems: 'center',
 
@@ -130,13 +133,20 @@ export const StyleNumberDetails = styled(Box)(() => ({
 }));
 
 export const StyleRepoDetails = styled(Box)(
-    ({ theme: { spacing, breakpoints } }) => ({
-        maxHeight: '94vh',
+    ({ theme: { spacing, breakpoints, palette } }) => ({
+        maxHeight: '90vh',
 
         display: 'flex',
         flexDirection: 'column',
         gap: spacing(4),
         overflowY: 'auto',
+        boxShadow: `0 0 0 0.2px ${palette.text.primary}`,
+        borderRadius: spacing(2),
+
+        paddingLeft: spacing(10),
+        paddingRight: spacing(10),
+        paddingTop: spacing(4),
+        paddingBottom: spacing(4),
 
         [breakpoints.down('md')]: {
             overflowY: '',
@@ -146,6 +156,7 @@ export const StyleRepoDetails = styled(Box)(
 export const StyleRepoCard = styled(Box)(({ theme: { spacing, palette } }) => ({
     border: '1px solid black',
     cursor: 'pointer',
+
     paddingLeft: spacing(4),
     paddingRight: spacing(4),
     paddingTop: spacing(2),
@@ -182,7 +193,17 @@ export const StyleRepoStars = styled(Box)(() => ({
 export const StyleStarIcon = styled(StarBorderOutlinedIcon)(() => ({}));
 
 export const StyleFollowDetails = styled(Box)(
-    ({ theme: { breakpoints, spacing } }) => ({
+    ({ theme: { breakpoints, spacing, palette } }) => ({
+        boxShadow: `0 0 0 0.2px ${palette.text.primary}`,
+        borderRadius: spacing(2),
+
+        paddingLeft: spacing(6),
+        paddingTop: spacing(4),
+        paddingBottom: spacing(4),
+
+        maxHeight: '90vh',
+        paddingRight: spacing(6),
+
         [breakpoints.down('md')]: {
             display: 'flex',
             justifyContent: 'space-around',
@@ -198,7 +219,7 @@ export const StyleFollowersBox = styled(Box)(({ theme: { spacing } }) => ({
 
     display: 'flex',
     flexDirection: 'column',
-    overflowY: 'scroll',
+
     marginBottom: spacing(3),
 }));
 export const StyleFollowingBox = styled(Box)(() => ({
@@ -206,14 +227,18 @@ export const StyleFollowingBox = styled(Box)(() => ({
 
     display: 'flex',
     flexDirection: 'column',
-    overflowY: 'scroll',
 }));
-export const StyleFollowHeading = styled(Box)(() => ({
+export const StyleFollowHeading = styled(Box)(({ theme: { spacing } }) => ({
     fontWeight: 700,
+    fontSize: spacing(5),
 }));
 
 export const StyleFollowersNameBox = styled(Box)(() => ({
     wordBreak: 'break-word',
+}));
+
+export const StyleListBox = styled(Box)(() => ({
+    overflowY: 'scroll',
 }));
 
 export const StyleListItemBox = styled(ListItem)(

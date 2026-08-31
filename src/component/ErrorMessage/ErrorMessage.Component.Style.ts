@@ -1,12 +1,13 @@
 import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied';
 import { Box, styled } from '@mui/material';
 
-export const StyleContainerBox = styled(Box)(() => ({
+export const StyleContainerBox = styled(Box)(({ theme: { palette } }) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    height: '80vh',
+    height: '89vh',
+    backgroundColor: palette.text.primary,
 }));
 
 export const StyleMessageBox = styled(Box)(
@@ -17,6 +18,7 @@ export const StyleMessageBox = styled(Box)(
         alignItems: 'center',
         justifyContent: 'center',
         gap: spacing(8),
+        color: palette.secondary.main,
         padding: spacing(10),
     }),
 );

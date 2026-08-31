@@ -50,6 +50,7 @@ import {
     StyleImg,
     StyleImgBox,
     StyleLinkIcon,
+    StyleListBox,
     StyleListButton,
     StyleListItemBox,
     StyleListLeftPart,
@@ -215,7 +216,9 @@ export const ProfileContainer = () => {
                 alertMessage={error}
                 boxMessage={USER_NOT_FOUND}
                 buttonName="Search"
-                onClickFunction={() => handleNavigation('/search')}
+                onClickFunction={() => {
+                    void handleNavigation('/search');
+                }}
             />
         );
     }
@@ -226,7 +229,9 @@ export const ProfileContainer = () => {
                 alertMessage="Please Login"
                 boxMessage={LOGIN_MSG}
                 buttonName="Login"
-                onClickFunction={() => handleNavigation('/login')}
+                onClickFunction={() => {
+                    void handleNavigation('/login');
+                }}
             />
         );
     }
@@ -237,7 +242,9 @@ export const ProfileContainer = () => {
                 alertMessage="Something unexpected occurred."
                 boxMessage={UNEXPECTED_ERROR_MSG}
                 buttonName="Search"
-                onClickFunction={() => handleNavigation('/search')}
+                onClickFunction={() => {
+                    void handleNavigation('/search');
+                }}
             />
         );
     } else {
@@ -295,10 +302,9 @@ export const ProfileContainer = () => {
                                 {user?.blog && (
                                     <StyleBlogLink>
                                         <StyleDetailBox
-                                            onClick={() =>
-                                                user.blog &&
-                                                handleOpenLink(user?.blog)
-                                            }
+                                            href={user?.blog}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
                                         >
                                             <StyleLinkIcon /> {user?.blog}
                                         </StyleDetailBox>
@@ -332,17 +338,13 @@ export const ProfileContainer = () => {
                                 </StyleSubCountHeadingDetails>
                             </StyleCountDetails>
 
-                            <Box>
-                                <Button
-                                    variant="contained"
-                                    onClick={() =>
-                                        handleOpenLink(user?.html_url)
-                                    }
-                                >
-                                    <LinkIcon />
-                                    View on GitHub
-                                </Button>
-                            </Box>
+                            <Button
+                                variant="contained"
+                                onClick={() => handleOpenLink(user?.html_url)}
+                            >
+                                <LinkIcon />
+                                View on GitHub
+                            </Button>
                         </StyleTopDetailBox>
                     </StyleProfileDetails>
                     <StyleRepoDetails>
@@ -378,7 +380,7 @@ export const ProfileContainer = () => {
                         <StyleFollowersBox>
                             <StyleFollowHeading>Followers</StyleFollowHeading>
 
-                            <Box>
+                            <StyleListBox>
                                 {userFollowList.map((follow) => (
                                     <StyleListItemBox key={follow.login}>
                                         <StyleListButton
@@ -409,13 +411,13 @@ export const ProfileContainer = () => {
                                         </StyleListButton>
                                     </StyleListItemBox>
                                 ))}
-                            </Box>
+                            </StyleListBox>
                         </StyleFollowersBox>
 
                         <StyleFollowingBox>
                             <StyleFollowHeading>Following</StyleFollowHeading>
 
-                            <Box>
+                            <StyleListBox>
                                 {userFollowingList.map((follow) => (
                                     <StyleListItemBox key={follow.login}>
                                         <StyleListButton
@@ -449,7 +451,7 @@ export const ProfileContainer = () => {
                                         </StyleListButton>
                                     </StyleListItemBox>
                                 ))}
-                            </Box>
+                            </StyleListBox>
                         </StyleFollowingBox>
                     </StyleFollowDetails>
                 </StyleMainContainer>
