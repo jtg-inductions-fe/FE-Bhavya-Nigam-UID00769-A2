@@ -227,7 +227,7 @@ export const StyleFollowersNameBox = styled(Box)(() => ({
 }));
 
 export const StyleListBox = styled(Box)(() => ({
-    overflowY: 'scroll',
+    overflowY: 'auto',
 }));
 
 export const StyleListItemBox = styled(ListItem)(
@@ -247,7 +247,7 @@ export const StyleListLeftPart = styled(Box)(() => ({
 
 export const StyleListButton = styled(Button)(
     ({ theme: { palette, spacing } }) => ({
-        textDecoration: 'none',
+        textTransform: 'none',
         backgroundColor: 'transparent',
         width: spacing(80),
         display: 'flex',

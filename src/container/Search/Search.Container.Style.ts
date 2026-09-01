@@ -63,7 +63,7 @@ export const StyleTextFieldBox = styled(TextField)(
 export const StyleBottomBox = styled(Box)(
     ({ theme: { spacing, palette } }) => ({
         height: spacing(100),
-        overflowY: 'scroll',
+        overflowY: 'auto',
         border: `1px solid ${palette.primary.main}`,
         borderRadius: spacing(4),
         scrollbarWidth: 'none',
