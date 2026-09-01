@@ -1,3 +1,3 @@
-import { LoginComponent } from '@container/Login/Login.Container';
+import { LoginContainer } from '@container/Login/Login.Container';
 
-export const Login = () => <LoginComponent />;
+export const Login = () => <LoginContainer />;

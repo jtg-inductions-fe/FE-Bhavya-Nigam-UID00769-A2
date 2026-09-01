@@ -6,6 +6,7 @@ import { COLORS } from '@constant';
 export const palette: PaletteOptions = {
     primary: {
         main: COLORS.PRIMARY.PRIMARY,
+        dark: COLORS.PRIMARY.DARK,
     },
     secondary: {
         main: COLORS.PRIMARY.SECONDARY,

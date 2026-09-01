@@ -12,9 +12,15 @@ import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 
-import { logout } from '@features/userSlice';
+import {
+    HOME_PAGE_URL,
+    LOGIN_PAGE_URL,
+    PROFILE_PAGE_URL,
+    SEARCH_PAGE_URL,
+} from '@constant';
+import { logout } from '@features/User.Slice';
 import { useAppDispatch, useAppSelector } from '@store/store';
-import { NavigationPath } from '@type/NavigationPath';
+import { NavigationPath } from '@type/NavigationPath.Types';
 
 import {
     StyleAppBar,
@@ -26,13 +32,13 @@ import {
     StyleProfileBox,
 } from './Navbar.Container.Style';
 
-export const Navbar = () => {
+export const NavbarContainer = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const location = useLocation();
     const currentPath = location.pathname;
 
-    const user = useAppSelector((state) => state.user.user);
+    const user = useAppSelector((state) => state.user.userDetails);
 
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
         null,
@@ -40,7 +46,7 @@ export const Navbar = () => {
 
     const handleLogout = () => {
         dispatch(logout());
-        handleNavigation('/login');
+        void navigate(LOGIN_PAGE_URL);
     };
 
     const handleNavigation = (path: NavigationPath) => {
@@ -70,19 +76,24 @@ export const Navbar = () => {
                         </StyleLinkContainerBox>
 
                         <StyleButtonBox>
-                            {currentPath !== '/search' && (
-                                <Button
-                                    key="Search"
-                                    onClick={() => handleNavigation('/search')}
-                                    variant="contained"
-                                >
-                                    Search
-                                </Button>
-                            )}
-                            {currentPath !== '/profile' && (
+                            {currentPath !== SEARCH_PAGE_URL &&
+                                currentPath !== HOME_PAGE_URL && (
+                                    <Button
+                                        key="Search"
+                                        onClick={() =>
+                                            handleNavigation('/search')
+                                        }
+                                        variant="contained"
+                                    >
+                                        Search
+                                    </Button>
+                                )}
+                            {currentPath !== PROFILE_PAGE_URL && user && (
                                 <Button
                                     key="Profile"
-                                    onClick={() => handleNavigation('/profile')}
+                                    onClick={() =>
+                                        handleNavigation('/profile/')
+                                    }
                                     variant="contained"
                                 >
                                     Profile
@@ -109,7 +120,7 @@ export const Navbar = () => {
                                     <MenuItem
                                         key="Profile"
                                         onClick={() =>
-                                            handleNavigation('/profile')
+                                            handleNavigation('/profile/')
                                         }
                                     >
                                         <Typography>Profile</Typography>

@@ -10,10 +10,11 @@ import TextField from '@mui/material/TextField';
 import {
     LOGIN_FAILED_MSG,
     PASSWORD_ERROR_MSG,
+    PROFILE_PAGE_URL,
     USERNAME_ERROR_MSG,
 } from '@constant';
-import { login } from '@features/userSlice';
-import { getUser } from '@services/userService';
+import { login } from '@features/User.Slice';
+import { getUser } from '@services/User.Service';
 import { useAppDispatch } from '@store/store';
 
 import {
@@ -23,7 +24,7 @@ import {
     StyleMainBox,
 } from './Login.Container.Style';
 
-export const LoginComponent = () => {
+export const LoginContainer = () => {
     const navigate = useNavigate();
 
     const [username, setUsername] = useState('');
@@ -62,13 +63,13 @@ export const LoginComponent = () => {
 
             dispatch(
                 login({
-                    user: res,
+                    userDetails: res,
                     username: trimUsername,
                     pat: trimPassword,
                 }),
             );
 
-            void navigate('/profile');
+            void navigate(PROFILE_PAGE_URL);
         } catch (err) {
             const errMsg =
                 err instanceof Error ? err.message : LOGIN_FAILED_MSG;

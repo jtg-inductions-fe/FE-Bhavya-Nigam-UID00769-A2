@@ -1,19 +1,21 @@
 import { useEffect } from 'react';
 
-import { LOCAL_STORAGE_PAT, LOCAL_STORAGE_USERNAME } from '@constant';
-import { login, logout } from '@features/userSlice';
-import { useAppDispatch } from '@store/store';
+import { UNABLE_TO_REFRESH } from 'constant/ErrorMessages.Constant';
 
-import { getUser } from './userService';
+import { login, logout } from '@features/User.Slice';
+import { useAppDispatch } from '@store/store';
+import { useAppSelector } from '@store/store';
+
+import { getUser } from './User.Service';
 
 export const SessionRefresh = () => {
     const dispatch = useAppDispatch();
+    const storedData = useAppSelector((state) => state.user);
+    const username = storedData.username;
+    const password = storedData.pat;
 
     useEffect(() => {
         const restoreSession = async () => {
-            const username = localStorage.getItem(LOCAL_STORAGE_USERNAME);
-            const password = localStorage.getItem(LOCAL_STORAGE_PAT);
-
             if (!username || !password) return;
 
             try {
@@ -21,20 +23,21 @@ export const SessionRefresh = () => {
 
                 dispatch(
                     login({
-                        user: user,
+                        userDetails: user,
                         username: username,
                         pat: password,
                     }),
                 );
             } catch (e) {
                 dispatch(logout());
-
-                alert(e);
+                throw new Error(
+                    e instanceof Error ? e.message : UNABLE_TO_REFRESH,
+                );
             }
         };
 
         void restoreSession();
-    }, [dispatch]);
+    }, [dispatch, username, password]);
 
     return null;
 };
