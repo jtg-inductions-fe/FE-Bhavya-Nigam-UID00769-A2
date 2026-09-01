@@ -11,17 +11,16 @@ export const getRepositoriesByUser = async (
 ): Promise<UserRepo[]> => {
     const fetchURL = FETCH_GET_USER_URL + username + '/repos';
 
-    let res;
-
-    if (token) {
-        res = await fetch(fetchURL, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        });
-    } else {
-        res = await fetch(fetchURL);
-    }
+    const res = await fetch(
+        fetchURL,
+        token
+            ? {
+                  headers: {
+                      Authorization: `Bearer ${token}`,
+                  },
+              }
+            : undefined,
+    );
 
     if (res.status === 404) {
         throw new Error(USER_NOT_FOUND);

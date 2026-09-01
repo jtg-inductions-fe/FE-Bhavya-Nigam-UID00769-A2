@@ -7,7 +7,7 @@ export const StyleMainBox = styled(Box)(({ theme: { palette } }) => ({
     flexDirection: 'column',
 
     background: palette.primary.main,
-    height: '100vh',
+    height: '100%',
     alignItems: 'center',
 }));
 
@@ -18,21 +18,19 @@ export const StyleContainer = styled(Box)(({ theme: { spacing } }) => ({
     backgroundImage: `url(${BackgroundNotFoundImg})`,
     backgroundSize: 'cover',
 
-    paddingTop: spacing(10),
-    paddingBottom: spacing(10),
+    padding: `${spacing(10)} 0`,
     width: '100%',
 }));
 
 export const StyleMessageBox = styled(Box)(
-    ({ theme: { spacing, palette } }) => ({
+    ({ theme: { spacing, palette, typography } }) => ({
         color: palette.secondary.main,
-        fontSize: spacing(5),
+        fontSize: typography.pxToRem(20),
         backgroundColor: palette.primary.dark,
         width: '100%',
         display: 'flex',
         justifyContent: 'center',
-        paddingTop: spacing(10),
-        paddingBottom: spacing(10),
+        padding: `${spacing(10)} 0`,
     }),
 );
 

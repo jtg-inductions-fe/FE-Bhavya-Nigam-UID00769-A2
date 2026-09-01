@@ -4,9 +4,11 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import { AppBar, Box, Button } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
-export const StyleGitHubIcon = styled(GitHubIcon)(({ theme: { spacing } }) => ({
-    fontSize: spacing(9),
-}));
+export const StyleGitHubIcon = styled(GitHubIcon)(
+    ({ theme: { typography } }) => ({
+        fontSize: typography.pxToRem(36),
+    }),
+);
 
 export const StyleAppBar = styled(AppBar)(({ theme: { spacing } }) => ({
     position: 'static',

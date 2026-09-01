@@ -6,17 +6,17 @@ import {
 
 export const getUserFollow = async (username: string, token: string | null) => {
     const fetchUrl = FETCH_USER_FOLLOWING_URL + username;
-    let response;
 
-    if (token) {
-        response = await fetch(fetchUrl, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        });
-    } else {
-        response = await fetch(fetchUrl);
-    }
+    const response = await fetch(
+        fetchUrl,
+        token
+            ? {
+                  headers: {
+                      Authorization: `Bearer ${token}`,
+                  },
+              }
+            : undefined,
+    );
 
     if (response.status === 204) {
         return true;

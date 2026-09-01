@@ -6,7 +6,6 @@ import LinkIcon from '@mui/icons-material/Link';
 import {
     Avatar,
     Box,
-    Button,
     ListItemAvatar,
     ListItemText,
     Typography,
@@ -39,6 +38,7 @@ import { UserRepo } from '@type/userRepo.Types';
 import {
     StyleBioText,
     StyleBlogLink,
+    StyleCardLink,
     StyleContainerBox,
     StyleCountDetails,
     StyleDetailBox,
@@ -48,6 +48,7 @@ import {
     StyleFollowersNameBox,
     StyleFollowHeading,
     StyleFollowingBox,
+    StyleGitHubLink,
     StyleImg,
     StyleImgBox,
     StyleLinkIcon,
@@ -134,21 +135,18 @@ export const ProfileContainer = () => {
             let followList: UserFollow[];
             let followingList: UserFollow[];
             try {
-                if (username !== undefined) {
-                    repo = await getRepositoriesByUser(username, token);
-                    followList = await getUserFollowList(username, token);
-                    followingList = await getUserFollowingList(username, token);
-                } else {
-                    repo = await getRepositoriesByUser(authUser?.login, token);
-                    followList = await getUserFollowList(
-                        authUser?.login,
-                        token,
-                    );
-                    followingList = await getUserFollowingList(
-                        authUser?.login,
-                        token,
-                    );
-                }
+                repo = await getRepositoriesByUser(
+                    username ? username : authUser?.login,
+                    token,
+                );
+                followList = await getUserFollowList(
+                    username ? username : authUser?.login,
+                    token,
+                );
+                followingList = await getUserFollowingList(
+                    username ? username : authUser?.login,
+                    token,
+                );
                 setUserRepo(repo);
                 setUserFollowList(followList);
                 setUserFollowingList(followingList);
@@ -199,12 +197,8 @@ export const ProfileContainer = () => {
                     setUser((prev) =>
                         prev
                             ? {
-                                  ...(prev
-                                      ? {
-                                            ...prev,
-                                            followers: prev.followers - 1,
-                                        }
-                                      : prev),
+                                  ...prev,
+                                  followers: prev.followers - 1,
                               }
                             : prev,
                     );
@@ -219,10 +213,6 @@ export const ProfileContainer = () => {
 
     const handleOpenProfile = (userLogin: string) => {
         void navigate(`${PROFILE_PAGE_URL}/${userLogin}`);
-    };
-
-    const handleOpenLink = (url: string) => {
-        window.open(url, '_blank');
     };
 
     if (loading) {
@@ -357,13 +347,14 @@ export const ProfileContainer = () => {
                                 </StyleSubCountHeadingDetails>
                             </StyleCountDetails>
 
-                            <Button
-                                variant="contained"
-                                onClick={() => handleOpenLink(user?.html_url)}
+                            <StyleGitHubLink
+                                href={user?.html_url}
+                                target="_blank"
+                                rel="noopener noreferrer"
                             >
                                 <LinkIcon />
                                 View on GitHub
-                            </Button>
+                            </StyleGitHubLink>
                         </StyleTopDetailBox>
                     </StyleProfileDetails>
                     <StyleRepoDetails>
@@ -377,24 +368,28 @@ export const ProfileContainer = () => {
                         )}
                         {userRepo.map((repo) => (
                             <div key={repo.name}>
-                                <StyleRepoCard
-                                    onClick={() =>
-                                        handleOpenLink(repo.html_url)
-                                    }
-                                >
-                                    <StyleRepoName>{repo.name}</StyleRepoName>
-                                    <StyleRepoDescription>
-                                        {repo.description}
-                                    </StyleRepoDescription>
-                                    <StyleRepoMoreDetails>
-                                        <Box>{repo.language}</Box>
-                                        <StyleRepoStars>
-                                            <StyleStarIcon />
-                                            <Typography>
-                                                {repo.stargazers_count}
-                                            </Typography>
-                                        </StyleRepoStars>
-                                    </StyleRepoMoreDetails>
+                                <StyleRepoCard>
+                                    <StyleCardLink
+                                        href={repo.html_url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        <StyleRepoName>
+                                            {repo.name}
+                                        </StyleRepoName>
+                                        <StyleRepoDescription>
+                                            {repo.description}
+                                        </StyleRepoDescription>
+                                        <StyleRepoMoreDetails>
+                                            <Box>{repo.language}</Box>
+                                            <StyleRepoStars>
+                                                <StyleStarIcon />
+                                                <Typography>
+                                                    {repo.stargazers_count}
+                                                </Typography>
+                                            </StyleRepoStars>
+                                        </StyleRepoMoreDetails>
+                                    </StyleCardLink>
                                 </StyleRepoCard>
                             </div>
                         ))}

@@ -9,9 +9,7 @@ export const StyleContainerBox = styled(Box)(({ theme: { spacing } }) => ({
     flexDirection: 'column',
     justifyContent: 'center',
     minWidth: spacing(80),
-    maxHeight: '84vh',
-    marginTop: spacing(10),
-    paddingTop: spacing(2),
+    maxHeight: '100%',
     alignItems: 'center',
     scrollBehavior: 'initial',
 }));
@@ -25,11 +23,8 @@ export const StyleMainContainer = styled(Box)(
     ({ theme: { spacing, breakpoints } }) => ({
         display: 'flex',
         width: '100%',
-        paddingTop: spacing(6),
         gap: spacing(10),
-        paddingBottom: spacing(6),
-        paddingRight: spacing(6),
-        paddingLeft: spacing(6),
+        padding: spacing(6),
         justifyContent: 'space-around',
 
         [breakpoints.down('md')]: {
@@ -46,9 +41,8 @@ export const StyleProfileDetails = styled(Box)(
         flexDirection: 'column',
         boxShadow: `0 0 0 0.2px ${palette.text.primary}`,
         borderRadius: spacing(2),
-        paddingLeft: spacing(6),
-        paddingRight: spacing(6),
-        paddingBottom: spacing(4),
+        padding: `${spacing(4)} ${spacing(6)}`,
+        paddingTop: 0,
     }),
 );
 export const StyleImg = styled('img')(({ theme: { spacing } }) => ({
@@ -71,29 +65,32 @@ export const StyleTopDetailBox = styled(Box)(({ theme: { spacing } }) => ({
     alignItems: 'center',
     gap: spacing(3),
 
-    paddingRight: spacing(2),
-    paddingLeft: spacing(2),
+    padding: `0 ${spacing(2)}`,
 }));
 
-export const StyleFollowButton = styled(Button)(({ theme: { spacing } }) => ({
-    fontSize: spacing(3),
-    width: spacing(40),
-    marginBottom: spacing(4),
-    marginTop: spacing(2),
-}));
+export const StyleFollowButton = styled(Button)(
+    ({ theme: { spacing, typography } }) => ({
+        fontSize: typography.pxToRem(12),
+        width: spacing(40),
+        marginBottom: spacing(4),
+        marginTop: spacing(2),
+    }),
+);
 
-export const StyleBioText = styled(Box)(({ theme: { spacing } }) => ({
-    fontSize: spacing(4),
-    maxWidth: spacing(120),
-}));
+export const StyleBioText = styled(Box)(
+    ({ theme: { spacing, typography } }) => ({
+        fontSize: typography.pxToRem(16),
+        maxWidth: spacing(120),
+    }),
+);
 
 export const StyleDetailBox = styled('a')(
-    ({ theme: { palette, spacing } }) => ({
+    ({ theme: { palette, typography } }) => ({
         textDecoration: 'none',
         display: 'flex',
         alignItems: 'center',
 
-        fontSize: spacing(3.5),
+        fontSize: typography.pxToRem(14),
         wordBreak: 'break-word',
 
         color: palette.primary.dark,
@@ -105,13 +102,13 @@ export const StyleBlogLink = styled(Box)(() => ({
 }));
 
 export const StyleLocationIcon = styled(LocationOnIcon)(
-    ({ theme: { spacing } }) => ({
-        fontSize: spacing(4),
+    ({ theme: { typography } }) => ({
+        fontSize: typography.pxToRem(16),
     }),
 );
 
-export const StyleLinkIcon = styled(LinkIcon)(({ theme: { spacing } }) => ({
-    fontSize: spacing(4),
+export const StyleLinkIcon = styled(LinkIcon)(({ theme: { typography } }) => ({
+    fontSize: typography.pxToRem(16),
 }));
 
 export const StyleCountDetails = styled(Box)(() => ({
@@ -119,15 +116,14 @@ export const StyleCountDetails = styled(Box)(() => ({
 }));
 
 export const StyleSubCountHeadingDetails = styled(Box)(
-    ({ theme: { spacing, palette } }) => ({
+    ({ theme: { spacing, palette, typography } }) => ({
         display: 'flex',
         alignContent: 'center',
         justifyContent: 'center',
         flexDirection: 'column',
-        fontSize: spacing(3.5),
+        fontSize: typography.pxToRem(14),
         border: `1px ${palette.primary.dark}`,
-        paddingLeft: spacing(1),
-        paddingRight: spacing(1),
+        padding: `0 ${spacing(1)}`,
     }),
 );
 
@@ -137,8 +133,8 @@ export const StyleNumberDetails = styled(Box)(() => ({
 }));
 
 export const StyleRepoDetails = styled(Box)(
-    ({ theme: { spacing, breakpoints, palette } }) => ({
-        maxHeight: '90vh',
+    ({ theme: { spacing, palette } }) => ({
+        maxHeight: '88vh',
 
         display: 'flex',
         flexDirection: 'column',
@@ -147,14 +143,7 @@ export const StyleRepoDetails = styled(Box)(
         boxShadow: `0 0 0 0.2px ${palette.text.primary}`,
         borderRadius: spacing(2),
 
-        paddingLeft: spacing(10),
-        paddingRight: spacing(10),
-        paddingTop: spacing(4),
-        paddingBottom: spacing(4),
-
-        [breakpoints.down('md')]: {
-            overflowY: '',
-        },
+        padding: `${spacing(4)} ${spacing(10)}`,
     }),
 );
 export const StyleRepoCard = styled(Box)(({ theme: { spacing, palette } }) => ({
@@ -162,10 +151,7 @@ export const StyleRepoCard = styled(Box)(({ theme: { spacing, palette } }) => ({
 
     cursor: 'pointer',
     borderRadius: spacing(4),
-    paddingLeft: spacing(4),
-    paddingRight: spacing(4),
-    paddingTop: spacing(2),
-    paddingBottom: spacing(2),
+    padding: `${spacing(2)} ${spacing(4)}`,
     '&:hover': {
         backgroundColor: palette.text.primary,
         '& .MuiBox-root': {
@@ -176,15 +162,16 @@ export const StyleRepoCard = styled(Box)(({ theme: { spacing, palette } }) => ({
 export const StyleRepoName = styled(Box)(() => ({
     fontWeight: 700,
 }));
-export const StyleRepoDescription = styled(Box)(({ theme: { spacing } }) => ({
-    fontSize: spacing(3.5),
-}));
+export const StyleRepoDescription = styled(Box)(
+    ({ theme: { typography } }) => ({
+        fontSize: typography.pxToRem(14),
+    }),
+);
 export const StyleRepoMoreDetails = styled(Box)(
     ({ theme: { spacing, palette } }) => ({
         display: 'flex',
         marginTop: spacing(4),
-        paddingLeft: spacing(10),
-        paddingRight: spacing(10),
+        padding: `0 ${spacing(10)}`,
         color: palette.text.secondary,
         justifyContent: 'space-between',
     }),
@@ -202,12 +189,9 @@ export const StyleFollowDetails = styled(Box)(
         boxShadow: `0 0 0 0.2px ${palette.text.primary}`,
         borderRadius: spacing(2),
 
-        paddingLeft: spacing(6),
-        paddingTop: spacing(4),
-        paddingBottom: spacing(4),
+        padding: `${spacing(4)} ${spacing(6)}`,
 
-        maxHeight: '90vh',
-        paddingRight: spacing(6),
+        maxHeight: '88vh',
 
         [breakpoints.down('md')]: {
             display: 'flex',
@@ -220,7 +204,7 @@ export const StyleFollowDetails = styled(Box)(
     }),
 );
 export const StyleFollowersBox = styled(Box)(({ theme: { spacing } }) => ({
-    maxHeight: '44vh',
+    maxHeight: '42vh',
 
     display: 'flex',
     flexDirection: 'column',
@@ -228,14 +212,14 @@ export const StyleFollowersBox = styled(Box)(({ theme: { spacing } }) => ({
     marginBottom: spacing(3),
 }));
 export const StyleFollowingBox = styled(Box)(() => ({
-    maxHeight: '44vh',
+    maxHeight: '42vh',
 
     display: 'flex',
     flexDirection: 'column',
 }));
-export const StyleFollowHeading = styled(Box)(({ theme: { spacing } }) => ({
+export const StyleFollowHeading = styled(Box)(({ theme: { typography } }) => ({
     fontWeight: 700,
-    fontSize: spacing(5),
+    fontSize: typography.pxToRem(20),
 }));
 
 export const StyleFollowersNameBox = styled(Box)(() => ({
@@ -251,8 +235,7 @@ export const StyleListItemBox = styled(ListItem)(
         display: 'flex',
         justifyContent: 'space-between',
         gap: spacing(20),
-        borderBottom: '1px solid',
-        borderColor: palette.background.paper,
+        borderBottom: `1px solid ${palette.background.paper}`,
         width: spacing(70),
     }),
 );
@@ -264,7 +247,7 @@ export const StyleListLeftPart = styled(Box)(() => ({
 
 export const StyleListButton = styled(Button)(
     ({ theme: { palette, spacing } }) => ({
-        textTransform: 'initial',
+        textDecoration: 'none',
         backgroundColor: 'transparent',
         width: spacing(80),
         display: 'flex',
@@ -276,3 +259,24 @@ export const StyleListButton = styled(Button)(
 export const StyleNotDataText = styled(Box)(({ theme: { palette } }) => ({
     color: palette.text.secondary,
 }));
+
+export const StyleCardLink = styled('a')(() => ({
+    textDecoration: 'none',
+    color: 'initial',
+}));
+
+export const StyleGitHubLink = styled('a')(
+    ({ theme: { palette, spacing } }) => ({
+        textDecoration: 'none',
+        background: palette.secondary.dark,
+        color: palette.secondary.main,
+        display: 'flex',
+        justifyContent: 'center',
+        padding: `${spacing(2)} ${spacing(6)}`,
+        gap: spacing(2),
+
+        '&:hover': {
+            opacity: 0.5,
+        },
+    }),
+);

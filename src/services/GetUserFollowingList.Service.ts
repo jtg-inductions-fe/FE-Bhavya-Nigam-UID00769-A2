@@ -5,18 +5,18 @@ export const getUserFollowingList = async (
     username: string | undefined,
     token: string | null,
 ): Promise<UserFollow[]> => {
-    let res;
     const fetchURL = FETCH_GET_USER_URL + username + '/following';
 
-    if (token) {
-        res = await fetch(fetchURL, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        });
-    } else {
-        res = await fetch(fetchURL);
-    }
+    const res = await fetch(
+        fetchURL,
+        token
+            ? {
+                  headers: {
+                      Authorization: `Bearer ${token}`,
+                  },
+              }
+            : undefined,
+    );
 
     const data = (await res.json()) as UserFollow[];
 

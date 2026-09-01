@@ -6,13 +6,12 @@ export const StyleContainerBox = styled(Box)(({ theme: { palette } }) => ({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    height: '89vh',
-    backgroundColor: palette.text.primary,
+    backgroundColor: palette.secondary.main,
 }));
 
 export const StyleMessageBox = styled(Box)(
     ({ theme: { spacing, palette } }) => ({
-        backgroundColor: palette.background.paper,
+        backgroundColor: palette.text.secondary,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -24,7 +23,7 @@ export const StyleMessageBox = styled(Box)(
 );
 
 export const StyleSadIcon = styled(SentimentDissatisfiedIcon)(
-    ({ theme: { spacing } }) => ({
-        fontSize: spacing(10),
+    ({ theme: { typography } }) => ({
+        fontSize: typography.pxToRem(40),
     }),
 );

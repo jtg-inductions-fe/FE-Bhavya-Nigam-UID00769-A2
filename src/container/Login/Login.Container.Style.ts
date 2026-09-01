@@ -35,9 +35,9 @@ export const StyledFormBox = styled(Box)(({ theme: { spacing } }) => ({
 }));
 
 export const StyleTextBox = styled(Typography)(
-    ({ theme: { palette, spacing } }) => ({
+    ({ theme: { palette, typography } }) => ({
         color: palette.text.secondary,
-        fontSize: spacing(3.5),
+        fontSize: typography.pxToRem(14),
     }),
 );
 
@@ -51,10 +51,7 @@ export const StyleTextFieldBox = styled(TextField)(
         },
         '& .MuiInputBase-input': {
             color: palette.secondary.main,
-            paddingLeft: spacing(3),
-            paddingRight: spacing(3),
-            paddingTop: spacing(1),
-            paddingBottom: spacing(1),
+            padding: `${spacing(1)} ${spacing(3)}`,
         },
 
         '& .MuiInputBase-input::placeholder': {
@@ -80,11 +77,13 @@ export const StyleLoginButton = styled(Button)(
     }),
 );
 
-export const StyleLabel = styled('label')(({ theme: { spacing } }) => ({
-    fontSize: spacing(3.5),
-    marginBottom: spacing(3),
-    fontWeight: 700,
-}));
+export const StyleLabel = styled('label')(
+    ({ theme: { spacing, typography } }) => ({
+        fontSize: typography.pxToRem(14),
+        marginBottom: spacing(3),
+        fontWeight: 700,
+    }),
+);
 
 export const StyleLink = styled(Link)(() => ({
     color: 'inherit',
