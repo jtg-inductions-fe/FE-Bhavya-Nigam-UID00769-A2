@@ -62,10 +62,8 @@ export const StyleBioBox = styled(Box)(({ theme: { spacing, palette } }) => ({
     paddingTop: spacing(10),
     paddingLeft: spacing(2.5),
     paddingBottom: spacing(10),
-    border: spacing(1),
-    borderStyle: 'solid',
+    border: `${spacing(1)} solid ${palette.background.paper}`,
     width: '100vw',
-    borderColor: palette.background.paper,
 }));
 
 export const StyleMoreDetailsBox = styled(Box)(({ theme: { spacing } }) => ({

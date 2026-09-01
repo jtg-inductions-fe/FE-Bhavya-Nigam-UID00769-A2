@@ -10,6 +10,7 @@ export const StyleGitHubIcon = styled(GitHubIcon)(({ theme: { spacing } }) => ({
 
 export const StyleAppBar = styled(AppBar)(() => ({
     position: 'static',
+    minWidth: '320px',
 }));
 
 export const StyleMainBox = styled(Box)(({ theme: { palette } }) => ({

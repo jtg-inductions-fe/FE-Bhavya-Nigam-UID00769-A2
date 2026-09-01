@@ -1,1 +1,3 @@
-export const Search = () => <div>Search</div>;
+import { SearchContainer } from '@container/Search/Search.Container';
+
+export const Search = () => <SearchContainer />;

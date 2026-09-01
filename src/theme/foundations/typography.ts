@@ -33,7 +33,7 @@ const typographyStyle = (theme: Theme): TypographyOptions => ({
         fontSize: typographyUtil.pxToRem(30),
         fontWeight: 700,
 
-        [theme.breakpoints.up('md')]: {
+        [theme.breakpoints.up('sm')]: {
             fontSize: typographyUtil.pxToRem(48),
         },
     },
@@ -41,7 +41,7 @@ const typographyStyle = (theme: Theme): TypographyOptions => ({
         fontSize: typographyUtil.pxToRem(24),
         fontWeight: 700,
 
-        [theme.breakpoints.up('md')]: {
+        [theme.breakpoints.up('sm')]: {
             fontSize: typographyUtil.pxToRem(40),
         },
     },
@@ -50,7 +50,7 @@ const typographyStyle = (theme: Theme): TypographyOptions => ({
         fontSize: typographyUtil.pxToRem(22),
         fontWeight: 700,
 
-        [theme.breakpoints.up('md')]: {
+        [theme.breakpoints.up('sm')]: {
             fontSize: typographyUtil.pxToRem(30),
         },
     },
@@ -59,7 +59,7 @@ const typographyStyle = (theme: Theme): TypographyOptions => ({
         fontSize: typographyUtil.pxToRem(16),
         fontWeight: 700,
 
-        [theme.breakpoints.up('md')]: {
+        [theme.breakpoints.up('sm')]: {
             fontSize: typographyUtil.pxToRem(24),
         },
     },
@@ -67,7 +67,7 @@ const typographyStyle = (theme: Theme): TypographyOptions => ({
         fontSize: typographyUtil.pxToRem(14),
         fontWeight: 700,
 
-        [theme.breakpoints.up('md')]: {
+        [theme.breakpoints.up('sm')]: {
             fontSize: typographyUtil.pxToRem(20),
         },
     },
@@ -75,7 +75,7 @@ const typographyStyle = (theme: Theme): TypographyOptions => ({
         fontSize: typographyUtil.pxToRem(12),
         fontWeight: 700,
 
-        [theme.breakpoints.up('md')]: {
+        [theme.breakpoints.up('sm')]: {
             fontSize: typographyUtil.pxToRem(16),
         },
     },
