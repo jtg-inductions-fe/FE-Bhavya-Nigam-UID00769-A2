@@ -27,7 +27,7 @@ export const StyleMainContainer = styled(Box)(
         padding: spacing(6),
         justifyContent: 'space-around',
 
-        [breakpoints.down('md')]: {
+        [breakpoints.down('lg')]: {
             flexDirection: 'column',
             paddingRight: spacing(4),
             paddingLeft: spacing(4),
@@ -35,7 +35,7 @@ export const StyleMainContainer = styled(Box)(
     }),
 );
 export const StyleProfileDetails = styled(Box)(
-    ({ theme: { spacing, palette } }) => ({
+    ({ theme: { spacing, palette, breakpoints } }) => ({
         display: 'flex',
         alignItems: 'center',
         flexDirection: 'column',
@@ -43,6 +43,11 @@ export const StyleProfileDetails = styled(Box)(
         borderRadius: spacing(2),
         padding: `${spacing(4)} ${spacing(6)}`,
         paddingTop: 0,
+        maxWidth: '30%',
+
+        [breakpoints.down('lg')]: {
+            minWidth: '100%',
+        },
     }),
 );
 export const StyleImg = styled('img')(({ theme: { spacing } }) => ({
@@ -142,7 +147,7 @@ export const StyleRepoDetails = styled(Box)(
         overflowY: 'auto',
         boxShadow: `0 0 0 0.2px ${palette.text.primary}`,
         borderRadius: spacing(2),
-
+        minWidth: '40%',
         padding: `${spacing(4)} ${spacing(10)}`,
     }),
 );
@@ -190,29 +195,25 @@ export const StyleFollowDetails = styled(Box)(
         borderRadius: spacing(2),
 
         padding: `${spacing(4)} ${spacing(6)}`,
-
+        maxWidth: '30%',
         maxHeight: '88vh',
 
-        [breakpoints.down('md')]: {
-            display: 'flex',
-            justifyContent: 'space-around',
-            gap: spacing(2),
-        },
-        [breakpoints.down('sm')]: {
-            display: 'block',
+        [breakpoints.down('lg')]: {
+            maxWidth: '100%',
         },
     }),
 );
 export const StyleFollowersBox = styled(Box)(({ theme: { spacing } }) => ({
-    maxHeight: '42vh',
-
+    minHeight: '42%',
+    height: spacing(110),
     display: 'flex',
     flexDirection: 'column',
 
     marginBottom: spacing(3),
 }));
-export const StyleFollowingBox = styled(Box)(() => ({
-    maxHeight: '42vh',
+export const StyleFollowingBox = styled(Box)(({ theme: { spacing } }) => ({
+    minHeight: '42%',
+    height: spacing(110),
 
     display: 'flex',
     flexDirection: 'column',
@@ -228,6 +229,7 @@ export const StyleFollowersNameBox = styled(Box)(() => ({
 
 export const StyleListBox = styled(Box)(() => ({
     overflowY: 'auto',
+    overflowX: 'hidden',
 }));
 
 export const StyleListItemBox = styled(ListItem)(
@@ -236,7 +238,7 @@ export const StyleListItemBox = styled(ListItem)(
         justifyContent: 'space-between',
         gap: spacing(20),
         borderBottom: `1px solid ${palette.background.paper}`,
-        width: spacing(70),
+        // width: spacing(70),
     }),
 );
 
@@ -245,16 +247,14 @@ export const StyleListLeftPart = styled(Box)(() => ({
     alignItems: 'center',
 }));
 
-export const StyleListButton = styled(Button)(
-    ({ theme: { palette, spacing } }) => ({
-        textTransform: 'none',
-        backgroundColor: 'transparent',
-        width: spacing(80),
-        display: 'flex',
-        justifyContent: 'start',
-        color: palette.secondary.dark,
-    }),
-);
+export const StyleListButton = styled(Button)(({ theme: { palette } }) => ({
+    textTransform: 'none',
+    backgroundColor: 'transparent',
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'start',
+    color: palette.secondary.dark,
+}));
 
 export const StyleNotDataText = styled(Box)(({ theme: { palette } }) => ({
     color: palette.text.secondary,

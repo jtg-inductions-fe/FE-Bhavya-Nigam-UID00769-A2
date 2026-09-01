@@ -416,16 +416,10 @@ export const ProfileContainer = () => {
                                         >
                                             <StyleListLeftPart>
                                                 <ListItemAvatar>
-                                                    <Avatar>
-                                                        <img
-                                                            src={
-                                                                follow.avatar_url
-                                                            }
-                                                            alt={follow.login}
-                                                            height="40px"
-                                                            width="40px"
-                                                        />
-                                                    </Avatar>
+                                                    <Avatar
+                                                        src={follow.avatar_url}
+                                                        alt={follow.login}
+                                                    />
                                                 </ListItemAvatar>
                                                 <ListItemText
                                                     primary={follow.login}
@@ -459,16 +453,10 @@ export const ProfileContainer = () => {
                                         >
                                             <StyleListLeftPart>
                                                 <ListItemAvatar>
-                                                    <Avatar>
-                                                        <img
-                                                            src={
-                                                                follow.avatar_url
-                                                            }
-                                                            alt={follow.login}
-                                                            height="40px"
-                                                            width="40px"
-                                                        />
-                                                    </Avatar>
+                                                    <Avatar
+                                                        src={follow.avatar_url}
+                                                        alt={follow.login}
+                                                    />
                                                 </ListItemAvatar>
 
                                                 <StyleFollowersNameBox>
