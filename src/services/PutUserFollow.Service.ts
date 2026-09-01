@@ -1,4 +1,8 @@
-import { FETCH_USER_FOLLOWING_URL } from '@constant';
+import {
+    FETCH_USER_FOLLOWING_URL,
+    FORBIDDEN_MSG,
+    UNAUTHORIZED_ACCESS_MSG,
+} from '@constant';
 
 export const putUserFollow = async (
     username: string | undefined,
@@ -18,9 +22,9 @@ export const putUserFollow = async (
     } else if (response.status === 404) {
         return false;
     } else if (response.status === 401) {
-        throw new Error('Required Authentication');
+        throw new Error(UNAUTHORIZED_ACCESS_MSG);
     } else if (response.status === 403) {
-        throw new Error('Forbidden');
+        throw new Error(FORBIDDEN_MSG);
     } else {
         throw new Error(await response.text());
     }

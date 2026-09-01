@@ -67,7 +67,9 @@ export const StyleBottomBox = styled(Box)(
         border: `1px solid ${palette.primary.main}`,
         borderRadius: spacing(4),
         scrollbarWidth: 'none',
-        width: spacing(120),
+        width: '100%',
+        maxWidth: spacing(120),
+        boxSizing: 'border-box',
     }),
 );
 

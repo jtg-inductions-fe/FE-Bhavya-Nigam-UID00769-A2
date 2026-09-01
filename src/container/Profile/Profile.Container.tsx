@@ -19,6 +19,7 @@ import {
     LOGIN_MSG,
     PROFILE_PAGE_URL,
     UNEXPECTED_ERROR_MSG,
+    USER_DATA_FETCH_FAILED_MSG,
     USER_FETCH_FAILED_MSG,
     USER_NOT_FOUND,
 } from '@constant';
@@ -56,6 +57,7 @@ import {
     StyleListLeftPart,
     StyleLocationIcon,
     StyleMainContainer,
+    StyleNotDataText,
     StyleNumberDetails,
     StyleProfileDetails,
     StyleRepoCard,
@@ -78,9 +80,9 @@ export const ProfileContainer = () => {
     const [error, setError] = useState<string>();
     const token = storedData.pat;
     const [isFollowed, setIsFollowed] = useState<boolean | undefined>(false);
+    const [handleFollowState, setHandleFollowState] = useState(false);
 
-    const [loading, setLoading] = useState(false);
-    let formattedDate;
+    const [loading, setLoading] = useState(true);
 
     const [user, setUser] = useState<UserDetail | null>(null);
     const [userRepo, setUserRepo] = useState<UserRepo[]>([]);
@@ -114,7 +116,7 @@ export const ProfileContainer = () => {
                         const errMsg =
                             e instanceof Error
                                 ? e.message
-                                : 'Failed to fetch user';
+                                : USER_FETCH_FAILED_MSG;
                         setError(errMsg);
                     }
                 }
@@ -131,22 +133,32 @@ export const ProfileContainer = () => {
             let repo: UserRepo[];
             let followList: UserFollow[];
             let followingList: UserFollow[];
-            if (username !== undefined) {
-                repo = await getRepositoriesByUser(username, token);
-                followList = await getUserFollowList(username, token);
-                followingList = await getUserFollowingList(username, token);
-            } else {
-                repo = await getRepositoriesByUser(authUser?.login, token);
-                followList = await getUserFollowList(authUser?.login, token);
-                followingList = await getUserFollowingList(
-                    authUser?.login,
-                    token,
+            try {
+                if (username !== undefined) {
+                    repo = await getRepositoriesByUser(username, token);
+                    followList = await getUserFollowList(username, token);
+                    followingList = await getUserFollowingList(username, token);
+                } else {
+                    repo = await getRepositoriesByUser(authUser?.login, token);
+                    followList = await getUserFollowList(
+                        authUser?.login,
+                        token,
+                    );
+                    followingList = await getUserFollowingList(
+                        authUser?.login,
+                        token,
+                    );
+                }
+                setUserRepo(repo);
+                setUserFollowList(followList);
+                setUserFollowingList(followingList);
+            } catch (e) {
+                setError(
+                    e instanceof Error ? e.message : USER_DATA_FETCH_FAILED_MSG,
                 );
+            } finally {
+                setLoading(false);
             }
-            setUserRepo(repo);
-            setUserFollowList(followList);
-            setUserFollowingList(followingList);
-            setLoading(false);
         };
 
         void fetchDetails();
@@ -157,6 +169,7 @@ export const ProfileContainer = () => {
     };
 
     const handleFollow = async () => {
+        setHandleFollowState(true);
         if (!isFollowed) {
             try {
                 const isFollowing = await putUserFollow(username, token);
@@ -174,6 +187,8 @@ export const ProfileContainer = () => {
                 }
             } catch (e) {
                 setError(e instanceof Error ? e.message : FOLLOW_USER_ERROR);
+            } finally {
+                setHandleFollowState(false);
             }
         } else {
             try {
@@ -196,10 +211,10 @@ export const ProfileContainer = () => {
                 }
             } catch (e) {
                 setError(e instanceof Error ? e.message : FOLLOW_USER_ERROR);
+            } finally {
+                setHandleFollowState(false);
             }
         }
-
-        return undefined;
     };
 
     const handleOpenProfile = (userLogin: string) => {
@@ -209,6 +224,10 @@ export const ProfileContainer = () => {
     const handleOpenLink = (url: string) => {
         window.open(url, '_blank');
     };
+
+    if (loading) {
+        return <Loader />;
+    }
 
     if (error) {
         return (
@@ -247,8 +266,6 @@ export const ProfileContainer = () => {
                 }}
             />
         );
-    } else {
-        formattedDate = new Date(user?.created_at).toLocaleDateString('en');
     }
 
     return (
@@ -282,8 +299,15 @@ export const ProfileContainer = () => {
                                     onClick={() => {
                                         void handleFollow();
                                     }}
+                                    disabled={handleFollowState}
                                 >
-                                    {isFollowed ? 'Followed' : 'Follow'}
+                                    {isFollowed
+                                        ? handleFollowState
+                                            ? 'Unfollowing'
+                                            : 'Followed'
+                                        : handleFollowState
+                                          ? 'Following'
+                                          : 'Follow'}
                                 </StyleFollowButton>
                             )}
 
@@ -310,11 +334,6 @@ export const ProfileContainer = () => {
                                         </StyleDetailBox>
                                     </StyleBlogLink>
                                 )}
-                            </Typography>
-                            <Typography component="h2" variant="h5">
-                                <StyleDetailBox>
-                                    Joined {formattedDate}
-                                </StyleDetailBox>
                             </Typography>
 
                             <StyleCountDetails>
@@ -351,6 +370,11 @@ export const ProfileContainer = () => {
                         <Typography component="h2" variant="h4">
                             Repositories
                         </Typography>
+                        {!userRepo.length && (
+                            <StyleNotDataText>
+                                No public repository available to show
+                            </StyleNotDataText>
+                        )}
                         {userRepo.map((repo) => (
                             <div key={repo.name}>
                                 <StyleRepoCard
@@ -381,6 +405,11 @@ export const ProfileContainer = () => {
                             <StyleFollowHeading>Followers</StyleFollowHeading>
 
                             <StyleListBox>
+                                {!userFollowList.length && (
+                                    <StyleNotDataText>
+                                        User has no followers
+                                    </StyleNotDataText>
+                                )}
                                 {userFollowList.map((follow) => (
                                     <StyleListItemBox key={follow.login}>
                                         <StyleListButton
@@ -418,6 +447,12 @@ export const ProfileContainer = () => {
                             <StyleFollowHeading>Following</StyleFollowHeading>
 
                             <StyleListBox>
+                                {!userFollowingList.length && (
+                                    <StyleNotDataText>
+                                        User has no following
+                                    </StyleNotDataText>
+                                )}
+
                                 {userFollowingList.map((follow) => (
                                     <StyleListItemBox key={follow.login}>
                                         <StyleListButton
@@ -456,8 +491,6 @@ export const ProfileContainer = () => {
                     </StyleFollowDetails>
                 </StyleMainContainer>
             </StyleContainerBox>
-
-            {loading && <Loader />}
         </>
     );
 };

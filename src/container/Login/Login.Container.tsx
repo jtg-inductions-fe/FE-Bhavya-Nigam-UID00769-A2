@@ -126,7 +126,11 @@ export const LoginContainer = () => {
                             placeholder="username"
                             value={username}
                             name="username"
-                            onChange={(e) => void handleUsernameInput(e)}
+                            onChange={(
+                                e: React.ChangeEvent<
+                                    HTMLInputElement | HTMLTextAreaElement
+                                >,
+                            ) => void handleUsernameInput(e)}
                             helperText={usernameError}
                             error={Boolean(usernameError)}
                         />
@@ -138,7 +142,11 @@ export const LoginContainer = () => {
                             variant="outlined"
                             value={pat}
                             name="pat"
-                            onChange={(e) => void handlePasswordInput(e)}
+                            onChange={(
+                                e: React.ChangeEvent<
+                                    HTMLInputElement | HTMLTextAreaElement
+                                >,
+                            ) => void handlePasswordInput(e)}
                             type="password"
                             helperText={patError}
                             error={Boolean(patError)}

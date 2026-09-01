@@ -9,6 +9,9 @@ export const StyleContainerBox = styled(Box)(({ theme: { spacing } }) => ({
     flexDirection: 'column',
     justifyContent: 'center',
     minWidth: spacing(80),
+    maxHeight: '84vh',
+    marginTop: spacing(10),
+    paddingTop: spacing(2),
     alignItems: 'center',
     scrollBehavior: 'initial',
 }));
@@ -81,6 +84,7 @@ export const StyleFollowButton = styled(Button)(({ theme: { spacing } }) => ({
 
 export const StyleBioText = styled(Box)(({ theme: { spacing } }) => ({
     fontSize: spacing(4),
+    maxWidth: spacing(120),
 }));
 
 export const StyleDetailBox = styled('a')(
@@ -154,9 +158,10 @@ export const StyleRepoDetails = styled(Box)(
     }),
 );
 export const StyleRepoCard = styled(Box)(({ theme: { spacing, palette } }) => ({
-    border: '1px solid black',
-    cursor: 'pointer',
+    boxShadow: `0 0 0 0.2px ${palette.text.primary}`,
 
+    cursor: 'pointer',
+    borderRadius: spacing(4),
     paddingLeft: spacing(4),
     paddingRight: spacing(4),
     paddingTop: spacing(2),
@@ -267,3 +272,7 @@ export const StyleListButton = styled(Button)(
         color: palette.secondary.dark,
     }),
 );
+
+export const StyleNotDataText = styled(Box)(({ theme: { palette } }) => ({
+    color: palette.text.secondary,
+}));

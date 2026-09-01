@@ -80,7 +80,7 @@ export const StyleLoginButton = styled(Button)(
     }),
 );
 
-export const StyleLabel = styled(Typography)(({ theme: { spacing } }) => ({
+export const StyleLabel = styled('label')(({ theme: { spacing } }) => ({
     fontSize: spacing(3.5),
     marginBottom: spacing(3),
     fontWeight: 700,
