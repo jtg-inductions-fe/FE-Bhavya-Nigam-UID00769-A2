@@ -35,7 +35,6 @@ export const SearchContainer = () => {
 
     const navigate = useNavigate();
 
-
     const handleOpenProfile = (user: string) => {
         void navigate(`${PROFILE_PAGE_URL}${user}`);
     };
