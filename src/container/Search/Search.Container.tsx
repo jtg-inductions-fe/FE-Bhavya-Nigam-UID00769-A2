@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
+import { useSearchUser } from 'hooks/useSearchUser';
 import { useNavigate } from 'react-router-dom';
 
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
@@ -10,10 +11,7 @@ import {
     Typography,
 } from '@mui/material';
 
-import { PROFILE_PAGE_URL, SEARCH_USER_ERROR } from '@constant';
-import { getUserLists } from '@services/GetUsersList.Service';
-import { useAppSelector } from '@store/store';
-import { UserSearchResult } from '@type/userSearchResult';
+import { PROFILE_PAGE_URL } from '@constant';
 
 import {
     StyleBottomBox,
@@ -28,47 +26,11 @@ import {
 } from './Search.Container.Style';
 
 export const SearchContainer = () => {
-    const storedData = useAppSelector((state) => state.user);
-    const pat = storedData.pat;
-    const [usernameError, setUsernameError] = useState('');
     const [username, setUsername] = useState<string>('');
-    const [usersList, setUsersList] = useState<UserSearchResult[]>([]);
+
+    const { usernameError, usersList } = useSearchUser(username);
+
     const navigate = useNavigate();
-
-    useEffect(() => {
-        const controller = new AbortController();
-        const signal = controller.signal;
-
-        const timer = setTimeout(() => {
-            setUsernameError('');
-            if (!username.trim()) {
-                setUsersList([]);
-                return;
-            }
-            const searchUsers = async () => {
-                try {
-                    const data = await getUserLists(
-                        pat,
-                        username.trim(),
-                        signal,
-                    );
-                    setUsersList(data);
-                } catch (e) {
-                    setUsernameError(
-                        e instanceof Error ? e.message : SEARCH_USER_ERROR,
-                    );
-                }
-            };
-
-            void searchUsers();
-
-            return () => {
-                controller.abort();
-            };
-        }, 500);
-
-        return () => clearTimeout(timer);
-    }, [username, pat]);
 
     const handleOpenProfile = (user: string) => {
         void navigate(`${PROFILE_PAGE_URL}${user}`);
