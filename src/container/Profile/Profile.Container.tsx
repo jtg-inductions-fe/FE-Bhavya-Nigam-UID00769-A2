@@ -267,6 +267,7 @@ export const ProfileContainer = () => {
                         <StyleProfileDetails>
                             <StyleImgBox>
                                 <StyleImg
+                                    loading="eager"
                                     src={user?.avatar_url}
                                     alt={user?.login}
                                 />

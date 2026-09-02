@@ -154,7 +154,9 @@ export const StyleNumberDetails = styled(Box)(({ theme: { typography } }) => ({
 export const StyleRepoDetails = styled(Box)(
     ({ theme: { spacing, palette } }) => ({
         maxHeight: '88vh',
-
+        display: 'flex',
+        flexDirection: 'column',
+        gap: spacing(4),
         overflowY: 'auto',
         boxShadow: `0 0 0 0.2px ${palette.text.primary}`,
         borderRadius: spacing(2),
@@ -206,7 +208,7 @@ export const StyleFollowDetails = styled(Box)(
         boxShadow: `0 0 0 0.2px ${palette.text.primary}`,
         borderRadius: spacing(2),
 
-        padding: `${spacing(4)} ${spacing(6)}`,
+        padding: `${spacing(2)} ${spacing(4)}`,
         width: '25%',
         maxHeight: '88vh',
 
@@ -232,7 +234,7 @@ export const StyleFollowingBox = styled(Box)(({ theme: { spacing } }) => ({
 }));
 export const StyleFollowHeading = styled(Box)(({ theme: { typography } }) => ({
     fontWeight: 700,
-    fontSize: typography.pxToRem(20),
+    fontSize: typography.pxToRem(24),
 }));
 
 export const StyleFollowersNameBox = styled(Box)(() => ({
