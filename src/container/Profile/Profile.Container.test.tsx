@@ -145,6 +145,7 @@ describe('Profile Page', () => {
         });
 
         fireEvent.click(followButton);
+        expect(putUserFollow).toHaveBeenCalledTimes(1);
 
         expect(await screen.findByText('101')).toBeInTheDocument();
     });
@@ -160,6 +161,7 @@ describe('Profile Page', () => {
         });
 
         fireEvent.click(unfollowButton);
+        expect(deleteUserFollow).toHaveBeenCalledTimes(1);
 
         expect(await screen.findByText('99')).toBeInTheDocument();
     });
