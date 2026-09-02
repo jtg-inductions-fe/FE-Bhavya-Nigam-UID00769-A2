@@ -59,11 +59,6 @@ export const StyleTextFieldBox = styled(TextField)(
             opacity: 1,
         },
 
-        '& .MuiInputBase-input::': {
-            background: 'inherit',
-            opacity: 1,
-        },
-
         marginBottom: spacing(6),
     }),
 );
