@@ -213,7 +213,7 @@ export const StyleFollowDetails = styled(Box)(
         maxHeight: '88vh',
 
         [breakpoints.down('lg')]: {
-            maxWidth: '100%',
+            width: '100%',
         },
     }),
 );

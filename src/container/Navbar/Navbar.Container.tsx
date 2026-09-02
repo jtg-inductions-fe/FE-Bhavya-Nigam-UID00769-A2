@@ -5,7 +5,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import Container from '@mui/material/Container';
 import IconButton from '@mui/material/IconButton';
-import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
@@ -29,6 +28,7 @@ import {
     StyleLinkContainerBox,
     StyleLogoHeading,
     StyleMainBox,
+    StyleMenu,
     StyleNavButton,
     StyleProfileBox,
 } from './Navbar.Container.Style';
@@ -114,7 +114,7 @@ export const NavbarContainer = () => {
                                         />
                                     </IconButton>
                                 </Tooltip>
-                                <Menu
+                                <StyleMenu
                                     id="menu-appbar"
                                     anchorEl={anchorElUser}
                                     open={Boolean(anchorElUser)}
@@ -134,7 +134,7 @@ export const NavbarContainer = () => {
                                     >
                                         <Typography>Logout</Typography>
                                     </MenuItem>
-                                </Menu>
+                                </StyleMenu>
                             </StyleProfileBox>
                         ) : (
                             <StyleNavButton

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 import GitHubIcon from '@mui/icons-material/GitHub';
-import { AppBar, Box, Button } from '@mui/material';
+import { AppBar, Box, Button, Menu } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 export const StyleGitHubIcon = styled(GitHubIcon)(
@@ -53,4 +53,15 @@ export const StyleProfileBox = styled(Box)(() => ({
 export const StyleNavButton = styled(Button)(({ theme: { palette } }) => ({
     background: palette.secondary.main,
     color: palette.secondary.dark,
+}));
+
+export const StyleMenu = styled(Menu)(({ theme: { palette } }) => ({
+    '& .MuiMenu-list': {
+        backgroundColor: palette.secondary.dark,
+        color: palette.secondary.main,
+
+        '& .MuiMenuItem-root:hover': {
+            opacity: '50%',
+        },
+    },
 }));
