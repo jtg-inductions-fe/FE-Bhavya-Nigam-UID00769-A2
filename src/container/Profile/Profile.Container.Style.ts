@@ -1,7 +1,8 @@
+import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import LinkIcon from '@mui/icons-material/Link';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
-import { Box, Button, ListItem } from '@mui/material';
+import { Box, Button, List, ListItem } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 export const StyleContainerBox = styled(Box)(({ theme: { spacing } }) => ({
@@ -43,7 +44,7 @@ export const StyleProfileDetails = styled(Box)(
         borderRadius: spacing(2),
         padding: `${spacing(4)} ${spacing(6)}`,
         paddingTop: 0,
-        maxWidth: '30%',
+        width: '25%',
 
         [breakpoints.down('lg')]: {
             minWidth: '100%',
@@ -90,30 +91,41 @@ export const StyleBioText = styled(Box)(
 );
 
 export const StyleDetailBox = styled('a')(
-    ({ theme: { palette, typography } }) => ({
+    ({ theme: { palette, spacing, typography } }) => ({
         textDecoration: 'none',
         display: 'flex',
+        gap: spacing(2),
         alignItems: 'center',
 
-        fontSize: typography.pxToRem(14),
+        fontSize: typography.pxToRem(16),
         wordBreak: 'break-word',
 
         color: palette.primary.dark,
     }),
 );
 
-export const StyleBlogLink = styled(Box)(() => ({
+export const StyleExternalLink = styled(Box)(() => ({
     cursor: 'pointer',
+
+    '&:hover': {
+        opacity: '50%',
+    },
 }));
+
+export const StyleMailIcon = styled(AlternateEmailIcon)(
+    ({ theme: { typography } }) => ({
+        fontSize: typography.pxToRem(20),
+    }),
+);
 
 export const StyleLocationIcon = styled(LocationOnIcon)(
     ({ theme: { typography } }) => ({
-        fontSize: typography.pxToRem(16),
+        fontSize: typography.pxToRem(20),
     }),
 );
 
 export const StyleLinkIcon = styled(LinkIcon)(({ theme: { typography } }) => ({
-    fontSize: typography.pxToRem(16),
+    fontSize: typography.pxToRem(20),
 }));
 
 export const StyleCountDetails = styled(Box)(() => ({
@@ -132,8 +144,10 @@ export const StyleSubCountHeadingDetails = styled(Box)(
     }),
 );
 
-export const StyleNumberDetails = styled(Box)(() => ({
+export const StyleNumberDetails = styled(Box)(({ theme: { typography } }) => ({
     display: 'flex',
+    fontWeight: 700,
+    fontSize: typography.pxToRem(18),
     justifyContent: 'center',
 }));
 
@@ -141,9 +155,6 @@ export const StyleRepoDetails = styled(Box)(
     ({ theme: { spacing, palette } }) => ({
         maxHeight: '88vh',
 
-        display: 'flex',
-        flexDirection: 'column',
-        gap: spacing(4),
         overflowY: 'auto',
         boxShadow: `0 0 0 0.2px ${palette.text.primary}`,
         borderRadius: spacing(2),
@@ -151,6 +162,7 @@ export const StyleRepoDetails = styled(Box)(
         padding: `${spacing(4)} ${spacing(10)}`,
     }),
 );
+
 export const StyleRepoCard = styled(Box)(({ theme: { spacing, palette } }) => ({
     boxShadow: `0 0 0 0.2px ${palette.text.primary}`,
 
@@ -195,7 +207,7 @@ export const StyleFollowDetails = styled(Box)(
         borderRadius: spacing(2),
 
         padding: `${spacing(4)} ${spacing(6)}`,
-        maxWidth: '30%',
+        width: '25%',
         maxHeight: '88vh',
 
         [breakpoints.down('lg')]: {
@@ -227,7 +239,7 @@ export const StyleFollowersNameBox = styled(Box)(() => ({
     wordBreak: 'break-word',
 }));
 
-export const StyleListBox = styled(Box)(() => ({
+export const StyleListBox = styled(List)(() => ({
     overflowY: 'auto',
     overflowX: 'hidden',
 }));
@@ -238,7 +250,6 @@ export const StyleListItemBox = styled(ListItem)(
         justifyContent: 'space-between',
         gap: spacing(20),
         borderBottom: `1px solid ${palette.background.paper}`,
-        // width: spacing(70),
     }),
 );
 
@@ -254,6 +265,11 @@ export const StyleListButton = styled(Button)(({ theme: { palette } }) => ({
     display: 'flex',
     justifyContent: 'start',
     color: palette.secondary.dark,
+
+    '&:hover': {
+        background: palette.secondary.dark,
+        color: palette.secondary.main,
+    },
 }));
 
 export const StyleNotDataText = styled(Box)(({ theme: { palette } }) => ({

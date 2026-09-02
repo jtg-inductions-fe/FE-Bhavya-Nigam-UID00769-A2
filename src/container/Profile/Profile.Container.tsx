@@ -37,11 +37,11 @@ import { UserRepo } from '@type/userRepo.Types';
 
 import {
     StyleBioText,
-    StyleBlogLink,
     StyleCardLink,
     StyleContainerBox,
     StyleCountDetails,
     StyleDetailBox,
+    StyleExternalLink,
     StyleFollowButton,
     StyleFollowDetails,
     StyleFollowersBox,
@@ -57,6 +57,7 @@ import {
     StyleListItemBox,
     StyleListLeftPart,
     StyleLocationIcon,
+    StyleMailIcon,
     StyleMainContainer,
     StyleNotDataText,
     StyleNumberDetails,
@@ -260,220 +261,251 @@ export const ProfileContainer = () => {
 
     return (
         <>
-            <StyleContainerBox>
-                <StyleMainContainer>
-                    <StyleProfileDetails>
-                        <StyleImgBox>
-                            <StyleImg
-                                src={user?.avatar_url}
-                                alt={user?.login}
-                            />
-                        </StyleImgBox>
+            <Box component="main">
+                <StyleContainerBox>
+                    <StyleMainContainer>
+                        <StyleProfileDetails>
+                            <StyleImgBox>
+                                <StyleImg
+                                    src={user?.avatar_url}
+                                    alt={user?.login}
+                                />
+                            </StyleImgBox>
 
-                        <StyleTopDetailBox>
-                            <Box>
-                                <Typography component="h1" variant="h5">
-                                    {user?.name ? user?.name : user?.login}
+                            <StyleTopDetailBox>
+                                <Box>
+                                    <Typography component="h1" variant="h5">
+                                        {user?.name ? user?.name : user?.login}
+                                    </Typography>
+
+                                    <StyleUsernameText>
+                                        {'@'}
+
+                                        {user?.login}
+                                    </StyleUsernameText>
+                                </Box>
+
+                                {authUser && username && (
+                                    <StyleFollowButton
+                                        variant="contained"
+                                        onClick={() => {
+                                            void handleFollow();
+                                        }}
+                                        disabled={handleFollowState}
+                                    >
+                                        {isFollowed
+                                            ? handleFollowState
+                                                ? 'Unfollowing'
+                                                : 'Followed'
+                                            : handleFollowState
+                                              ? 'Following'
+                                              : 'Follow'}
+                                    </StyleFollowButton>
+                                )}
+
+                                <StyleBioText>{user?.bio}</StyleBioText>
+                                <Typography component="h2" variant="h5">
+                                    {user?.email && (
+                                        <>
+                                            <StyleExternalLink>
+                                                <StyleDetailBox>
+                                                    <StyleMailIcon />{' '}
+                                                    {user?.email}
+                                                </StyleDetailBox>
+                                            </StyleExternalLink>
+                                        </>
+                                    )}
+                                </Typography>
+                                <Typography component="h2" variant="h5">
+                                    {user?.location && (
+                                        <>
+                                            <StyleDetailBox>
+                                                <StyleLocationIcon />{' '}
+                                                {user?.location}
+                                            </StyleDetailBox>
+                                        </>
+                                    )}
+                                </Typography>
+                                <Typography component="h2" variant="h5">
+                                    {user?.blog && (
+                                        <StyleExternalLink>
+                                            <StyleDetailBox
+                                                href={user?.blog}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                <StyleLinkIcon /> {user?.blog}
+                                            </StyleDetailBox>
+                                        </StyleExternalLink>
+                                    )}
                                 </Typography>
 
-                                <StyleUsernameText>
-                                    {'@'}
+                                <StyleCountDetails>
+                                    <StyleSubCountHeadingDetails>
+                                        <StyleNumberDetails>
+                                            {user?.followers}
+                                        </StyleNumberDetails>
+                                        Followers
+                                    </StyleSubCountHeadingDetails>
+                                    <StyleSubCountHeadingDetails>
+                                        <StyleNumberDetails>
+                                            {user?.following}
+                                        </StyleNumberDetails>
+                                        Following
+                                    </StyleSubCountHeadingDetails>
+                                    <StyleSubCountHeadingDetails>
+                                        <StyleNumberDetails>
+                                            {user?.public_repos}
+                                        </StyleNumberDetails>
+                                        <Box>Repositories</Box>
+                                    </StyleSubCountHeadingDetails>
+                                </StyleCountDetails>
 
-                                    {user?.login}
-                                </StyleUsernameText>
-                            </Box>
-
-                            {authUser && username && (
-                                <StyleFollowButton
-                                    variant="contained"
-                                    onClick={() => {
-                                        void handleFollow();
-                                    }}
-                                    disabled={handleFollowState}
+                                <StyleGitHubLink
+                                    href={user?.html_url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
                                 >
-                                    {isFollowed
-                                        ? handleFollowState
-                                            ? 'Unfollowing'
-                                            : 'Followed'
-                                        : handleFollowState
-                                          ? 'Following'
-                                          : 'Follow'}
-                                </StyleFollowButton>
+                                    <LinkIcon />
+                                    View on GitHub
+                                </StyleGitHubLink>
+                            </StyleTopDetailBox>
+                        </StyleProfileDetails>
+                        <StyleRepoDetails>
+                            <Typography component="h2" variant="h4">
+                                Repositories
+                            </Typography>
+                            {!userRepo.length && (
+                                <StyleNotDataText>
+                                    No public repository available to show
+                                </StyleNotDataText>
                             )}
 
-                            <StyleBioText>{user?.bio}</StyleBioText>
-                            <Typography component="h2" variant="h5">
-                                {user?.location && (
-                                    <>
-                                        <StyleDetailBox>
-                                            <StyleLocationIcon />{' '}
-                                            {user?.location}
-                                        </StyleDetailBox>
-                                    </>
-                                )}
-                            </Typography>
-                            <Typography component="h2" variant="h5">
-                                {user?.blog && (
-                                    <StyleBlogLink>
-                                        <StyleDetailBox
-                                            href={user?.blog}
+                            {userRepo.map((repo) => (
+                                <div key={repo.name}>
+                                    <StyleRepoCard>
+                                        <StyleCardLink
+                                            href={repo.html_url}
                                             target="_blank"
                                             rel="noopener noreferrer"
                                         >
-                                            <StyleLinkIcon /> {user?.blog}
-                                        </StyleDetailBox>
-                                    </StyleBlogLink>
-                                )}
-                            </Typography>
+                                            <StyleRepoName>
+                                                {repo.name}
+                                            </StyleRepoName>
+                                            <StyleRepoDescription>
+                                                {repo.description}
+                                            </StyleRepoDescription>
+                                            <StyleRepoMoreDetails>
+                                                <Box>{repo.language}</Box>
+                                                <StyleRepoStars>
+                                                    <StyleStarIcon />
+                                                    <Typography>
+                                                        {repo.stargazers_count}
+                                                    </Typography>
+                                                </StyleRepoStars>
+                                            </StyleRepoMoreDetails>
+                                        </StyleCardLink>
+                                    </StyleRepoCard>
+                                </div>
+                            ))}
+                        </StyleRepoDetails>
 
-                            <StyleCountDetails>
-                                <StyleSubCountHeadingDetails>
-                                    <StyleNumberDetails>
-                                        {user?.followers}
-                                    </StyleNumberDetails>
+                        <StyleFollowDetails>
+                            <StyleFollowersBox>
+                                <StyleFollowHeading>
                                     Followers
-                                </StyleSubCountHeadingDetails>
-                                <StyleSubCountHeadingDetails>
-                                    <StyleNumberDetails>
-                                        {user?.following}
-                                    </StyleNumberDetails>
-                                    Following
-                                </StyleSubCountHeadingDetails>
-                                <StyleSubCountHeadingDetails>
-                                    <StyleNumberDetails>
-                                        {user?.public_repos}
-                                    </StyleNumberDetails>
-                                    <Box>Repositories</Box>
-                                </StyleSubCountHeadingDetails>
-                            </StyleCountDetails>
+                                </StyleFollowHeading>
 
-                            <StyleGitHubLink
-                                href={user?.html_url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                <LinkIcon />
-                                View on GitHub
-                            </StyleGitHubLink>
-                        </StyleTopDetailBox>
-                    </StyleProfileDetails>
-                    <StyleRepoDetails>
-                        <Typography component="h2" variant="h4">
-                            Repositories
-                        </Typography>
-                        {!userRepo.length && (
-                            <StyleNotDataText>
-                                No public repository available to show
-                            </StyleNotDataText>
-                        )}
-                        {userRepo.map((repo) => (
-                            <div key={repo.name}>
-                                <StyleRepoCard>
-                                    <StyleCardLink
-                                        href={repo.html_url}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                    >
-                                        <StyleRepoName>
-                                            {repo.name}
-                                        </StyleRepoName>
-                                        <StyleRepoDescription>
-                                            {repo.description}
-                                        </StyleRepoDescription>
-                                        <StyleRepoMoreDetails>
-                                            <Box>{repo.language}</Box>
-                                            <StyleRepoStars>
-                                                <StyleStarIcon />
-                                                <Typography>
-                                                    {repo.stargazers_count}
-                                                </Typography>
-                                            </StyleRepoStars>
-                                        </StyleRepoMoreDetails>
-                                    </StyleCardLink>
-                                </StyleRepoCard>
-                            </div>
-                        ))}
-                    </StyleRepoDetails>
-
-                    <StyleFollowDetails>
-                        <StyleFollowersBox>
-                            <StyleFollowHeading>Followers</StyleFollowHeading>
-
-                            <StyleListBox>
-                                {!userFollowList.length && (
-                                    <StyleNotDataText>
-                                        User has no followers
-                                    </StyleNotDataText>
-                                )}
-                                {userFollowList.map((follow) => (
-                                    <StyleListItemBox key={follow.login}>
-                                        <StyleListButton
-                                            onClick={() =>
-                                                handleOpenProfile(follow.login)
-                                            }
-                                            variant="contained"
-                                            aria-label="View Profile"
-                                        >
-                                            <StyleListLeftPart>
-                                                <ListItemAvatar>
-                                                    <Avatar
-                                                        src={follow.avatar_url}
-                                                        alt={follow.login}
-                                                    />
-                                                </ListItemAvatar>
-                                                <ListItemText
-                                                    primary={follow.login}
-                                                    secondary={follow.name}
-                                                />
-                                            </StyleListLeftPart>
-                                        </StyleListButton>
-                                    </StyleListItemBox>
-                                ))}
-                            </StyleListBox>
-                        </StyleFollowersBox>
-
-                        <StyleFollowingBox>
-                            <StyleFollowHeading>Following</StyleFollowHeading>
-
-                            <StyleListBox>
-                                {!userFollowingList.length && (
-                                    <StyleNotDataText>
-                                        User has no following
-                                    </StyleNotDataText>
-                                )}
-
-                                {userFollowingList.map((follow) => (
-                                    <StyleListItemBox key={follow.login}>
-                                        <StyleListButton
-                                            onClick={() =>
-                                                handleOpenProfile(follow.login)
-                                            }
-                                            variant="contained"
-                                            aria-label="View Profile"
-                                        >
-                                            <StyleListLeftPart>
-                                                <ListItemAvatar>
-                                                    <Avatar
-                                                        src={follow.avatar_url}
-                                                        alt={follow.login}
-                                                    />
-                                                </ListItemAvatar>
-
-                                                <StyleFollowersNameBox>
+                                <StyleListBox>
+                                    {!userFollowList.length && (
+                                        <StyleNotDataText>
+                                            User has no followers
+                                        </StyleNotDataText>
+                                    )}
+                                    {userFollowList.map((follow) => (
+                                        <StyleListItemBox key={follow.login}>
+                                            <StyleListButton
+                                                onClick={() =>
+                                                    handleOpenProfile(
+                                                        follow.login,
+                                                    )
+                                                }
+                                                variant="contained"
+                                                aria-label="View Profile"
+                                            >
+                                                <StyleListLeftPart>
+                                                    <ListItemAvatar>
+                                                        <Avatar
+                                                            src={
+                                                                follow.avatar_url
+                                                            }
+                                                            alt={follow.login}
+                                                        />
+                                                    </ListItemAvatar>
                                                     <ListItemText
                                                         primary={follow.login}
                                                         secondary={follow.name}
                                                     />
-                                                </StyleFollowersNameBox>
-                                            </StyleListLeftPart>
-                                        </StyleListButton>
-                                    </StyleListItemBox>
-                                ))}
-                            </StyleListBox>
-                        </StyleFollowingBox>
-                    </StyleFollowDetails>
-                </StyleMainContainer>
-            </StyleContainerBox>
+                                                </StyleListLeftPart>
+                                            </StyleListButton>
+                                        </StyleListItemBox>
+                                    ))}
+                                </StyleListBox>
+                            </StyleFollowersBox>
+
+                            <StyleFollowingBox>
+                                <StyleFollowHeading>
+                                    Following
+                                </StyleFollowHeading>
+
+                                <StyleListBox>
+                                    {!userFollowingList.length && (
+                                        <StyleNotDataText>
+                                            User has no following
+                                        </StyleNotDataText>
+                                    )}
+
+                                    {userFollowingList.map((follow) => (
+                                        <StyleListItemBox key={follow.login}>
+                                            <StyleListButton
+                                                onClick={() =>
+                                                    handleOpenProfile(
+                                                        follow.login,
+                                                    )
+                                                }
+                                                variant="contained"
+                                                aria-label="View Profile"
+                                            >
+                                                <StyleListLeftPart>
+                                                    <ListItemAvatar>
+                                                        <Avatar
+                                                            src={
+                                                                follow.avatar_url
+                                                            }
+                                                            alt={follow.login}
+                                                        />
+                                                    </ListItemAvatar>
+
+                                                    <StyleFollowersNameBox>
+                                                        <ListItemText
+                                                            primary={
+                                                                follow.login
+                                                            }
+                                                            secondary={
+                                                                follow.name
+                                                            }
+                                                        />
+                                                    </StyleFollowersNameBox>
+                                                </StyleListLeftPart>
+                                            </StyleListButton>
+                                        </StyleListItemBox>
+                                    ))}
+                                </StyleListBox>
+                            </StyleFollowingBox>
+                        </StyleFollowDetails>
+                    </StyleMainContainer>
+                </StyleContainerBox>
+            </Box>
         </>
     );
 };
