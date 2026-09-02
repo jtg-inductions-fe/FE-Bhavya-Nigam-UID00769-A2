@@ -18,7 +18,7 @@ export const StyleContainer = styled(Box)(({ theme: { spacing } }) => ({
     backgroundImage: `url(${BackgroundNotFoundImg})`,
     backgroundSize: 'cover',
 
-    padding: `${spacing(10)} 0`,
+    padding: spacing(10, 0),
     width: '100%',
 }));
 
@@ -30,7 +30,7 @@ export const StyleMessageBox = styled(Box)(
         width: '100%',
         display: 'flex',
         justifyContent: 'center',
-        padding: `${spacing(10)} 0`,
+        padding: spacing(10, 0),
     }),
 );
 

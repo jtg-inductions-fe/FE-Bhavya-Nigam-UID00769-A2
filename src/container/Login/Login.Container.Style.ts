@@ -51,7 +51,7 @@ export const StyleTextFieldBox = styled(TextField)(
         },
         '& .MuiInputBase-input': {
             color: palette.secondary.main,
-            padding: `${spacing(1)} ${spacing(3)}`,
+            padding: spacing(1, 3),
         },
 
         '& .MuiInputBase-input::placeholder': {

@@ -15,3 +15,5 @@ dist
 .idea
 .DS_Store
 *.sw?
+tsconfig.node.tsbuildinfo
+tsconfig.app.tsbuildinfo

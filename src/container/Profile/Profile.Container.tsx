@@ -132,19 +132,17 @@ export const ProfileContainer = () => {
 
         const fetchDetails = async () => {
             setLoading(true);
-            let repo: UserRepo[];
-            let followList: UserFollow[];
-            let followingList: UserFollow[];
+
             try {
-                repo = await getRepositoriesByUser(
+                const repo = await getRepositoriesByUser(
                     username ? username : authUser?.login,
                     token,
                 );
-                followList = await getUserFollowList(
+                const followList = await getUserFollowList(
                     username ? username : authUser?.login,
                     token,
                 );
-                followingList = await getUserFollowingList(
+                const followingList = await getUserFollowingList(
                     username ? username : authUser?.login,
                     token,
                 );

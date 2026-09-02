@@ -30,8 +30,7 @@ export const StyleMainContainer = styled(Box)(
 
         [breakpoints.down('lg')]: {
             flexDirection: 'column',
-            paddingRight: spacing(4),
-            paddingLeft: spacing(4),
+            padding: spacing(0, 4),
         },
     }),
 );
@@ -42,7 +41,7 @@ export const StyleProfileDetails = styled(Box)(
         flexDirection: 'column',
         boxShadow: `0 0 0 0.2px ${palette.text.primary}`,
         borderRadius: spacing(2),
-        padding: `${spacing(4)} ${spacing(6)}`,
+        padding: spacing(4, 6),
         paddingTop: 0,
         width: '25%',
 
@@ -70,8 +69,7 @@ export const StyleTopDetailBox = styled(Box)(({ theme: { spacing } }) => ({
     flexDirection: 'column',
     alignItems: 'center',
     gap: spacing(3),
-
-    padding: `0 ${spacing(2)}`,
+    padding: spacing(0, 2),
 }));
 
 export const StyleFollowButton = styled(Button)(
@@ -140,7 +138,7 @@ export const StyleSubCountHeadingDetails = styled(Box)(
         flexDirection: 'column',
         fontSize: typography.pxToRem(14),
         border: `1px ${palette.primary.dark}`,
-        padding: `0 ${spacing(1)}`,
+        padding: spacing(0, 1),
     }),
 );
 
@@ -161,7 +159,7 @@ export const StyleRepoDetails = styled(Box)(
         boxShadow: `0 0 0 0.2px ${palette.text.primary}`,
         borderRadius: spacing(2),
         minWidth: '40%',
-        padding: `${spacing(4)} ${spacing(10)}`,
+        padding: spacing(4, 10),
     }),
 );
 
@@ -170,7 +168,7 @@ export const StyleRepoCard = styled(Box)(({ theme: { spacing, palette } }) => ({
 
     cursor: 'pointer',
     borderRadius: spacing(4),
-    padding: `${spacing(2)} ${spacing(4)}`,
+    padding: spacing(2, 4),
     '&:hover': {
         backgroundColor: palette.text.primary,
         '& .MuiBox-root': {
@@ -208,7 +206,7 @@ export const StyleFollowDetails = styled(Box)(
         boxShadow: `0 0 0 0.2px ${palette.text.primary}`,
         borderRadius: spacing(2),
 
-        padding: `${spacing(2)} ${spacing(4)}`,
+        padding: spacing(2, 4),
         width: '25%',
         maxHeight: '88vh',
 
@@ -246,14 +244,11 @@ export const StyleListBox = styled(List)(() => ({
     overflowX: 'hidden',
 }));
 
-export const StyleListItemBox = styled(ListItem)(
-    ({ theme: { spacing, palette } }) => ({
-        display: 'flex',
-        justifyContent: 'space-between',
-        gap: spacing(20),
-        borderBottom: `1px solid ${palette.background.paper}`,
-    }),
-);
+export const StyleListItemBox = styled(ListItem)(({ theme: { spacing } }) => ({
+    display: 'flex',
+    justifyContent: 'space-between',
+    gap: spacing(20),
+}));
 
 export const StyleListLeftPart = styled(Box)(() => ({
     display: 'flex',
@@ -290,7 +285,7 @@ export const StyleGitHubLink = styled('a')(
         color: palette.secondary.main,
         display: 'flex',
         justifyContent: 'center',
-        padding: `${spacing(2)} ${spacing(6)}`,
+        padding: spacing(2, 6),
         gap: spacing(2),
 
         '&:hover': {
