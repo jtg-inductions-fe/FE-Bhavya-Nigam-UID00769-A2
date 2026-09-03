@@ -55,6 +55,12 @@ const mockStore = {
     pat: 'testpat',
 };
 
+const mockEmptyStore = {
+    userDetails: null,
+    username: null,
+    pat: null,
+};
+
 const mockUser = mockStore.userDetails;
 
 const mockRepos = [
@@ -172,5 +178,46 @@ describe('Profile Page', () => {
         render(<ProfileContainer />);
 
         expect(await screen.findAllByText(USER_NOT_FOUND)).toHaveLength(2);
+    });
+
+    it('shows error when unauthenticated user fetch profile details', async () => {
+        vi.mocked(useAppSelector).mockReturnValue(mockEmptyStore);
+        vi.mocked(getUser).mockRejectedValue(new Error(USER_NOT_FOUND));
+
+        render(<ProfileContainer />);
+
+        expect(await screen.findAllByText(USER_NOT_FOUND)).toHaveLength(2);
+    });
+
+    it('shows error when user follow fails', async () => {
+        vi.mocked(getUserFollow).mockResolvedValue(false);
+        vi.mocked(putUserFollow).mockResolvedValue(false);
+
+        render(<ProfileContainer />);
+
+        const followButton = await screen.findByRole('button', {
+            name: /^Follow$/i,
+        });
+
+        fireEvent.click(followButton);
+        expect(putUserFollow).toHaveBeenCalledTimes(1);
+
+        expect(await screen.findByText(/^Follow$/i)).toBeInTheDocument();
+    });
+
+    it('shows error when user unfollow fails', async () => {
+        vi.mocked(getUserFollow).mockResolvedValue(true);
+        vi.mocked(deleteUserFollow).mockResolvedValue(false);
+
+        render(<ProfileContainer />);
+
+        const unfollowButton = await screen.findByRole('button', {
+            name: /^Followed$/i,
+        });
+
+        fireEvent.click(unfollowButton);
+        expect(deleteUserFollow).toHaveBeenCalledTimes(1);
+
+        expect(await screen.findByText(/^Followed$/i)).toBeInTheDocument();
     });
 });

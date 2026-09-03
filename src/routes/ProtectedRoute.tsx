@@ -5,5 +5,5 @@ import { useAppSelector } from '@store/store';
 
 export const ProtectedRoute = () => {
     const userData = useAppSelector((state) => state.user);
-    return userData ? <Outlet /> : <Navigate to={LOGIN_PAGE_URL} replace />;
+    return userData.pat ? <Outlet /> : <Navigate to={LOGIN_PAGE_URL} replace />;
 };
