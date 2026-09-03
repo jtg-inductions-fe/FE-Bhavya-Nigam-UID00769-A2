@@ -1,111 +1,295 @@
-import { Box, Button } from '@mui/material';
+import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
+import LinkIcon from '@mui/icons-material/Link';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
+import { Box, Button, List, ListItem } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
-export const StyleContainerBox = styled(Box)(() => ({
+export const StyleContainerBox = styled(Box)(({ theme: { spacing } }) => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
+    minWidth: spacing(80),
+    maxHeight: '100%',
     alignItems: 'center',
+    scrollBehavior: 'initial',
 }));
 
-export const StyleMainContainerBox = styled(Box)(({ theme: { spacing } }) => ({
+export const StyleImgBox = styled(Box)(() => ({
     display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    gap: spacing(10),
-    paddingTop: spacing(25),
-    textAlign: 'center',
+    justifyContent: 'center',
 }));
 
-export const StyleImgBox = styled('img')(({ theme: { spacing } }) => ({
-    borderRadius: spacing(2.5),
-    width: spacing(32.5),
-    height: spacing(32.5),
+export const StyleMainContainer = styled(Box)(
+    ({ theme: { spacing, breakpoints } }) => ({
+        display: 'flex',
+        width: '100%',
+        gap: spacing(10),
+        padding: spacing(6),
+        justifyContent: 'space-around',
+
+        [breakpoints.down('lg')]: {
+            flexDirection: 'column',
+            padding: spacing(0, 4),
+        },
+    }),
+);
+export const StyleProfileDetails = styled(Box)(
+    ({ theme: { spacing, palette, breakpoints } }) => ({
+        display: 'flex',
+        alignItems: 'center',
+        flexDirection: 'column',
+        boxShadow: `0 0 0 0.2px ${palette.text.primary}`,
+        borderRadius: spacing(2),
+        padding: spacing(4, 6),
+        paddingTop: 0,
+        width: '25%',
+
+        [breakpoints.down('lg')]: {
+            minWidth: '100%',
+        },
+    }),
+);
+export const StyleImg = styled('img')(({ theme: { spacing } }) => ({
+    borderRadius: '50%',
+    marginTop: spacing(8),
+    marginBottom: spacing(4),
+    width: spacing(40),
+    height: spacing(40),
 
     boxShadow: '0 0 12px 0.5px rgba(1,1,1,0.5)',
+}));
+
+export const StyleUsernameText = styled(Box)(({ theme: { palette } }) => ({
+    color: palette.text.secondary,
 }));
 
 export const StyleTopDetailBox = styled(Box)(({ theme: { spacing } }) => ({
     display: 'flex',
     flexDirection: 'column',
-    gap: spacing(1),
+    alignItems: 'center',
+    gap: spacing(3),
+    padding: spacing(0, 2),
 }));
 
-export const StyleLocationDetailBox = styled(Box)(({ theme: { palette } }) => ({
+export const StyleFollowButton = styled(Button)(
+    ({ theme: { spacing, typography } }) => ({
+        fontSize: typography.pxToRem(12),
+        width: spacing(40),
+        marginBottom: spacing(4),
+        marginTop: spacing(2),
+    }),
+);
+
+export const StyleBioText = styled(Box)(
+    ({ theme: { spacing, typography } }) => ({
+        fontSize: typography.pxToRem(16),
+        maxWidth: spacing(120),
+    }),
+);
+
+export const StyleDetailBox = styled('a')(
+    ({ theme: { palette, spacing, typography } }) => ({
+        textDecoration: 'none',
+        display: 'flex',
+        gap: spacing(2),
+        alignItems: 'center',
+
+        fontSize: typography.pxToRem(16),
+        wordBreak: 'break-word',
+
+        color: palette.primary.dark,
+    }),
+);
+
+export const StyleExternalLink = styled(Box)(() => ({
+    cursor: 'pointer',
+
+    '&:hover': {
+        opacity: '50%',
+    },
+}));
+
+export const StyleMailIcon = styled(AlternateEmailIcon)(
+    ({ theme: { typography } }) => ({
+        fontSize: typography.pxToRem(20),
+    }),
+);
+
+export const StyleLocationIcon = styled(LocationOnIcon)(
+    ({ theme: { typography } }) => ({
+        fontSize: typography.pxToRem(20),
+    }),
+);
+
+export const StyleLinkIcon = styled(LinkIcon)(({ theme: { typography } }) => ({
+    fontSize: typography.pxToRem(20),
+}));
+
+export const StyleCountDetails = styled(Box)(() => ({
+    display: 'flex',
+}));
+
+export const StyleSubCountHeadingDetails = styled(Box)(
+    ({ theme: { spacing, palette, typography } }) => ({
+        display: 'flex',
+        alignContent: 'center',
+        justifyContent: 'center',
+        flexDirection: 'column',
+        fontSize: typography.pxToRem(14),
+        border: `1px ${palette.primary.dark}`,
+        padding: spacing(0, 1),
+    }),
+);
+
+export const StyleNumberDetails = styled(Box)(({ theme: { typography } }) => ({
+    display: 'flex',
+    fontWeight: 700,
+    fontSize: typography.pxToRem(18),
+    justifyContent: 'center',
+}));
+
+export const StyleRepoDetails = styled(Box)(
+    ({ theme: { spacing, palette } }) => ({
+        maxHeight: '88vh',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: spacing(4),
+        overflowY: 'auto',
+        boxShadow: `0 0 0 0.2px ${palette.text.primary}`,
+        borderRadius: spacing(2),
+        minWidth: '40%',
+        padding: spacing(4, 10),
+    }),
+);
+
+export const StyleRepoCard = styled(Box)(({ theme: { spacing, palette } }) => ({
+    boxShadow: `0 0 0 0.2px ${palette.text.primary}`,
+
+    cursor: 'pointer',
+    borderRadius: spacing(4),
+    padding: spacing(2, 4),
+    '&:hover': {
+        backgroundColor: palette.text.primary,
+        '& .MuiBox-root': {
+            color: palette.secondary.main,
+        },
+    },
+}));
+export const StyleRepoName = styled(Box)(() => ({
+    fontWeight: 700,
+}));
+export const StyleRepoDescription = styled(Box)(
+    ({ theme: { typography } }) => ({
+        fontSize: typography.pxToRem(14),
+    }),
+);
+export const StyleRepoMoreDetails = styled(Box)(
+    ({ theme: { spacing, palette } }) => ({
+        display: 'flex',
+        marginTop: spacing(4),
+        padding: `0 ${spacing(10)}`,
+        color: palette.text.secondary,
+        justifyContent: 'space-between',
+    }),
+);
+export const StyleRepoStars = styled(Box)(() => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-
-    color: palette.primary.dark,
 }));
 
-export const StyleFollowDetailsBox = styled(Box)(
-    ({ theme: { spacing, palette } }) => ({
-        display: 'flex',
-        justifyContent: 'center',
-        gap: spacing(5),
-        paddingTop: spacing(2.5),
-        paddingBottom: spacing(2.5),
-        width: '100vw',
-        background: palette.background.paper,
+export const StyleStarIcon = styled(StarBorderOutlinedIcon)(() => ({}));
+
+export const StyleFollowDetails = styled(Box)(
+    ({ theme: { breakpoints, spacing, palette } }) => ({
+        boxShadow: `0 0 0 0.2px ${palette.text.primary}`,
+        borderRadius: spacing(2),
+
+        padding: spacing(2, 4),
+        width: '25%',
+        maxHeight: '88vh',
+
+        [breakpoints.down('lg')]: {
+            width: '100%',
+        },
     }),
 );
-
-export const StyleMidLine = styled(Box)(({ theme: { spacing } }) => ({
-    height: spacing(12.5),
-    boxShadow: '0 0 1px 0.5px rgba(1,1,1,0.5)',
-}));
-
-export const StyleBioBox = styled(Box)(({ theme: { spacing, palette } }) => ({
-    marginTop: spacing(10),
-    marginBottom: spacing(10),
-    paddingTop: spacing(10),
-    paddingLeft: spacing(2.5),
-    paddingBottom: spacing(10),
-    border: `${spacing(1)} solid ${palette.background.paper}`,
-    width: '100vw',
-}));
-
-export const StyleMoreDetailsBox = styled(Box)(({ theme: { spacing } }) => ({
-    width: '100vw',
+export const StyleFollowersBox = styled(Box)(({ theme: { spacing } }) => ({
+    minHeight: '42%',
+    height: spacing(110),
     display: 'flex',
     flexDirection: 'column',
-    gap: spacing(2.5),
-    marginTop: spacing(2.5),
+
+    marginBottom: spacing(3),
+}));
+export const StyleFollowingBox = styled(Box)(({ theme: { spacing } }) => ({
+    minHeight: '42%',
+    height: spacing(110),
+
+    display: 'flex',
+    flexDirection: 'column',
+}));
+export const StyleFollowHeading = styled(Box)(({ theme: { typography } }) => ({
+    fontWeight: 700,
+    fontSize: typography.pxToRem(24),
 }));
 
-export const StyleMoreDetailBox = styled(Box)(
-    ({ theme: { spacing, palette } }) => ({
-        backgroundColor: palette.background.paper,
-        display: 'flex',
-        paddingTop: spacing(2.5),
-        paddingBottom: spacing(2.5),
-        paddingLeft: spacing(3.75),
-        cursor: 'pointer',
-        alignItems: 'center',
-        gap: spacing(2.5),
-        color: palette.primary.main,
+export const StyleFollowersNameBox = styled(Box)(() => ({
+    wordBreak: 'break-word',
+}));
+
+export const StyleListBox = styled(List)(() => ({
+    overflowY: 'auto',
+    overflowX: 'hidden',
+}));
+
+export const StyleListItemBox = styled(ListItem)(({ theme: { spacing } }) => ({
+    display: 'flex',
+    justifyContent: 'space-between',
+    gap: spacing(20),
+}));
+
+export const StyleListLeftPart = styled(Box)(() => ({
+    display: 'flex',
+    alignItems: 'center',
+}));
+
+export const StyleListButton = styled(Button)(({ theme: { palette } }) => ({
+    textTransform: 'none',
+    backgroundColor: 'transparent',
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'start',
+    color: palette.secondary.dark,
+
+    '&:hover': {
+        background: palette.secondary.dark,
+        color: palette.secondary.main,
+    },
+}));
+
+export const StyleNotDataText = styled(Box)(({ theme: { palette } }) => ({
+    color: palette.text.secondary,
+}));
+
+export const StyleCardLink = styled('a')(() => ({
+    textDecoration: 'none',
+    color: 'initial',
+}));
+
+export const StyleGitHubLink = styled('a')(
+    ({ theme: { palette, spacing } }) => ({
         textDecoration: 'none',
+        background: palette.secondary.dark,
+        color: palette.secondary.main,
+        display: 'flex',
+        justifyContent: 'center',
+        padding: spacing(2, 6),
+        gap: spacing(2),
+
+        '&:hover': {
+            opacity: 0.5,
+        },
     }),
 );
-
-export const StyleVisitButtonBox = styled(Box)(({ theme: { spacing } }) => ({
-    width: '100vw',
-    marginTop: spacing(5),
-}));
-
-export const StyleVisitButton = styled(Button)(({ theme: { spacing } }) => ({
-    display: 'flex',
-    gap: spacing(2.5),
-    width: '100vw',
-}));
-
-export const StyleLinkContainerBox = styled('a')(() => ({
-    color: 'inherit',
-    textDecoration: 'none',
-}));
-
-export const StyleButton = styled(Button)(({ theme: { spacing } }) => ({
-    width: '100vw',
-    marginTop: spacing(2.5),
-}));

@@ -10,11 +10,14 @@ export const useSearchUser = (username: string) => {
     const pat = storedData.pat;
     const [usernameError, setUsernameError] = useState('');
     const [usersList, setUsersList] = useState<UserSearchResult[]>([]);
+    const [loading, setLoading] = useState(false);
+
     useEffect(() => {
         const controller = new AbortController();
         const signal = controller.signal;
 
         const timer = setTimeout(() => {
+            setLoading(true);
             setUsernameError('');
             if (!username.trim()) {
                 setUsersList([]);
@@ -32,18 +35,19 @@ export const useSearchUser = (username: string) => {
                     setUsernameError(
                         e instanceof Error ? e.message : SEARCH_USER_ERROR,
                     );
+                } finally {
+                    setLoading(false);
                 }
             };
 
             void searchUsers();
-
-            return () => {
-                controller.abort();
-            };
         }, 500);
 
-        return () => clearTimeout(timer);
+        return () => {
+            controller.abort();
+            clearTimeout(timer);
+        };
     }, [username, pat]);
 
-    return { usernameError, usersList };
+    return { usernameError, usersList, loading };
 };

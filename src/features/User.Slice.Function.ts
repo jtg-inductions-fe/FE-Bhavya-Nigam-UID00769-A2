@@ -7,7 +7,6 @@ export function preLoadData(): UserState {
 
     return {
         userDetails: null,
-        isLoggedIn: false,
         username: username,
         pat: password,
     };
