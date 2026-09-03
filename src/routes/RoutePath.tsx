@@ -12,8 +12,6 @@ import { NotFound } from '@pages/NotFound';
 import { Profile } from '@pages/Profile';
 import { Search } from '@pages/Search';
 
-import { ProtectedRoute } from './ProtectedRoute';
-
 export const RoutePath = () => (
     <Routes>
         <Route element={<Layout />}>
@@ -21,9 +19,6 @@ export const RoutePath = () => (
                 <Route path={path} key={index} element={<Search />} />
             ))}
 
-            <Route element={<ProtectedRoute />}>
-                <Route path={PROFILE_PAGE_URL} element={<Profile />} />
-            </Route>
             <Route
                 path={`${PROFILE_PAGE_URL}:username`}
                 element={<Profile />}

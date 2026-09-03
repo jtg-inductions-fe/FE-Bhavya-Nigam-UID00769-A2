@@ -73,7 +73,8 @@ export const LoginContainer = () => {
                 }),
             );
 
-            void navigate(PROFILE_PAGE_URL);
+            const url = PROFILE_PAGE_URL + trimUsername;
+            void navigate(url);
         } catch (err) {
             const errMsg =
                 err instanceof Error ? err.message : LOGIN_FAILED_MSG;

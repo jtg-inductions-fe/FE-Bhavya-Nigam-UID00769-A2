@@ -40,6 +40,7 @@ export const NavbarContainer = () => {
     const currentPath = location.pathname;
 
     const user = useAppSelector((state) => state.user.userDetails);
+    const profileUrl = PROFILE_PAGE_URL + user?.login;
 
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
         null,
@@ -51,7 +52,11 @@ export const NavbarContainer = () => {
     };
 
     const handleNavigation = (path: NavigationPath) => {
-        void navigate(path);
+        if (user && path === '/profile/') {
+            void navigate(profileUrl);
+        } else {
+            void navigate(path);
+        }
     };
 
     const handleUserMenu = (event: React.MouseEvent<HTMLElement> | null) => {
@@ -91,7 +96,7 @@ export const NavbarContainer = () => {
                                         Search
                                     </StyleNavButton>
                                 )}
-                            {currentPath !== PROFILE_PAGE_URL && user && (
+                            {currentPath !== profileUrl && user && (
                                 <StyleNavButton
                                     key="Profile"
                                     onClick={() =>
@@ -119,6 +124,7 @@ export const NavbarContainer = () => {
                                     anchorEl={anchorElUser}
                                     open={Boolean(anchorElUser)}
                                     onClose={() => handleUserMenu(null)}
+                                    disableScrollLock
                                 >
                                     <MenuItem
                                         key="Profile"

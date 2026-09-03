@@ -284,23 +284,25 @@ export const ProfileContainer = () => {
                                     </StyleUsernameText>
                                 </Box>
 
-                                {authUser && username && (
-                                    <StyleFollowButton
-                                        variant="contained"
-                                        onClick={() => {
-                                            void handleFollow();
-                                        }}
-                                        disabled={handleFollowState}
-                                    >
-                                        {isFollowed
-                                            ? handleFollowState
-                                                ? 'Unfollowing'
-                                                : 'Followed'
-                                            : handleFollowState
-                                              ? 'Following'
-                                              : 'Follow'}
-                                    </StyleFollowButton>
-                                )}
+                                {authUser &&
+                                    authUser.login != user.login &&
+                                    username && (
+                                        <StyleFollowButton
+                                            variant="contained"
+                                            onClick={() => {
+                                                void handleFollow();
+                                            }}
+                                            disabled={handleFollowState}
+                                        >
+                                            {isFollowed
+                                                ? handleFollowState
+                                                    ? 'Unfollowing'
+                                                    : 'Followed'
+                                                : handleFollowState
+                                                  ? 'Following'
+                                                  : 'Follow'}
+                                        </StyleFollowButton>
+                                    )}
 
                                 <StyleBioText>{user?.bio}</StyleBioText>
                                 <Typography component="h2" variant="h5">
