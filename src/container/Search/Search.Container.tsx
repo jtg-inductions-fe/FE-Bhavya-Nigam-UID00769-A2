@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { useSearchUser } from 'hooks/useSearchUser';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import {
@@ -29,7 +29,8 @@ import {
 } from './Search.Container.Style';
 
 export const SearchContainer = () => {
-    const [username, setUsername] = useState<string>('');
+    const [searchQuery, setSearchQuery] = useSearchParams();
+    const [username, setUsername] = useState(searchQuery.get('username') ?? '');
 
     const { usernameError, usersList, loading } = useSearchUser(username);
 
@@ -37,6 +38,14 @@ export const SearchContainer = () => {
 
     const handleOpenProfile = (user: string) => {
         void navigate(`${PROFILE_PAGE_URL}${user}`);
+    };
+
+    const handleUsernameChange = (
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    ) => {
+        const trimUsername = e.target.value.trim();
+        setUsername(trimUsername);
+        setSearchQuery({ username: trimUsername }, { replace: true });
     };
 
     return (
@@ -59,13 +68,7 @@ export const SearchContainer = () => {
                         placeholder="Search username"
                         value={username}
                         name="username"
-                        onChange={(
-                            e: React.ChangeEvent<
-                                HTMLInputElement | HTMLTextAreaElement
-                            >,
-                        ) => {
-                            setUsername(e.target.value);
-                        }}
+                        onChange={handleUsernameChange}
                         helperText={usernameError}
                         error={Boolean(usernameError)}
                     />
