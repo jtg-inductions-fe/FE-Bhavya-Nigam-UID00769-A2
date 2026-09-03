@@ -1,5 +1,5 @@
 import { FETCH_GET_USER_URL, USER_NOT_FOUND } from '@constant';
-import { UserDetail } from '@type/userdetails.Types';
+import { UserDetail } from '@type/UserDetails.types';
 
 export const getUser = async (
     username: string,

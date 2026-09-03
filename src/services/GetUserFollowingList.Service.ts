@@ -1,5 +1,5 @@
 import { FETCH_GET_USER_URL } from '@constant';
-import { UserFollow } from '@type/userFollow.Types';
+import { UserFollow } from '@type/UserFollow.types';
 
 export const getUserFollowingList = async (
     username: string | undefined,

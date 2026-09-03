@@ -30,10 +30,10 @@ import { getUserFollowingList } from '@services/GetUserFollowingList.Service';
 import { getUserFollowList } from '@services/GetUserFollowList.Service';
 import { putUserFollow } from '@services/PutUserFollow.Service';
 import { useAppSelector } from '@store/store';
-import { NavigationPath } from '@type/NavigationPath.Types';
-import { UserDetail } from '@type/userdetails.Types';
-import { UserFollow } from '@type/userFollow.Types';
-import { UserRepo } from '@type/userRepo.Types';
+import { NavigationPath } from '@type/NavigationPath.types';
+import { UserDetail } from '@type/UserDetails.types';
+import { UserFollow } from '@type/UserFollow.types';
+import { UserRepo } from '@type/UserRepo.types';
 
 import {
     StyleBioText,

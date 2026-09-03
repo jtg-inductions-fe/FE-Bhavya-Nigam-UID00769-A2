@@ -18,7 +18,7 @@ import {
 } from '@constant';
 import { logout } from '@features/User.Slice';
 import { useAppDispatch, useAppSelector } from '@store/store';
-import { NavigationPath } from '@type/NavigationPath.Types';
+import { NavigationPath } from '@type/NavigationPath.types';
 
 import {
     StyleAppBar,
