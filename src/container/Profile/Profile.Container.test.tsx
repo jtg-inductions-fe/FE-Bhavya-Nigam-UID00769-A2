@@ -55,6 +55,21 @@ const mockStore = {
     pat: 'testpat',
 };
 
+const mockSearchUser = {
+    id: 91872,
+    login: 'San FranciscoJohn',
+    avatar_url: 'https://avatars_john.example.com',
+    html_url: 'https://example.com/john',
+    name: 'The John',
+    location: 'California',
+    bio: 'mock user_search bio',
+    followers: 10,
+    following: 9,
+    blog: 'https://example_john.blog',
+    email: 'john@github.com',
+    public_repos: 20,
+};
+
 const mockEmptyStore = {
     userDetails: null,
     username: null,
@@ -143,6 +158,7 @@ describe('Profile Page', () => {
     it('Follow user when the follow button is clicked', async () => {
         vi.mocked(getUserFollow).mockResolvedValue(false);
         vi.mocked(putUserFollow).mockResolvedValue(true);
+        vi.mocked(getUser).mockResolvedValue(mockSearchUser);
 
         render(<ProfileContainer />);
 
@@ -153,12 +169,13 @@ describe('Profile Page', () => {
         fireEvent.click(followButton);
         expect(putUserFollow).toHaveBeenCalledTimes(1);
 
-        expect(await screen.findByText('101')).toBeInTheDocument();
+        expect(await screen.findByText('11')).toBeInTheDocument();
     });
 
     it('Unfollow user when the unfollow button is clicked', async () => {
         vi.mocked(getUserFollow).mockResolvedValue(true);
         vi.mocked(deleteUserFollow).mockResolvedValue(true);
+        vi.mocked(getUser).mockResolvedValue(mockSearchUser);
 
         render(<ProfileContainer />);
 
@@ -169,7 +186,7 @@ describe('Profile Page', () => {
         fireEvent.click(unfollowButton);
         expect(deleteUserFollow).toHaveBeenCalledTimes(1);
 
-        expect(await screen.findByText('99')).toBeInTheDocument();
+        expect(await screen.findByText('9')).toBeInTheDocument();
     });
 
     it('show error when user fetch failed', async () => {
@@ -192,6 +209,7 @@ describe('Profile Page', () => {
     it('shows error when user follow fails', async () => {
         vi.mocked(getUserFollow).mockResolvedValue(false);
         vi.mocked(putUserFollow).mockResolvedValue(false);
+        vi.mocked(getUser).mockResolvedValue(mockSearchUser);
 
         render(<ProfileContainer />);
 
@@ -208,6 +226,7 @@ describe('Profile Page', () => {
     it('shows error when user unfollow fails', async () => {
         vi.mocked(getUserFollow).mockResolvedValue(true);
         vi.mocked(deleteUserFollow).mockResolvedValue(false);
+        vi.mocked(getUser).mockResolvedValue(mockSearchUser);
 
         render(<ProfileContainer />);
 
