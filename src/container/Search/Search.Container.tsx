@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import { useSearchUser } from 'hooks/useSearchUser';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
@@ -30,7 +28,7 @@ import {
 
 export const SearchContainer = () => {
     const [searchQuery, setSearchQuery] = useSearchParams();
-    const [username, setUsername] = useState(searchQuery.get('username') ?? '');
+    let username = searchQuery.get('username') ?? '';
 
     const { usernameError, usersList, loading } = useSearchUser(username);
 
@@ -44,7 +42,7 @@ export const SearchContainer = () => {
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     ) => {
         const trimUsername = e.target.value.trim();
-        setUsername(trimUsername);
+        username = trimUsername;
         setSearchQuery({ username: trimUsername }, { replace: true });
     };
 
