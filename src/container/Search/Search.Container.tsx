@@ -44,7 +44,7 @@ export const SearchContainer = () => {
         const trimUsername = e.target.value.trim();
         if (!trimUsername) {
             searchQuery.delete('username');
-            setSearchQuery(searchQuery);
+            setSearchQuery(searchQuery, { replace: true });
             return;
         }
         setSearchQuery({ username: trimUsername }, { replace: true });

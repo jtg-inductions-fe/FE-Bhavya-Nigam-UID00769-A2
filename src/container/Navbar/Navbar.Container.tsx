@@ -118,9 +118,10 @@ export const NavbarContainer = () => {
                                     {currentPath !== profileUrl && user && (
                                         <MenuItem
                                             key="Profile"
-                                            onClick={() =>
-                                                handleNavigation('/profile/')
-                                            }
+                                            onClick={() => {
+                                                handleUserMenu(null);
+                                                handleNavigation('/profile/');
+                                            }}
                                         >
                                             <Typography>Profile</Typography>
                                         </MenuItem>
