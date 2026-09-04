@@ -7,10 +7,10 @@ import {
     PROFILE_PAGE_URL,
     SEARCH_PAGE_URL,
 } from '@constant';
-import { Login } from '@pages/Login';
-import { NotFound } from '@pages/NotFound';
-import { Profile } from '@pages/Profile';
-import { Search } from '@pages/Search';
+import { Login } from '@pages/Login.Page';
+import { NotFound } from '@pages/NotFound.Page';
+import { Profile } from '@pages/Profile.Page';
+import { Search } from '@pages/Search.Page';
 
 export const RoutePath = () => (
     <Routes>

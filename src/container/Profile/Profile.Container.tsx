@@ -1,13 +1,18 @@
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
 
 import { useNavigate, useParams } from 'react-router-dom';
 
+import CloseIcon from '@mui/icons-material/Close';
 import LinkIcon from '@mui/icons-material/Link';
 import {
+    Alert,
     Avatar,
     Box,
+    IconButton,
     ListItemAvatar,
     ListItemText,
+    Snackbar,
+    SnackbarCloseReason,
     Typography,
 } from '@mui/material';
 
@@ -87,12 +92,22 @@ export const ProfileContainer = () => {
     const [loading, setLoading] = useState(true);
 
     const [user, setUser] = useState<UserDetail | null>(null);
-    const [userRepo, setUserRepo] = useState<UserRepo[]>([]);
-    const [userFollowList, setUserFollowList] = useState<UserFollow[]>([]);
-    const [userFollowingList, setUserFollowingList] = useState<UserFollow[]>(
-        [],
-    );
+    const userRepo = useRef<UserRepo[]>([]);
+    const userFollowList = useRef<UserFollow[]>([]);
+    const userFollowingList = useRef<UserFollow[]>([]);
     const { username } = useParams<{ username: string }>();
+    const [open, setOpen] = useState(false);
+
+    const handleClose = (
+        event: React.SyntheticEvent | Event,
+        reason?: SnackbarCloseReason,
+    ) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpen(false);
+    };
 
     useEffect(() => {
         if (username !== undefined) {
@@ -103,11 +118,13 @@ export const ProfileContainer = () => {
 
                     setUser(userDetail);
                     setError('');
+                    setOpen(false);
                 } catch (e) {
                     const errMsg =
                         e instanceof Error ? e.message : USER_FETCH_FAILED_MSG;
                     setError(errMsg);
                     setUser(null);
+                    setOpen(true);
                 }
 
                 if (authUser) {
@@ -120,6 +137,7 @@ export const ProfileContainer = () => {
                                 ? e.message
                                 : USER_FETCH_FAILED_MSG;
                         setError(errMsg);
+                        setOpen(true);
                     }
                 }
             };
@@ -128,6 +146,7 @@ export const ProfileContainer = () => {
         } else {
             setUser(authUser);
             setError('');
+            setOpen(false);
         }
 
         const fetchDetails = async () => {
@@ -146,13 +165,14 @@ export const ProfileContainer = () => {
                     username ? username : authUser?.login,
                     token,
                 );
-                setUserRepo(repo);
-                setUserFollowList(followList);
-                setUserFollowingList(followingList);
+                userRepo.current = repo;
+                userFollowList.current = followList;
+                userFollowingList.current = followingList;
             } catch (e) {
                 setError(
                     e instanceof Error ? e.message : USER_DATA_FETCH_FAILED_MSG,
                 );
+                setOpen(true);
             } finally {
                 setLoading(false);
             }
@@ -184,6 +204,7 @@ export const ProfileContainer = () => {
                 }
             } catch (e) {
                 setError(e instanceof Error ? e.message : FOLLOW_USER_ERROR);
+                setOpen(true);
             } finally {
                 setHandleFollowState(false);
             }
@@ -204,6 +225,7 @@ export const ProfileContainer = () => {
                 }
             } catch (e) {
                 setError(e instanceof Error ? e.message : FOLLOW_USER_ERROR);
+                setOpen(true);
             } finally {
                 setHandleFollowState(false);
             }
@@ -213,6 +235,18 @@ export const ProfileContainer = () => {
     const handleOpenProfile = (userLogin: string) => {
         void navigate(`${PROFILE_PAGE_URL}/${userLogin}`);
     };
+    const action = (
+        <Fragment>
+            <IconButton
+                size="small"
+                aria-label="close"
+                color="inherit"
+                onClick={handleClose}
+            >
+                <CloseIcon fontSize="small" />
+            </IconButton>
+        </Fragment>
+    );
 
     if (loading) {
         return <Loader />;
@@ -259,6 +293,21 @@ export const ProfileContainer = () => {
 
     return (
         <>
+            <Snackbar
+                open={open}
+                autoHideDuration={6000}
+                onClose={handleClose}
+                action={action}
+            >
+                <Alert
+                    onClose={handleClose}
+                    severity="error"
+                    variant="filled"
+                    sx={{ width: '100%' }}
+                >
+                    {error}
+                </Alert>
+            </Snackbar>
             <Box component="main">
                 <StyleContainerBox>
                     <StyleMainContainer>
@@ -376,13 +425,13 @@ export const ProfileContainer = () => {
                             <Typography component="h2" variant="h4">
                                 Repositories
                             </Typography>
-                            {!userRepo.length && (
+                            {!userRepo.current.length && (
                                 <StyleNotDataText>
                                     No public repository available to show
                                 </StyleNotDataText>
                             )}
 
-                            {userRepo.map((repo) => (
+                            {userRepo.current.map((repo) => (
                                 <div key={repo.name}>
                                     <StyleRepoCard>
                                         <StyleCardLink
@@ -418,12 +467,12 @@ export const ProfileContainer = () => {
                                 </StyleFollowHeading>
 
                                 <StyleListBox>
-                                    {!userFollowList.length && (
+                                    {!userFollowList.current.length && (
                                         <StyleNotDataText>
                                             User has no followers
                                         </StyleNotDataText>
                                     )}
-                                    {userFollowList.map((follow) => (
+                                    {userFollowList.current.map((follow) => (
                                         <StyleListItemBox key={follow.login}>
                                             <StyleListButton
                                                 onClick={() =>
@@ -460,13 +509,13 @@ export const ProfileContainer = () => {
                                 </StyleFollowHeading>
 
                                 <StyleListBox>
-                                    {!userFollowingList.length && (
+                                    {!userFollowingList.current.length && (
                                         <StyleNotDataText>
                                             User has no following
                                         </StyleNotDataText>
                                     )}
 
-                                    {userFollowingList.map((follow) => (
+                                    {userFollowingList.current.map((follow) => (
                                         <StyleListItemBox key={follow.login}>
                                             <StyleListButton
                                                 onClick={() =>

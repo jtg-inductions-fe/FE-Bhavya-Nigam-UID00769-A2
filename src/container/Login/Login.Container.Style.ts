@@ -83,3 +83,8 @@ export const StyleLabel = styled('label')(
 export const StyleLink = styled(Link)(() => ({
     color: 'inherit',
 }));
+
+export const StyleCenterBox = styled(Box)(() => ({
+    display: 'flex',
+    justifyContent: 'center',
+}));

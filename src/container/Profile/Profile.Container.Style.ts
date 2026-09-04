@@ -30,7 +30,6 @@ export const StyleMainContainer = styled(Box)(
 
         [breakpoints.down('lg')]: {
             flexDirection: 'column',
-            padding: spacing(0, 4),
         },
     }),
 );
