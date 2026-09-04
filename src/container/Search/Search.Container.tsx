@@ -28,7 +28,7 @@ import {
 
 export const SearchContainer = () => {
     const [searchQuery, setSearchQuery] = useSearchParams();
-    let username = searchQuery.get('username') ?? '';
+    const username = searchQuery.get('username') ?? '';
 
     const { usernameError, usersList, loading } = useSearchUser(username);
 
@@ -42,7 +42,11 @@ export const SearchContainer = () => {
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     ) => {
         const trimUsername = e.target.value.trim();
-        username = trimUsername;
+        if (!trimUsername) {
+            searchQuery.delete('username');
+            setSearchQuery(searchQuery);
+            return;
+        }
         setSearchQuery({ username: trimUsername }, { replace: true });
     };
 

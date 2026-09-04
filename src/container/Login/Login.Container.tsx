@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -63,6 +63,10 @@ export const LoginContainer = () => {
 
     const storedUsername = storedData.username;
 
+    useEffect(() => {
+        if (storedPat) void navigate(PROFILE_PAGE_URL + storedUsername);
+    });
+
     let error = false;
 
     const dispatch = useAppDispatch();
@@ -124,10 +128,6 @@ export const LoginContainer = () => {
         setPatError('');
         setLoginError(null);
     };
-
-    if (storedPat) {
-        void navigate(PROFILE_PAGE_URL + storedUsername);
-    }
 
     const action = (
         <Fragment>

@@ -96,17 +96,6 @@ export const NavbarContainer = () => {
                                         Search
                                     </StyleNavButton>
                                 )}
-                            {currentPath !== profileUrl && user && (
-                                <StyleNavButton
-                                    key="Profile"
-                                    onClick={() =>
-                                        handleNavigation('/profile/')
-                                    }
-                                    variant="contained"
-                                >
-                                    Profile
-                                </StyleNavButton>
-                            )}
                         </StyleButtonBox>
 
                         {user ? (
@@ -126,14 +115,16 @@ export const NavbarContainer = () => {
                                     onClose={() => handleUserMenu(null)}
                                     disableScrollLock
                                 >
-                                    <MenuItem
-                                        key="Profile"
-                                        onClick={() =>
-                                            handleNavigation('/profile/')
-                                        }
-                                    >
-                                        <Typography>Profile</Typography>
-                                    </MenuItem>
+                                    {currentPath !== profileUrl && user && (
+                                        <MenuItem
+                                            key="Profile"
+                                            onClick={() =>
+                                                handleNavigation('/profile/')
+                                            }
+                                        >
+                                            <Typography>Profile</Typography>
+                                        </MenuItem>
+                                    )}
                                     <MenuItem
                                         key="Logout"
                                         onClick={handleLogout}
