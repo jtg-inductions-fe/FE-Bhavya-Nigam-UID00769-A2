@@ -12,17 +12,22 @@ import { NotFound } from '@pages/NotFound';
 import { Profile } from '@pages/Profile';
 import { Search } from '@pages/Search';
 
+import { ProtectedRoute } from './ProtectedRoute';
+
 export const RoutePath = () => (
     <Routes>
         <Route element={<Layout />}>
             {[HOME_PAGE_URL, SEARCH_PAGE_URL].map((path, index) => (
                 <Route path={path} key={index} element={<Search />} />
             ))}
-            {[PROFILE_PAGE_URL, `${PROFILE_PAGE_URL}:username`].map(
-                (path, index) => (
-                    <Route path={path} key={index} element={<Profile />} />
-                ),
-            )}
+
+            <Route element={<ProtectedRoute />}>
+                <Route path={PROFILE_PAGE_URL} element={<Profile />} />
+            </Route>
+            <Route
+                path={`${PROFILE_PAGE_URL}:username`}
+                element={<Profile />}
+            />
             <Route path="*" element={<NotFound />} />
         </Route>
         <Route path={LOGIN_PAGE_URL} element={<Login />} />
