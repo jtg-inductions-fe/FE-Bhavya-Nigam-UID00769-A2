@@ -1,5 +1,5 @@
 import { LOCAL_STORAGE_PAT, LOCAL_STORAGE_USERNAME } from '@constant';
-import { UserState } from '@type/userState.Types';
+import { UserState } from '@type/UserState.types';
 
 export function preLoadData(): UserState {
     const username = localStorage.getItem(LOCAL_STORAGE_USERNAME);

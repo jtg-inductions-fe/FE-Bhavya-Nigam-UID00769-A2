@@ -1,8 +1,8 @@
 import { UNABLE_TO_SEARCH } from 'constant/ErrorMessages.Constant';
 
 import { FETCH_GET_USERS_LIST_URL } from '@constant';
-import { UserSearch } from '@type/userSearch';
-import { UserSearchResult } from '@type/userSearchResult';
+import { UserSearch } from '@type/UserSearch.types.ts';
+import { UserSearchResult } from '@type/UserSearchResult.types.ts';
 
 export const getUserLists = async (
     token: string | null,

@@ -1,6 +1,6 @@
 import { Alert, Box, Button, Typography } from '@mui/material';
 
-import { ErrorMessageProps } from '@type/ErrorMessage.Types';
+import { ErrorMessageProps } from '@type/ErrorMessage.types';
 
 import {
     StyleContainerBox,

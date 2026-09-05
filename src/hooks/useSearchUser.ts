@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { SEARCH_USER_ERROR } from '@constant';
 import { getUserLists } from '@services/GetUsersList.Service';
 import { useAppSelector } from '@store/store';
-import { UserSearchResult } from '@type/userSearchResult';
+import { UserSearchResult } from '@type/UserSearchResult.types.ts';
 
 export const useSearchUser = (username: string) => {
     const storedData = useAppSelector((state) => state.user);

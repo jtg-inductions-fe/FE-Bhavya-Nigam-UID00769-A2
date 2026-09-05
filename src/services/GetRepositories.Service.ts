@@ -3,7 +3,7 @@ import {
     UNABLE_TO_FETCH_REPOSITORIES,
     USER_NOT_FOUND,
 } from '@constant';
-import { UserRepo } from '@type/userRepo.Types';
+import { UserRepo } from '@type/UserRepo.types';
 
 export const getRepositoriesByUser = async (
     username: string | undefined,
