@@ -4,6 +4,7 @@ export {
     FETCH_GET_USER_URL,
     FETCH_GET_USERS_LIST_URL,
     FETCH_USER_FOLLOWING_URL,
+    FETCH_SUGGESTIONS_USERS_LIST,
 } from './Url.Constant';
 export {
     LOCAL_STORAGE_PAT,

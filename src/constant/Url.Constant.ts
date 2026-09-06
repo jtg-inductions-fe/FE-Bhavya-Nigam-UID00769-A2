@@ -4,3 +4,4 @@ export const FETCH_GET_USERS_LIST_URL =
     'https://api.github.com/search/users?q=';
 export const FETCH_USER_FOLLOWING_URL =
     'https://api.github.com/user/following/';
+export const FETCH_SUGGESTIONS_USERS_LIST = 'https://api.github.com/users';

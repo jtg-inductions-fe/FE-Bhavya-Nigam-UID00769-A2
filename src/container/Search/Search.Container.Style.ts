@@ -9,15 +9,19 @@ import {
 } from '@mui/material';
 
 export const StyleContainerBox = styled(Box)(
-    ({ theme: { spacing, palette } }) => ({
+    ({ theme: { spacing, palette, breakpoints } }) => ({
         display: 'flex',
-        height: '94vh',
+        height: 'calc(100vh - 64px)',
         flexDirection: 'column',
         alignItems: 'center',
-        paddingTop: spacing(20),
+        paddingTop: spacing(2),
         backgroundColor: palette.text.primary,
 
         color: palette.secondary.main,
+
+        [breakpoints.down('md')]: {
+            height: '110vh',
+        },
     }),
 );
 
@@ -26,7 +30,6 @@ export const StyleTopBox = styled(Box)(({ theme: { spacing } }) => ({
     flexDirection: 'column',
     alignItems: 'center',
     gap: spacing(4),
-    marginBottom: spacing(10),
 }));
 
 export const StyleTextFieldBox = styled(TextField)(
@@ -125,4 +128,10 @@ export const StyleNotFoundBox = styled(Box)(({ theme: { palette } }) => ({
     display: 'flex',
     justifyContent: 'center',
     color: palette.text.secondary,
+}));
+
+export const StyleSuggestionBox = styled(Box)(() => ({
+    position: 'absolute',
+    top: '74%',
+    width: '80%',
 }));
