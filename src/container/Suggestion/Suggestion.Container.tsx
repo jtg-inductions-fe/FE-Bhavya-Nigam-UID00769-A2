@@ -13,7 +13,12 @@ import {
     Typography,
 } from '@mui/material';
 
-import { FOLLOW_USER_ERROR, PROFILE_PAGE_URL } from '@constant';
+import {
+    FETCH_SUGGESTION_LIST_FAILED,
+    FETCH_SUGGESTION_PROFILE_FAILED,
+    FOLLOW_USER_ERROR,
+    PROFILE_PAGE_URL,
+} from '@constant';
 import { getSuggestionProfiles } from '@services/GetSuggestionProfiles.Service';
 import { getUserFollow } from '@services/GetUserFollow.Service';
 import { putUserFollow } from '@services/PutUserFollow.Service';
@@ -78,9 +83,7 @@ export const SuggestionContainer = () => {
             setUserFollowingStatus(followingStatus);
         } catch (e) {
             setError(
-                e instanceof Error
-                    ? e.message
-                    : 'Failed to fetch suggestion list',
+                e instanceof Error ? e.message : FETCH_SUGGESTION_LIST_FAILED,
             );
             setOpen(true);
         } finally {
@@ -118,7 +121,9 @@ export const SuggestionContainer = () => {
                 );
         } catch (e) {
             setError(
-                e instanceof Error ? e.message : 'Failed to fetch new profile',
+                e instanceof Error
+                    ? e.message
+                    : FETCH_SUGGESTION_PROFILE_FAILED,
             );
             setOpen(true);
         } finally {
