@@ -75,12 +75,15 @@ export const SuggestionContainer = () => {
             const profiles = await getSuggestionProfiles(token);
             const suggestions = profiles.slice(0, 3);
             setSuggestionList(suggestions);
-            const followingStatus = await Promise.all(
-                suggestions.map((profile) =>
-                    getUserFollow(profile.login, token),
-                ),
-            );
-            setUserFollowingStatus(followingStatus);
+
+            if (token) {
+                const followingStatus = await Promise.all(
+                    suggestions.map((profile) =>
+                        getUserFollow(profile.login, token),
+                    ),
+                );
+                setUserFollowingStatus(followingStatus);
+            }
         } catch (e) {
             setError(
                 e instanceof Error ? e.message : FETCH_SUGGESTION_LIST_FAILED,
@@ -93,7 +96,7 @@ export const SuggestionContainer = () => {
 
     useEffect(() => {
         void fetchSuggestionProfiles();
-    }, []);
+    }, [token]);
 
     const handleRefreshProfiles = () => {
         void fetchSuggestionProfiles();
@@ -156,6 +159,7 @@ export const SuggestionContainer = () => {
             }
         } catch (e) {
             setError(e instanceof Error ? e.message : FOLLOW_USER_ERROR);
+            setOpen(true);
         } finally {
             setHandleFollowState([false, false, false]);
         }
@@ -202,71 +206,78 @@ export const SuggestionContainer = () => {
                     </StyleRefreshButton>
                 </StyleRefreshBox>
                 <StyleProfiles>
-                    {suggestionList.map((profile, index) => (
-                        <StyleProfile key={profile.login}>
-                            {userLoadingStatus[index] ? (
-                                <StyleLoaderContainer>
-                                    <StyleLoader />
-                                </StyleLoaderContainer>
-                            ) : (
-                                <>
-                                    <StyleProfileTop>
-                                        <StyleLeftPart
-                                            onClick={() =>
-                                                handleOpenProfile(profile.login)
-                                            }
-                                        >
-                                            <Avatar
-                                                src={profile.avatar_url}
-                                                alt={profile.login}
-                                            />
-                                            <Box>
-                                                <Typography component="p">
-                                                    {profile.name ??
-                                                        profile.login}
-                                                </Typography>
-                                                <StyleUsername>
-                                                    @{profile.login}
-                                                </StyleUsername>
-                                            </Box>
-                                        </StyleLeftPart>
-                                        <Box>
-                                            <StyleCloseButton
-                                                aria-label="Remove profile"
+                    {suggestionList &&
+                        suggestionList.map((profile, index) => (
+                            <StyleProfile key={profile.login}>
+                                {userLoadingStatus[index] ? (
+                                    <StyleLoaderContainer>
+                                        <StyleLoader />
+                                    </StyleLoaderContainer>
+                                ) : (
+                                    <>
+                                        <StyleProfileTop>
+                                            <StyleLeftPart
                                                 onClick={() =>
-                                                    void handleRemoveProfile(
+                                                    handleOpenProfile(
                                                         profile.login,
-                                                        index,
                                                     )
-                                                }
-                                            />
-                                        </Box>
-                                    </StyleProfileTop>
-                                    {token && (
-                                        <StyleProfileBottom>
-                                            <StyleFollowButton
-                                                onClick={() =>
-                                                    void handleFollowButton(
-                                                        profile.login,
-                                                        index,
-                                                    )
-                                                }
-                                                disabled={
-                                                    userFollowingStatus[index]
                                                 }
                                             >
-                                                {handleFollowState[index]
-                                                    ? 'Following'
-                                                    : userFollowingStatus[index]
-                                                      ? 'Followed'
-                                                      : 'Follow'}
-                                            </StyleFollowButton>
-                                        </StyleProfileBottom>
-                                    )}
-                                </>
-                            )}
-                        </StyleProfile>
-                    ))}
+                                                <Avatar
+                                                    src={profile.avatar_url}
+                                                    alt={profile.login}
+                                                />
+                                                <Box>
+                                                    <Typography component="p">
+                                                        {profile.name ??
+                                                            profile.login}
+                                                    </Typography>
+                                                    <StyleUsername>
+                                                        @{profile.login}
+                                                    </StyleUsername>
+                                                </Box>
+                                            </StyleLeftPart>
+                                            <Box>
+                                                <StyleCloseButton
+                                                    aria-label="Remove profile"
+                                                    onClick={() =>
+                                                        void handleRemoveProfile(
+                                                            profile.login,
+                                                            index,
+                                                        )
+                                                    }
+                                                />
+                                            </Box>
+                                        </StyleProfileTop>
+                                        {token && (
+                                            <StyleProfileBottom>
+                                                <StyleFollowButton
+                                                    onClick={() =>
+                                                        void handleFollowButton(
+                                                            profile.login,
+                                                            index,
+                                                        )
+                                                    }
+                                                    disabled={
+                                                        userFollowingStatus[
+                                                            index
+                                                        ]
+                                                    }
+                                                >
+                                                    {handleFollowState[index]
+                                                        ? 'Following'
+                                                        : userFollowingStatus[
+                                                                index
+                                                            ]
+                                                          ? 'Followed'
+                                                          : 'Follow'}
+                                                </StyleFollowButton>
+                                            </StyleProfileBottom>
+                                        )}
+                                    </>
+                                )}
+                            </StyleProfile>
+                        ))}
                 </StyleProfiles>
             </StyleMainBox>
         </StyleContainer>

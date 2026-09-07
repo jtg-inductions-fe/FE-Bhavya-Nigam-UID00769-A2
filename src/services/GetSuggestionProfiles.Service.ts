@@ -7,7 +7,7 @@ export const getSuggestionProfiles = async (
     const randomTime = Math.floor(Math.random() * 1000);
 
     const response = await fetch(
-        `${FETCH_SUGGESTIONS_USERS_LIST}?since=${randomTime}&per_page=100`,
+        `${FETCH_SUGGESTIONS_USERS_LIST}?since=${randomTime}`,
         token
             ? {
                   headers: {
