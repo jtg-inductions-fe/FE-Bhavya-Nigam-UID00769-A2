@@ -46,6 +46,7 @@ import {
     StyleContainerBox,
     StyleCountDetails,
     StyleDetailBox,
+    StyleDivisionLine,
     StyleExternalLink,
     StyleFollowButton,
     StyleFollowDetails,
@@ -68,6 +69,7 @@ import {
     StyleNumberDetails,
     StyleProfileDetails,
     StyleRepoCard,
+    StyleRepoContainers,
     StyleRepoDescription,
     StyleRepoDetails,
     StyleRepoMoreDetails,
@@ -353,31 +355,28 @@ export const ProfileContainer = () => {
                                         </StyleFollowButton>
                                     )}
 
-                                <StyleBioText>{user?.bio}</StyleBioText>
-                                <Typography component="h2" variant="h5">
-                                    {user?.email && (
-                                        <>
-                                            <StyleExternalLink>
-                                                <StyleDetailBox>
-                                                    <StyleMailIcon />{' '}
-                                                    {user?.email}
-                                                </StyleDetailBox>
-                                            </StyleExternalLink>
-                                        </>
-                                    )}
-                                </Typography>
-                                <Typography component="h2" variant="h5">
-                                    {user?.location && (
-                                        <>
+                                {user?.bio && (
+                                    <StyleBioText>{user?.bio}</StyleBioText>
+                                )}
+                                {user?.email && (
+                                    <Typography component="h2" variant="h5">
+                                        <StyleExternalLink>
                                             <StyleDetailBox>
-                                                <StyleLocationIcon />{' '}
-                                                {user?.location}
+                                                <StyleMailIcon /> {user?.email}
                                             </StyleDetailBox>
-                                        </>
-                                    )}
-                                </Typography>
-                                <Typography component="h2" variant="h5">
-                                    {user?.blog && (
+                                        </StyleExternalLink>
+                                    </Typography>
+                                )}
+                                {user?.location && (
+                                    <Typography component="h2" variant="h5">
+                                        <StyleDetailBox>
+                                            <StyleLocationIcon />{' '}
+                                            {user?.location}
+                                        </StyleDetailBox>
+                                    </Typography>
+                                )}
+                                {user?.blog && (
+                                    <Typography component="h2" variant="h5">
                                         <StyleExternalLink>
                                             <StyleDetailBox
                                                 href={user?.blog}
@@ -387,8 +386,8 @@ export const ProfileContainer = () => {
                                                 <StyleLinkIcon /> {user?.blog}
                                             </StyleDetailBox>
                                         </StyleExternalLink>
-                                    )}
-                                </Typography>
+                                    </Typography>
+                                )}
 
                                 <StyleCountDetails>
                                     <StyleSubCountHeadingDetails>
@@ -425,39 +424,43 @@ export const ProfileContainer = () => {
                             <Typography component="h2" variant="h4">
                                 Repositories
                             </Typography>
-                            {!userRepo.current.length && (
-                                <StyleNotDataText>
-                                    No public repository available to show
-                                </StyleNotDataText>
-                            )}
+                            <StyleRepoContainers>
+                                {!userRepo.current.length && (
+                                    <StyleNotDataText>
+                                        No public repository available to show
+                                    </StyleNotDataText>
+                                )}
 
-                            {userRepo.current.map((repo) => (
-                                <div key={repo.name}>
-                                    <StyleRepoCard>
-                                        <StyleCardLink
-                                            href={repo.html_url}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                        >
-                                            <StyleRepoName>
-                                                {repo.name}
-                                            </StyleRepoName>
-                                            <StyleRepoDescription>
-                                                {repo.description}
-                                            </StyleRepoDescription>
-                                            <StyleRepoMoreDetails>
-                                                <Box>{repo.language}</Box>
-                                                <StyleRepoStars>
-                                                    <StyleStarIcon />
-                                                    <Typography>
-                                                        {repo.stargazers_count}
-                                                    </Typography>
-                                                </StyleRepoStars>
-                                            </StyleRepoMoreDetails>
-                                        </StyleCardLink>
-                                    </StyleRepoCard>
-                                </div>
-                            ))}
+                                {userRepo.current.map((repo) => (
+                                    <div key={repo.name}>
+                                        <StyleRepoCard>
+                                            <StyleCardLink
+                                                href={repo.html_url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                <StyleRepoName>
+                                                    {repo.name}
+                                                </StyleRepoName>
+                                                <StyleRepoDescription>
+                                                    {repo.description}
+                                                </StyleRepoDescription>
+                                                <StyleRepoMoreDetails>
+                                                    <Box>{repo.language}</Box>
+                                                    <StyleRepoStars>
+                                                        <StyleStarIcon />
+                                                        <Typography>
+                                                            {
+                                                                repo.stargazers_count
+                                                            }
+                                                        </Typography>
+                                                    </StyleRepoStars>
+                                                </StyleRepoMoreDetails>
+                                            </StyleCardLink>
+                                        </StyleRepoCard>
+                                    </div>
+                                ))}
+                            </StyleRepoContainers>
                         </StyleRepoDetails>
 
                         <StyleFollowDetails>
@@ -502,6 +505,8 @@ export const ProfileContainer = () => {
                                     ))}
                                 </StyleListBox>
                             </StyleFollowersBox>
+
+                            <StyleDivisionLine />
 
                             <StyleFollowingBox>
                                 <StyleFollowHeading>
