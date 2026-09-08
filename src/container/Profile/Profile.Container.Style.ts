@@ -30,7 +30,6 @@ export const StyleMainContainer = styled(Box)(
 
         [breakpoints.down('lg')]: {
             flexDirection: 'column',
-            padding: spacing(0, 4),
         },
     }),
 );
@@ -151,17 +150,22 @@ export const StyleNumberDetails = styled(Box)(({ theme: { typography } }) => ({
 
 export const StyleRepoDetails = styled(Box)(
     ({ theme: { spacing, palette } }) => ({
-        maxHeight: '88vh',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: spacing(4),
-        overflowY: 'auto',
         boxShadow: `0 0 0 0.2px ${palette.text.primary}`,
         borderRadius: spacing(2),
         minWidth: '40%',
-        padding: spacing(4, 10),
+        padding: spacing(4, 4, 0, 4),
+        overflow: 'hidden',
     }),
 );
+
+export const StyleRepoContainers = styled(Box)(({ theme: { spacing } }) => ({
+    overflowY: 'auto',
+    maxHeight: '84vh',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: spacing(4),
+    padding: spacing(2, 4, 1, 4),
+}));
 
 export const StyleRepoCard = styled(Box)(({ theme: { spacing, palette } }) => ({
     boxShadow: `0 0 0 0.2px ${palette.text.primary}`,
@@ -220,12 +224,16 @@ export const StyleFollowersBox = styled(Box)(({ theme: { spacing } }) => ({
     height: spacing(110),
     display: 'flex',
     flexDirection: 'column',
-
     marginBottom: spacing(3),
 }));
+
+export const StyleDivisionLine = styled(Box)(({ theme: { palette } }) => ({
+    borderBottom: `1px solid ${palette.text.secondary}`,
+}));
+
 export const StyleFollowingBox = styled(Box)(({ theme: { spacing } }) => ({
     minHeight: '42%',
-    height: spacing(110),
+    height: spacing(108),
 
     display: 'flex',
     flexDirection: 'column',
@@ -262,10 +270,11 @@ export const StyleListButton = styled(Button)(({ theme: { palette } }) => ({
     display: 'flex',
     justifyContent: 'start',
     color: palette.secondary.dark,
-
+    boxShadow: `0 0 0 0.2px ${palette.text.primary}`,
     '&:hover': {
         background: palette.secondary.dark,
         color: palette.secondary.main,
+        boxShadow: 'none',
     },
 }));
 

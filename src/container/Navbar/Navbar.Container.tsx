@@ -18,7 +18,7 @@ import {
 } from '@constant';
 import { logout } from '@features/User.Slice';
 import { useAppDispatch, useAppSelector } from '@store/store';
-import { NavigationPath } from '@type/NavigationPath.Types';
+import { NavigationPath } from '@type/NavigationPath.types';
 
 import {
     StyleAppBar,
@@ -40,6 +40,7 @@ export const NavbarContainer = () => {
     const currentPath = location.pathname;
 
     const user = useAppSelector((state) => state.user.userDetails);
+    const profileUrl = PROFILE_PAGE_URL + user?.login;
 
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
         null,
@@ -51,7 +52,11 @@ export const NavbarContainer = () => {
     };
 
     const handleNavigation = (path: NavigationPath) => {
-        void navigate(path);
+        if (user && path === '/profile/') {
+            void navigate(profileUrl);
+        } else {
+            void navigate(path);
+        }
     };
 
     const handleUserMenu = (event: React.MouseEvent<HTMLElement> | null) => {
@@ -91,17 +96,6 @@ export const NavbarContainer = () => {
                                         Search
                                     </StyleNavButton>
                                 )}
-                            {currentPath !== PROFILE_PAGE_URL && user && (
-                                <StyleNavButton
-                                    key="Profile"
-                                    onClick={() =>
-                                        handleNavigation('/profile/')
-                                    }
-                                    variant="contained"
-                                >
-                                    Profile
-                                </StyleNavButton>
-                            )}
                         </StyleButtonBox>
 
                         {user ? (
@@ -119,15 +113,19 @@ export const NavbarContainer = () => {
                                     anchorEl={anchorElUser}
                                     open={Boolean(anchorElUser)}
                                     onClose={() => handleUserMenu(null)}
+                                    disableScrollLock
                                 >
-                                    <MenuItem
-                                        key="Profile"
-                                        onClick={() =>
-                                            handleNavigation('/profile/')
-                                        }
-                                    >
-                                        <Typography>Profile</Typography>
-                                    </MenuItem>
+                                    {currentPath !== profileUrl && user && (
+                                        <MenuItem
+                                            key="Profile"
+                                            onClick={() => {
+                                                handleUserMenu(null);
+                                                handleNavigation('/profile/');
+                                            }}
+                                        >
+                                            <Typography>Profile</Typography>
+                                        </MenuItem>
+                                    )}
                                     <MenuItem
                                         key="Logout"
                                         onClick={handleLogout}

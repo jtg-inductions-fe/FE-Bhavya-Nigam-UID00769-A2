@@ -3,7 +3,7 @@ import {
     FORBIDDEN_MSG,
     UNAUTHORIZED_ACCESS_MSG,
 } from '@constant';
-import { UserDetail } from '@type/userdetails.Types';
+import { UserDetail } from '@type/UserDetails.types';
 
 export const getUser = async (
     token: string,

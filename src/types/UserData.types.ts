@@ -1,4 +1,4 @@
-import { UserDetail } from './userdetails.Types';
+import { UserDetail } from './UserDetails.types';
 
 export interface UserData {
     userDetails: UserDetail;

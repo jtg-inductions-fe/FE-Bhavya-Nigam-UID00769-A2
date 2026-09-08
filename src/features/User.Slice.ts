@@ -1,6 +1,6 @@
 import { LOCAL_STORAGE_PAT, LOCAL_STORAGE_USERNAME } from '@constant';
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import { UserData } from '@type/UserData.Types';
+import { UserData } from '@type/UserData.types';
 
 import { preLoadData } from './User.Slice.Function';
 

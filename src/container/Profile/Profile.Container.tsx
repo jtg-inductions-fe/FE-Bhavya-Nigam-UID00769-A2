@@ -1,13 +1,18 @@
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
 
 import { useNavigate, useParams } from 'react-router-dom';
 
+import CloseIcon from '@mui/icons-material/Close';
 import LinkIcon from '@mui/icons-material/Link';
 import {
+    Alert,
     Avatar,
     Box,
+    IconButton,
     ListItemAvatar,
     ListItemText,
+    Snackbar,
+    SnackbarCloseReason,
     Typography,
 } from '@mui/material';
 
@@ -30,10 +35,10 @@ import { getUserFollowingList } from '@services/GetUserFollowingList.Service';
 import { getUserFollowList } from '@services/GetUserFollowList.Service';
 import { putUserFollow } from '@services/PutUserFollow.Service';
 import { useAppSelector } from '@store/store';
-import { NavigationPath } from '@type/NavigationPath.Types';
-import { UserDetail } from '@type/userdetails.Types';
-import { UserFollow } from '@type/userFollow.Types';
-import { UserRepo } from '@type/userRepo.Types';
+import { NavigationPath } from '@type/NavigationPath.types';
+import { UserDetail } from '@type/UserDetails.types';
+import { UserFollow } from '@type/UserFollow.types';
+import { UserRepo } from '@type/UserRepo.types';
 
 import {
     StyleBioText,
@@ -41,6 +46,7 @@ import {
     StyleContainerBox,
     StyleCountDetails,
     StyleDetailBox,
+    StyleDivisionLine,
     StyleExternalLink,
     StyleFollowButton,
     StyleFollowDetails,
@@ -63,6 +69,7 @@ import {
     StyleNumberDetails,
     StyleProfileDetails,
     StyleRepoCard,
+    StyleRepoContainers,
     StyleRepoDescription,
     StyleRepoDetails,
     StyleRepoMoreDetails,
@@ -87,12 +94,22 @@ export const ProfileContainer = () => {
     const [loading, setLoading] = useState(true);
 
     const [user, setUser] = useState<UserDetail | null>(null);
-    const [userRepo, setUserRepo] = useState<UserRepo[]>([]);
-    const [userFollowList, setUserFollowList] = useState<UserFollow[]>([]);
-    const [userFollowingList, setUserFollowingList] = useState<UserFollow[]>(
-        [],
-    );
+    const userRepo = useRef<UserRepo[]>([]);
+    const userFollowList = useRef<UserFollow[]>([]);
+    const userFollowingList = useRef<UserFollow[]>([]);
     const { username } = useParams<{ username: string }>();
+    const [open, setOpen] = useState(false);
+
+    const handleClose = (
+        _event: React.SyntheticEvent | Event,
+        reason?: SnackbarCloseReason,
+    ) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpen(false);
+    };
 
     useEffect(() => {
         if (username !== undefined) {
@@ -103,11 +120,13 @@ export const ProfileContainer = () => {
 
                     setUser(userDetail);
                     setError('');
+                    setOpen(false);
                 } catch (e) {
                     const errMsg =
                         e instanceof Error ? e.message : USER_FETCH_FAILED_MSG;
                     setError(errMsg);
                     setUser(null);
+                    setOpen(true);
                 }
 
                 if (authUser) {
@@ -120,6 +139,7 @@ export const ProfileContainer = () => {
                                 ? e.message
                                 : USER_FETCH_FAILED_MSG;
                         setError(errMsg);
+                        setOpen(true);
                     }
                 }
             };
@@ -128,6 +148,7 @@ export const ProfileContainer = () => {
         } else {
             setUser(authUser);
             setError('');
+            setOpen(false);
         }
 
         const fetchDetails = async () => {
@@ -146,13 +167,14 @@ export const ProfileContainer = () => {
                     username ? username : authUser?.login,
                     token,
                 );
-                setUserRepo(repo);
-                setUserFollowList(followList);
-                setUserFollowingList(followingList);
+                userRepo.current = repo;
+                userFollowList.current = followList;
+                userFollowingList.current = followingList;
             } catch (e) {
                 setError(
                     e instanceof Error ? e.message : USER_DATA_FETCH_FAILED_MSG,
                 );
+                setOpen(true);
             } finally {
                 setLoading(false);
             }
@@ -184,6 +206,7 @@ export const ProfileContainer = () => {
                 }
             } catch (e) {
                 setError(e instanceof Error ? e.message : FOLLOW_USER_ERROR);
+                setOpen(true);
             } finally {
                 setHandleFollowState(false);
             }
@@ -204,6 +227,7 @@ export const ProfileContainer = () => {
                 }
             } catch (e) {
                 setError(e instanceof Error ? e.message : FOLLOW_USER_ERROR);
+                setOpen(true);
             } finally {
                 setHandleFollowState(false);
             }
@@ -213,6 +237,18 @@ export const ProfileContainer = () => {
     const handleOpenProfile = (userLogin: string) => {
         void navigate(`${PROFILE_PAGE_URL}/${userLogin}`);
     };
+    const action = (
+        <Fragment>
+            <IconButton
+                size="small"
+                aria-label="close"
+                color="inherit"
+                onClick={handleClose}
+            >
+                <CloseIcon fontSize="small" />
+            </IconButton>
+        </Fragment>
+    );
 
     if (loading) {
         return <Loader />;
@@ -259,6 +295,21 @@ export const ProfileContainer = () => {
 
     return (
         <>
+            <Snackbar
+                open={open}
+                autoHideDuration={6000}
+                onClose={handleClose}
+                action={action}
+            >
+                <Alert
+                    onClose={handleClose}
+                    severity="error"
+                    variant="filled"
+                    sx={{ width: '100%' }}
+                >
+                    {error}
+                </Alert>
+            </Snackbar>
             <Box component="main">
                 <StyleContainerBox>
                     <StyleMainContainer>
@@ -284,49 +335,48 @@ export const ProfileContainer = () => {
                                     </StyleUsernameText>
                                 </Box>
 
-                                {authUser && username && (
-                                    <StyleFollowButton
-                                        variant="contained"
-                                        onClick={() => {
-                                            void handleFollow();
-                                        }}
-                                        disabled={handleFollowState}
-                                    >
-                                        {isFollowed
-                                            ? handleFollowState
-                                                ? 'Unfollowing'
-                                                : 'Followed'
-                                            : handleFollowState
-                                              ? 'Following'
-                                              : 'Follow'}
-                                    </StyleFollowButton>
-                                )}
+                                {authUser &&
+                                    authUser.login != user.login &&
+                                    username && (
+                                        <StyleFollowButton
+                                            variant="contained"
+                                            onClick={() => {
+                                                void handleFollow();
+                                            }}
+                                            disabled={handleFollowState}
+                                        >
+                                            {isFollowed
+                                                ? handleFollowState
+                                                    ? 'Unfollowing'
+                                                    : 'Followed'
+                                                : handleFollowState
+                                                  ? 'Following'
+                                                  : 'Follow'}
+                                        </StyleFollowButton>
+                                    )}
 
-                                <StyleBioText>{user?.bio}</StyleBioText>
-                                <Typography component="h2" variant="h5">
-                                    {user?.email && (
-                                        <>
-                                            <StyleExternalLink>
-                                                <StyleDetailBox>
-                                                    <StyleMailIcon />{' '}
-                                                    {user?.email}
-                                                </StyleDetailBox>
-                                            </StyleExternalLink>
-                                        </>
-                                    )}
-                                </Typography>
-                                <Typography component="h2" variant="h5">
-                                    {user?.location && (
-                                        <>
+                                {user?.bio && (
+                                    <StyleBioText>{user?.bio}</StyleBioText>
+                                )}
+                                {user?.email && (
+                                    <Typography component="h2" variant="h5">
+                                        <StyleExternalLink>
                                             <StyleDetailBox>
-                                                <StyleLocationIcon />{' '}
-                                                {user?.location}
+                                                <StyleMailIcon /> {user?.email}
                                             </StyleDetailBox>
-                                        </>
-                                    )}
-                                </Typography>
-                                <Typography component="h2" variant="h5">
-                                    {user?.blog && (
+                                        </StyleExternalLink>
+                                    </Typography>
+                                )}
+                                {user?.location && (
+                                    <Typography component="h2" variant="h5">
+                                        <StyleDetailBox>
+                                            <StyleLocationIcon />{' '}
+                                            {user?.location}
+                                        </StyleDetailBox>
+                                    </Typography>
+                                )}
+                                {user?.blog && (
+                                    <Typography component="h2" variant="h5">
                                         <StyleExternalLink>
                                             <StyleDetailBox
                                                 href={user?.blog}
@@ -336,8 +386,8 @@ export const ProfileContainer = () => {
                                                 <StyleLinkIcon /> {user?.blog}
                                             </StyleDetailBox>
                                         </StyleExternalLink>
-                                    )}
-                                </Typography>
+                                    </Typography>
+                                )}
 
                                 <StyleCountDetails>
                                     <StyleSubCountHeadingDetails>
@@ -374,39 +424,43 @@ export const ProfileContainer = () => {
                             <Typography component="h2" variant="h4">
                                 Repositories
                             </Typography>
-                            {!userRepo.length && (
-                                <StyleNotDataText>
-                                    No public repository available to show
-                                </StyleNotDataText>
-                            )}
+                            <StyleRepoContainers>
+                                {!userRepo.current.length && (
+                                    <StyleNotDataText>
+                                        No public repository available to show
+                                    </StyleNotDataText>
+                                )}
 
-                            {userRepo.map((repo) => (
-                                <div key={repo.name}>
-                                    <StyleRepoCard>
-                                        <StyleCardLink
-                                            href={repo.html_url}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                        >
-                                            <StyleRepoName>
-                                                {repo.name}
-                                            </StyleRepoName>
-                                            <StyleRepoDescription>
-                                                {repo.description}
-                                            </StyleRepoDescription>
-                                            <StyleRepoMoreDetails>
-                                                <Box>{repo.language}</Box>
-                                                <StyleRepoStars>
-                                                    <StyleStarIcon />
-                                                    <Typography>
-                                                        {repo.stargazers_count}
-                                                    </Typography>
-                                                </StyleRepoStars>
-                                            </StyleRepoMoreDetails>
-                                        </StyleCardLink>
-                                    </StyleRepoCard>
-                                </div>
-                            ))}
+                                {userRepo.current.map((repo) => (
+                                    <div key={repo.name}>
+                                        <StyleRepoCard>
+                                            <StyleCardLink
+                                                href={repo.html_url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                <StyleRepoName>
+                                                    {repo.name}
+                                                </StyleRepoName>
+                                                <StyleRepoDescription>
+                                                    {repo.description}
+                                                </StyleRepoDescription>
+                                                <StyleRepoMoreDetails>
+                                                    <Box>{repo.language}</Box>
+                                                    <StyleRepoStars>
+                                                        <StyleStarIcon />
+                                                        <Typography>
+                                                            {
+                                                                repo.stargazers_count
+                                                            }
+                                                        </Typography>
+                                                    </StyleRepoStars>
+                                                </StyleRepoMoreDetails>
+                                            </StyleCardLink>
+                                        </StyleRepoCard>
+                                    </div>
+                                ))}
+                            </StyleRepoContainers>
                         </StyleRepoDetails>
 
                         <StyleFollowDetails>
@@ -416,12 +470,12 @@ export const ProfileContainer = () => {
                                 </StyleFollowHeading>
 
                                 <StyleListBox>
-                                    {!userFollowList.length && (
+                                    {!userFollowList.current.length && (
                                         <StyleNotDataText>
                                             User has no followers
                                         </StyleNotDataText>
                                     )}
-                                    {userFollowList.map((follow) => (
+                                    {userFollowList.current.map((follow) => (
                                         <StyleListItemBox key={follow.login}>
                                             <StyleListButton
                                                 onClick={() =>
@@ -452,19 +506,21 @@ export const ProfileContainer = () => {
                                 </StyleListBox>
                             </StyleFollowersBox>
 
+                            <StyleDivisionLine />
+
                             <StyleFollowingBox>
                                 <StyleFollowHeading>
                                     Following
                                 </StyleFollowHeading>
 
                                 <StyleListBox>
-                                    {!userFollowingList.length && (
+                                    {!userFollowingList.current.length && (
                                         <StyleNotDataText>
                                             User has no following
                                         </StyleNotDataText>
                                     )}
 
-                                    {userFollowingList.map((follow) => (
+                                    {userFollowingList.current.map((follow) => (
                                         <StyleListItemBox key={follow.login}>
                                             <StyleListButton
                                                 onClick={() =>
