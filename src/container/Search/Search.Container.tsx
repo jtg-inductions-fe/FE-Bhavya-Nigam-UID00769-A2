@@ -10,7 +10,6 @@ import {
 } from '@mui/material';
 
 import { PROFILE_PAGE_URL } from '@constant';
-import { SuggestionContainer } from '@container/Suggestion/Suggestion.Container';
 
 import {
     StyleBottomBox,
@@ -22,7 +21,6 @@ import {
     StyleLoader,
     StyleNotFoundBox,
     StyleSubHeading,
-    StyleSuggestionBox,
     StyleTextFieldBox,
     StyleTextSpan,
     StyleTopBox,
@@ -120,9 +118,6 @@ export const SearchContainer = () => {
                         {loading && <StyleLoader />}
                     </StyleBottomBox>
                 )}
-                <StyleSuggestionBox>
-                    <SuggestionContainer />
-                </StyleSuggestionBox>
             </StyleContainerBox>
         </>
     );

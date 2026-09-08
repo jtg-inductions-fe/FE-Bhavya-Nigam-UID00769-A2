@@ -3,10 +3,12 @@ import { Fragment, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import CloseIcon from '@mui/icons-material/Close';
+import RefreshIcon from '@mui/icons-material/Refresh';
 import {
     Alert,
     Avatar,
     Box,
+    CircularProgress,
     IconButton,
     Snackbar,
     SnackbarCloseReason,
@@ -31,7 +33,6 @@ import {
     StyleFollowButton,
     StyleHeading,
     StyleLeftPart,
-    StyleLoader,
     StyleLoaderContainer,
     StyleMainBox,
     StyleProfile,
@@ -50,7 +51,7 @@ export const SuggestionContainer = () => {
     const [userFollowingStatus, setUserFollowingStatus] = useState<boolean[]>(
         [],
     );
-    const [error, setError] = useState('');
+    const [error, setError] = useState<string>('');
     const [handleFollowState, setHandleFollowState] = useState<boolean[]>([]);
 
     const storedData = useAppSelector((state) => state.user);
@@ -194,24 +195,24 @@ export const SuggestionContainer = () => {
                 </Alert>
             </Snackbar>
             <StyleHeading>
-                <Typography component="h1" variant="h2">
+                <Typography component="h1" variant="h4">
                     Suggestions
                 </Typography>
+                <StyleRefreshBox>
+                    <StyleRefreshButton onClick={handleRefreshProfiles}>
+                        <RefreshIcon />
+                    </StyleRefreshButton>
+                </StyleRefreshBox>
             </StyleHeading>
 
             <StyleMainBox>
-                <StyleRefreshBox>
-                    <StyleRefreshButton onClick={handleRefreshProfiles}>
-                        Refresh
-                    </StyleRefreshButton>
-                </StyleRefreshBox>
                 <StyleProfiles>
                     {suggestionList &&
                         suggestionList.map((profile, index) => (
                             <StyleProfile key={profile.login}>
                                 {userLoadingStatus[index] ? (
                                     <StyleLoaderContainer>
-                                        <StyleLoader />
+                                        <CircularProgress />
                                     </StyleLoaderContainer>
                                 ) : (
                                     <>

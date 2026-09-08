@@ -129,9 +129,3 @@ export const StyleNotFoundBox = styled(Box)(({ theme: { palette } }) => ({
     justifyContent: 'center',
     color: palette.text.secondary,
 }));
-
-export const StyleSuggestionBox = styled(Box)(() => ({
-    position: 'absolute',
-    top: '74%',
-    width: '80%',
-}));
