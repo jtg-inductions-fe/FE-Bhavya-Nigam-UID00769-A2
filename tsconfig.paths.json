@@ -12,7 +12,8 @@
             "@services/*": ["services/*"],
             "@container/*": ["container/*"],
             "@routes/*": ["routes/*"],
-            "@component/*": ["component/*"]
+            "@component/*": ["component/*"],
+            "@layout/*": ["layout/*"]
         }
     }
 }
