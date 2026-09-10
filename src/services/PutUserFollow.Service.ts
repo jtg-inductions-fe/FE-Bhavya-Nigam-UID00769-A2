@@ -5,7 +5,7 @@ import {
 } from '@constant';
 
 export const putUserFollow = async (
-    username: string | undefined,
+    username: string | undefined | null,
     token: string | null,
 ) => {
     const fetchUrl = FETCH_USER_FOLLOWING_URL + username;

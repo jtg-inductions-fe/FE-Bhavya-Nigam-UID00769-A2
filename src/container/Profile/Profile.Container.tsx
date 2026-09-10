@@ -27,6 +27,7 @@ import {
     USER_FETCH_FAILED_MSG,
     USER_NOT_FOUND,
 } from '@constant';
+import { SuggestionContainer } from '@container/Suggestion/Suggestion.Container';
 import { deleteUserFollow } from '@services/DeleteUserFollow.Service';
 import { getRepositoriesByUser } from '@services/GetRepositories.Service';
 import { getUser } from '@services/GetUser.Service';
@@ -77,6 +78,7 @@ import {
     StyleRepoStars,
     StyleStarIcon,
     StyleSubCountHeadingDetails,
+    StyleSuggestionBox,
     StyleTopDetailBox,
     StyleUsernameText,
 } from './Profile.Container.Style';
@@ -419,6 +421,10 @@ export const ProfileContainer = () => {
                                     View on GitHub
                                 </StyleGitHubLink>
                             </StyleTopDetailBox>
+
+                            <StyleSuggestionBox>
+                                <SuggestionContainer />
+                            </StyleSuggestionBox>
                         </StyleProfileDetails>
                         <StyleRepoDetails>
                             <Typography component="h2" variant="h4">

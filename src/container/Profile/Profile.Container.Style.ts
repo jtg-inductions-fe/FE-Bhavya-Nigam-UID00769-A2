@@ -40,10 +40,11 @@ export const StyleProfileDetails = styled(Box)(
         flexDirection: 'column',
         boxShadow: `0 0 0 0.2px ${palette.text.primary}`,
         borderRadius: spacing(2),
-        padding: spacing(4, 6),
-        paddingTop: 0,
-        width: '25%',
-
+        width: '35%',
+        padding: spacing(0, 4),
+        overflowY: 'auto',
+        scrollbarWidth: 'none',
+        maxHeight: '88vh',
         [breakpoints.down('lg')]: {
             minWidth: '100%',
         },
@@ -51,10 +52,10 @@ export const StyleProfileDetails = styled(Box)(
 );
 export const StyleImg = styled('img')(({ theme: { spacing } }) => ({
     borderRadius: '50%',
-    marginTop: spacing(8),
+    marginTop: spacing(4),
     marginBottom: spacing(4),
-    width: spacing(40),
-    height: spacing(40),
+    width: spacing(36),
+    height: spacing(36),
 
     boxShadow: '0 0 12px 0.5px rgba(1,1,1,0.5)',
 }));
@@ -67,7 +68,7 @@ export const StyleTopDetailBox = styled(Box)(({ theme: { spacing } }) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    gap: spacing(3),
+    gap: spacing(2),
     padding: spacing(0, 2),
 }));
 
@@ -75,8 +76,6 @@ export const StyleFollowButton = styled(Button)(
     ({ theme: { spacing, typography } }) => ({
         fontSize: typography.pxToRem(12),
         width: spacing(40),
-        marginBottom: spacing(4),
-        marginTop: spacing(2),
     }),
 );
 
@@ -169,7 +168,6 @@ export const StyleRepoContainers = styled(Box)(({ theme: { spacing } }) => ({
 
 export const StyleRepoCard = styled(Box)(({ theme: { spacing, palette } }) => ({
     boxShadow: `0 0 0 0.2px ${palette.text.primary}`,
-
     cursor: 'pointer',
     borderRadius: spacing(4),
     padding: spacing(2, 4),
@@ -302,3 +300,7 @@ export const StyleGitHubLink = styled('a')(
         },
     }),
 );
+
+export const StyleSuggestionBox = styled(Box)(({ theme: { spacing } }) => ({
+    marginTop: spacing(4),
+}));

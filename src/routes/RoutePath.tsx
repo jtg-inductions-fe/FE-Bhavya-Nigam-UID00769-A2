@@ -1,4 +1,3 @@
-import { Layout } from 'component/Layout/Layout';
 import { Route, Routes } from 'react-router-dom';
 
 import {
@@ -7,6 +6,7 @@ import {
     PROFILE_PAGE_URL,
     SEARCH_PAGE_URL,
 } from '@constant';
+import { Layout } from '@layout/Layout';
 import { Login } from '@pages/Login.Page';
 import { NotFound } from '@pages/NotFound.Page';
 import { Profile } from '@pages/Profile.Page';
